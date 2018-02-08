@@ -1,0 +1,13 @@
+$black: #000;
+$white: #fff;
+$orange: #ff3d35;
+$coral: #EC7B71;
+$red: #960a00;
+
+
+@mixin transition($time, $typeAnimation){
+  -webkit-transition: $time $typeAnimation;
+  -moz-transition: $time $typeAnimation;
+  -o-transition: $time $typeAnimation;
+  transition: $time $typeAnimation;
+}

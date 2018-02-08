@@ -8,11 +8,13 @@ end
 gem 'rails', '~> 5.1.4'
 gem 'react-rails'
 gem 'mongoid'
+gem 'mongoid-slug'
+gem 'mongoid_paranoia'
 gem 'puma', '~> 3.7'
 gem 'sass-rails', '~> 5.0'
 gem 'devise'
 gem 'haml-rails'
-gem 'friendly_id'
+
 gem 'carrierwave'
 gem 'dotenv-rails'
 

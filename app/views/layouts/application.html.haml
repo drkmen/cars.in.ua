@@ -1,0 +1,18 @@
+!!!
+%html
+  %head
+    %title CarsInUa
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  %body
+    .container-fluid
+      #header.container
+        %h1.thin golova Привет
+        Привет
+    .container-fluid
+      #wrapper.container
+        = yield
+
+    #footer
+      %h1 nogi

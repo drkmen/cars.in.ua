@@ -1,0 +1,55 @@
+@import "mixins";
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+  font-size: 20px;
+}
+
+h1, h2, h3, h4, h5 {
+  &.thin {
+    font-weight: 100;
+  }
+}
+
+a {
+  color: $black;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  @include transition(0.2s, ease-in-out);
+  &:hover {
+    @include transition(0.2s, ease-in-out);
+    text-decoration: none;
+    border: none;
+    outline: none;
+    color: $coral;
+  }
+  &:focus {
+    text-decoration: none;
+    border: none;
+    outline: none;
+  }
+  &.active {
+    color: $coral;
+  }
+}
+
+#header {
+  position: relative;
+  width: 100%;
+  min-height: 100px;
+  border: 2px solid $red;
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  border: 2px solid $black;
+  min-height: 100px;
+  width: 100%;
+}
+
+#wrapper {
+  border: 2px solid $orange;
+}
