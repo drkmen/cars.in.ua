@@ -1,1 +1,26 @@
-= @car.inspect
+.car-show
+  .row
+    .col-md-2
+    .col-md-8.images-wrapper
+      %h1.thin
+        = @car.title
+        = @car.title
+        = @car.title
+        = @car.title
+        = @car.title
+        = @car.title
+      .images
+        -#id: PropTypes.string,
+        -#src: PropTypes.string,
+        -#width: PropTypes.number,
+        -#height: PropTypes.number,
+        -#main: PropTypes.boolean
+        - images = [{ id: 1, src: 'https://autopark.ua/bds_photos/ad_14161/11515934109_file.jpg', main: true},
+                    { id: 2, src: 'https://autopark.ua/bds_photos/ad_14161/01515934109_file.jpg', main: false},
+                    { id: 3, src: 'https://autopark.ua/bds_photos/ad_14161/71515934109_file.jpg', main: false},
+                    { id: 4, src: 'https://cdn.riastatic.com/photosnew/auto/photo/citroen_c4__204765673fx.jpg', main: false},
+                    { id: 5, src: 'https://cdn.riastatic.com/photosnew/auto/photo/citroen_c4__204765673fx.jpg', main: false},
+                    { id: 6, src: 'https://cdn.riastatic.com/photosnew/auto/photo/citroen_c4__204765668fx.jpg', main: false}]
+
+        = react_component('CarImages', { images: images })
+    .col-md-2

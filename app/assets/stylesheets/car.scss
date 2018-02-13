@@ -1,0 +1,17 @@
+.car-show{
+  margin: 50px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+
+  .images-wrapper {
+    border: 1px dotted red;
+
+    .images {
+      .image {
+        display: inline-block;
+        &.active {
+          border-bottom: 4px solid red;
+        }
+      }
+    }
+  }
+}

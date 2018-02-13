@@ -24,13 +24,16 @@ class Car
 
   belongs_to :user
 
-  # has_one :image, -> { where(main: true) }
   has_many :images, dependent: :delete
   has_many :comments, dependent: :delete
   has_many :options
 
   before_save :set_title
   slug :title
+
+  def main_image
+    images.where(main: true)
+  end
 
   private
 

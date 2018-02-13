@@ -1,9 +1,9 @@
 @import "mixins";
 
-body {
+html, body {
   font-family: 'Roboto', sans-serif;
   font-weight: 100;
-  font-size: 20px;
+  font-size: 14px;
 }
 
 h1, h2, h3, h4, h5 {
@@ -42,14 +42,15 @@ a {
   border: 2px solid $red;
 }
 
+#wrapper {
+  min-height: calc(100vh - 100px);
+  padding: 50px 0 100px 0;
+}
+
 #footer {
-  position: absolute;
-  bottom: 0;
+  margin-top: -100px;
   border: 2px solid $black;
   min-height: 100px;
   width: 100%;
 }
 
-#wrapper {
-  border: 2px solid $orange;
-}
