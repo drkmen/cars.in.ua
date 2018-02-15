@@ -1,23 +1,13 @@
-namespace :db do
-  desc 'Seed DB'
-  task seed: :environment do
-    p '_-------------'
-    p Car.create!(mark: 'Citroen', model: 'C1', descrption: 'uuuuuu you touch my trulala',
-                  year: 2008, mileage: 139, price: 5500, color: 'Yellow', color_hex: '#ff3d35',
-                  engine: '1', fuel: 'Benzin')
+require 'net/http'
+require 'json'
+
+url = 'https://auto.ria.com/api/categories/1/marks/_active/_with_count?langId=2&categoryId=1'
+response = JSON.parse(Net::HTTP.get(URI(url)))
+response.each do |car|
+  mark_list = CarMarkList.create(name: car['name'])
+  url = "https://auto.ria.com/api/categories/1/marks/#{car['value']}/models/_with_count?langId=2"
+  response = JSON.parse(Net::HTTP.get(URI(url)))
+  response.each do |model|
+    mark_list.models.create!(name: model['name'])
   end
 end
-
-
-# field :mark, type: String
-# field :model, type: String
-# field :description, type: String
-# field :year, type: String
-# field :mileage, type: Integer, default: 0#, null: false
-# field :price, type: BigDecimal, default: 0.0#, null: false
-# field :color, type: String
-# field :color_hex, type: String
-# field :engine, type: String
-# field :fuel, type: String
-# field :sold, type: Boolean, default: false
-# field :user_id, type: Integer

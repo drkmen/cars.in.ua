@@ -4,16 +4,13 @@
 class CarImages extends React.Component {
 
     propTypes: {
-        // image: PropTypes.instanceOf(Image)
-        // images: PropTypes.arrayOf(PropTypes.instanceOf(Image))
-        // images: PropTypes.arrayOf(PropTypes.instanceOf(Image))
-        images: PropTypes.array,
+        images: PropTypes.array
     }
 
     constructor(props) {
         super(props);
         this.state = {
-            mainImage: this.props.images.find(image => image.main == true),
+            mainImage: this.props.images.find(image => image.main == true) || this.props.images[0],
             hasError: false
         };
         this.changeMain = this.changeMain.bind(this)
@@ -21,14 +18,12 @@ class CarImages extends React.Component {
         this.prevImage = this.prevImage.bind(this)
     }
 
-    componentDidCatch(error, info) {
-        // console.log('error');
-        // console.log(error);
-        // Display fallback UI
-        this.setState({ hasError: true });
-        // You can also log the error to an error reporting service
-        logErrorToMyService(error, info);
-    }
+    // componentDidCatch(error, info) {
+    //     // Display fallback UI
+    //     this.setState({ hasError: true });
+    //     // You can also log the error to an error reporting service
+    //     logErrorToMyService(error, info);
+    // }
 
     activeImageIndex() {
         return this.props.images.map(img => img.id).indexOf(this.state.mainImage.id)
@@ -38,6 +33,9 @@ class CarImages extends React.Component {
         const prevIndex = this.activeImageIndex() - 1
         if (prevIndex > 0) {
             this.changeMain(this.props.images[prevIndex].id)
+        } else {
+            console.log(this.props.images.length)
+            this.changeMain(this.props.images[this.props.images.length - 1].id)
         }
     }
 
@@ -45,6 +43,8 @@ class CarImages extends React.Component {
         const nextIndex = this.activeImageIndex() + 1
         if (nextIndex < this.props.images.length) {
             this.changeMain(this.props.images[nextIndex].id)
+        } else {
+            this.changeMain(this.props.images[0].id)
         }
     }
 
@@ -53,37 +53,43 @@ class CarImages extends React.Component {
     }
 
     renderLeft() {
-        return <div className="nalevo" onClick={this.prevImage}>-</div>
+        return (
+            <div className="arrow arrow-left pointable" onClick={this.prevImage}>
+                <i className="fas fa-chevron-left "></i>
+            </div>
+        )
     }
 
     renderRight() {
-        return <div className="napravo" onClick={this.nextImage}>+</div>
+        return (
+            <div className="arrow arrow-right pointable" onClick={this.nextImage}>
+                <i className="fas fa-chevron-right "></i>
+            </div>
+        )
     }
 
     render() {
-        if (this.state.hasError) {
-            // You can render any custom fallback UI
-            return <h1>Something went wrong.</h1>;
-        }
-        // return this.props.children;
-        // console.log(this.props.images.filter(image => image.main)[0].src)
         return (
             <div className="car-images">
-                {this.renderLeft()}
-                <Image src={this.state.mainImage.src}/>
-                {this.renderRight()}
-                {this.props.images.map(image =>
-                    <div className={this.state.mainImage.id === image.id ? 'image active' : 'image'} key={image.id}>
-                        <Image
-                            id={image.id}
-                            src={image.src}
-                            height={100}
-                            width={100}
-                            key={image.id}
-                            clickHandler={this.changeMain}
-                        />
-                    </div>
-                )}
+                <div className='main-image'>
+                    {this.renderLeft()}
+                    <Image src={this.state.mainImage.url} className='img-fluid'/>
+                    {this.renderRight()}
+                </div>
+                <div className='images'>
+                    {this.props.images.map(image =>
+                        <div className={this.state.mainImage.id === image.id ? 'image active' : 'image'} key={image.id}>
+                            <Image
+                                id={image.id}
+                                src={image.url}
+                                height={100}
+                                width={100}
+                                key={image.id}
+                                clickHandler={this.changeMain}
+                            />
+                        </div>
+                    )}
+                </div>
             </div>
         )
     }

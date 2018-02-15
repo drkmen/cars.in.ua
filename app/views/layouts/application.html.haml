@@ -8,8 +8,21 @@
   %body
     .container-fluid
       #header.container
-        %h1.thin golova Привет
-        Привет
+        -#%p.notice= notice
+        -#%p.alert= alert
+        %ul.nav.justify-content-center
+          %li.nav-item
+            = link_to 'Home', root_path, class: 'nav-link'
+          %li.nav-item
+            = link_to 'Cars', cars_path, class: 'nav-link'
+          - if current_user
+            %li.nav-item.nav-link
+              = current_user.email
+          - else
+            %li.nav-item
+              = link_to 'Sign in', new_user_session_path, class: 'nav-link'
+            %li.nav-item
+              = link_to 'Sign up', new_user_registration_path, class: 'nav-link'
     .container-fluid
       #wrapper
         = yield

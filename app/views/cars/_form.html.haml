@@ -1,0 +1,37 @@
+.container
+  = form_for @car do |f|
+    .form-group
+      = f.label :mark
+      = f.select :mark, CarMarkList.all.pluck(:name, :id), class: 'form-control'
+    .form-group
+      = f.label :model
+      = f.select :model, CarModelList.limit(10).pluck(:name, :id), class: 'form-control'
+    .form-group
+      = f.label :description
+      = f.text_area :description, class: 'form-control'
+    .form-group
+      = f.label :year
+      = f.text_field :year, class: 'form-control'
+    .form-group
+      = f.label :mileage
+      = f.text_field :mileage, class: 'form-control'
+    .form-group
+      = f.label :price
+      = f.text_field :price, class: 'form-control'
+    .form-group
+      = f.label :color
+      = f.text_field :color, class: 'form-control'
+    .form-group
+      = f.label :engine
+      = f.text_field :engine, class: 'form-control'
+    .form-group
+      = f.label :fuel
+      = f.text_field :fuel, class: 'form-control'
+    .form-group
+      = f.label :vin
+      = f.text_field :vin, class: 'form-control'
+    .form-group
+      = f.file_field :images, class: 'form-control', multiple: true
+
+    .form-group
+      = f.submit

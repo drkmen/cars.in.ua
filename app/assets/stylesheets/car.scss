@@ -1,6 +1,7 @@
 .car-show{
   margin: 50px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  position: relative;
 
   .images-wrapper {
     border: 1px dotted red;
@@ -8,8 +9,44 @@
     .images {
       .image {
         display: inline-block;
+
         &.active {
           border-bottom: 4px solid red;
+        }
+      }
+    }
+  }
+
+  .car-images {
+    .main-image {
+      position: relative;
+
+      img {
+        -moz-box-shadow:    inset 0 0 25px #000000;
+        -webkit-box-shadow: inset 0 0 25px #000000;
+        box-shadow:         inset 0 0 25px #000000;
+
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        //width: 40%;
+      }
+
+      .arrow {
+        font-size: 30px;
+        font-weight: 100;
+
+        &.arrow-right, &.arrow-left {
+          position: absolute;
+          top: 50%;
+        }
+
+        &.arrow-right {
+          right: 0;
+        }
+
+        &.arrow-left {
+          left: 0;
         }
       }
     }

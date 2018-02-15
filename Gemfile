@@ -15,10 +15,10 @@ gem 'sass-rails', '~> 5.0'
 gem 'devise'
 gem 'haml-rails'
 
-gem 'carrierwave'
+gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'dotenv-rails'
 
-gem 'font-awesome-sass'
+gem 'font-awesome-sass', '~> 5.0.6'
 gem 'bootstrap', '~> 4.0.0'
 gem 'jquery-rails' # need for bootstrap
 gem 'turbolinks'
@@ -52,6 +52,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'better_errors'
+  gem 'letter_opener'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

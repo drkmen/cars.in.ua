@@ -1,3 +1,5 @@
+// import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; // ES6
+
 class Image extends React.Component {
 
     constructor(props) {
