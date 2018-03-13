@@ -1,18 +1,20 @@
-.car-show
-  .row
-    .left-part.col-md-3
-      -#= @car.inspect
+.row.car-show
+  .col-md-3.left-part
+    .features
       = image_tag 'icons/engine.svg', size: '30x30'
       = image_tag 'icons/car.svg', size: '30x30'
       = image_tag 'icons/gas-station.svg', size: '30x30'
       = image_tag 'icons/gearshift.svg', size: '30x30'
-    .col-md-6.images-wrapper
-      = react_component('CarImages', { images: @car.images_to_json })
-    .right-part.col-md-3
-      %h1.thin
-        .float-left
-          = @car.title
-        .float-right
-          = '$' + @car.price.to_s
-        .clearfix
+
+  .col-md-6.images-wrapper
+    = react_component('CarImages', { images: @car.images_to_json })
+
+  .col-md-3.right-part
+    %h1.thin
+      .float-left
+        = @car.title
+      .float-right
+        = '$' + @car.price.to_s
+      .clearfix
+    .description
       = @car.description

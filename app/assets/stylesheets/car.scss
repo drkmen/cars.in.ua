@@ -6,15 +6,22 @@
   position: relative;
 
   .left-part, .right-part {
-    padding: 10px;
+    padding: 10px 0;
+    border: 1px dotted black;
+  }
+
+  .left-part {
+    padding-left: 20px;
   }
 
   .images-wrapper {
     border: 1px dotted red;
 
     .images {
+      text-align: center;
       .image {
         display: inline-block;
+        margin: 5px 0 0 5px;
 
         &.active {
           border-bottom: 4px solid red;
@@ -25,6 +32,7 @@
 
   .car-images {
     padding: 0 20px;
+    //margin: 0 auto;
 
     &:hover {
       @include transition(0.2s, ease-in-out);
@@ -64,7 +72,8 @@
         margin-right: auto;
 
         z-index: -1;
-        max-width: 100%;
+        //max-width: 100%;
+        width: 100%;
         position: relative;
       }
     }
@@ -94,25 +103,33 @@
       }
     }
   }
+
+  .right-part {
+    padding-right: 20px;
+
+    .description {
+      word-wrap: break-word;
+    }
+  }
 }
 
 
-
-.slide-enter {
-  opacity: 0.01;
-}
-
-.slide-enter.slide-enter-active {
-  opacity: 1;
-  transition: opacity 500ms ease-in;
-}
-
-.slide-leave {
-  opacity: 1;
-}
-
-.slide-leave.slide-leave-active {
-  opacity: 0.01;
-  transition: opacity 300ms ease-in;
-}
-
+//
+//.slide-enter {
+//  opacity: 0.01;
+//}
+//
+//.slide-enter.slide-enter-active {
+//  opacity: 1;
+//  transition: opacity 500ms ease-in;
+//}
+//
+//.slide-leave {
+//  opacity: 1;
+//}
+//
+//.slide-leave.slide-leave-active {
+//  opacity: 0.01;
+//  transition: opacity 300ms ease-in;
+//}
+//

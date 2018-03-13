@@ -2,13 +2,6 @@
 
 class Image extends React.Component {
 
-    constructor(props) {
-        super(props);
-        // this.state = {
-        //     squares: Array(9).fill(null)
-        // };
-    }
-
     handleClick(id) {
         return e => {
             e.stopPropagation();
