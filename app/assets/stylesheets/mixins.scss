@@ -4,10 +4,9 @@ $orange: #ff3d35;
 $coral: #EC7B71;
 $red: #960a00;
 
-
 @mixin transition($time, $typeAnimation){
-  -webkit-transition: $time $typeAnimation;
-  -moz-transition: $time $typeAnimation;
-  -o-transition: $time $typeAnimation;
-  transition: $time $typeAnimation;
+  -webkit-transition: all $time $typeAnimation;
+  -moz-transition: all $time $typeAnimation;
+  -o-transition: all $time $typeAnimation;
+  transition: all $time $typeAnimation;
 }

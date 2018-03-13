@@ -37,7 +37,7 @@ class Car
   accepts_nested_attributes_for :images, allow_destroy: true
 
   before_save :set_title, if: :year_changed? # :mark_changed? || :model_changed?
-  slug :title
+  slug :slug_title
 
   def main_image
     # images.where(main: true)
@@ -46,6 +46,10 @@ class Car
 
   def set_title
     self.title = "#{mark&.name&.capitalize} #{model&.name} #{year}".strip
+  end
+
+  def slug_title
+    "#{title}-#{id.to_s}"
   end
 
   def images_to_json

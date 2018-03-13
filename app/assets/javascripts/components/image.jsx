@@ -13,7 +13,7 @@ class Image extends React.Component {
         return e => {
             e.stopPropagation();
 
-            this.props.clickHandler(id);
+            this.props.handleClick(id);
         };
     }
 

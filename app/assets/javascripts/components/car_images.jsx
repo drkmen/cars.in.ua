@@ -18,6 +18,20 @@ class CarImages extends React.Component {
         this.prevImage = this.prevImage.bind(this)
     }
 
+    // componentWillUpdate() {
+    //     console.log('componentWillUpdate()')
+    //     const $node = $(ReactDOM.findDOMNode(this)).find('.main-image')
+    //     $node.addClass('hide-left');
+    //     // setTimeout(()=>{$node.addClass('hide-left')}, 500)
+    // }
+    //
+    // componentDidUpdate() {
+    //     const $node = $(ReactDOM.findDOMNode(this)).find('.main-image')
+    //     setTimeout(()=>{$node.removeClass('hide-left')}, 500)
+    //
+    //     // $(ReactDOM.findDOMNode(this)).css('border', '10px solid red')
+    // }
+
     // componentDidCatch(error, info) {
     //     // Display fallback UI
     //     this.setState({ hasError: true });
@@ -34,7 +48,6 @@ class CarImages extends React.Component {
         if (prevIndex > 0) {
             this.changeMain(this.props.images[prevIndex].id)
         } else {
-            console.log(this.props.images.length)
             this.changeMain(this.props.images[this.props.images.length - 1].id)
         }
     }
@@ -71,25 +84,20 @@ class CarImages extends React.Component {
     render() {
         return (
             <div className="car-images">
+                {this.renderLeft()}
                 <div className='main-image'>
-                    {this.renderLeft()}
                     <Image src={this.state.mainImage.url} className='img-fluid'/>
-                    {this.renderRight()}
                 </div>
-                <div className='images'>
-                    {this.props.images.map(image =>
-                        <div className={this.state.mainImage.id === image.id ? 'image active' : 'image'} key={image.id}>
-                            <Image
-                                id={image.id}
-                                src={image.url}
-                                height={100}
-                                width={100}
-                                key={image.id}
-                                clickHandler={this.changeMain}
-                            />
-                        </div>
-                    )}
-                </div>
+                {this.renderRight()}
+                <ImageSet
+                    images={this.props.images}
+                    mainImage={this.state.mainImage}
+                    nextImage={this.nextImage}
+                    prevImage={this.prevImage}
+                    clickHandler={this.changeMain}
+                    activeImageIndex={this.activeImageIndex()}
+                >
+                </ImageSet>
             </div>
         )
     }
