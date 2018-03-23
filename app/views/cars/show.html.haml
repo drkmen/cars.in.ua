@@ -1,3 +1,7 @@
+= link_to @next_car do
+  .arrow.prev-car.pointable
+    %i.fas.fa-chevron-left
+
 .row.car-show
   .col-md-3.left-part
     .features
@@ -18,3 +22,7 @@
       .clearfix
     .description
       = @car.description
+
+= link_to @prev_car do
+  .arrow.next-right.pointable
+    %i.fas.fa-chevron-right

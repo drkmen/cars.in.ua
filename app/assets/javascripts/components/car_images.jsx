@@ -16,6 +16,7 @@ class CarImages extends React.Component {
         this.changeMain = this.changeMain.bind(this)
         this.nextImage = this.nextImage.bind(this)
         this.prevImage = this.prevImage.bind(this)
+        this.mainImageSelector = $('.main-image')
     }
 
     // componentWillUpdate() {
@@ -44,6 +45,7 @@ class CarImages extends React.Component {
     }
 
     prevImage() {
+        this.mainImageSelector.addClass('animated slideOutLeft')
         const prevIndex = this.activeImageIndex() - 1
         if (prevIndex > 0) {
             this.changeMain(this.props.images[prevIndex].id)
@@ -53,6 +55,7 @@ class CarImages extends React.Component {
     }
 
     nextImage() {
+        this.mainImageSelector.addClass('animated slideOutRight')
         const nextIndex = this.activeImageIndex() + 1
         if (nextIndex < this.props.images.length) {
             this.changeMain(this.props.images[nextIndex].id)

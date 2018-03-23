@@ -6,8 +6,6 @@ class Car
   include Mongoid::Paranoia
   include Mongoid::Slug
 
-  # field :mark, type: String
-  # field :model, type: String
   field :title, type: String
   field :description, type: String
   field :year, type: String
@@ -21,27 +19,28 @@ class Car
   field :sold, type: Boolean, default: false
 
   field :user_id, type: Integer
-  # field :car_mark_list_id, type: Integer
+  field :fuel_id, type: Integer
+  field :transmission_id, type: Integer
 
   belongs_to :user
   belongs_to :mark, class_name: 'CarMarkList', counter_cache: true
   belongs_to :model, class_name: 'CarModelList', counter_cache: true
-  # belongs_to :car_model_list, counter_cache: true
-  # embeds_one :mark, class_name: CarMarkList
-  # embeds_one :model, class_name: CarModelList
+  has_one :fuel
+  has_one :transmission
 
   has_many :images, dependent: :delete
   has_many :comments, dependent: :delete
   has_many :options
 
+  accepts_nested_attributes_for :model
+  accepts_nested_attributes_for :fuel
   accepts_nested_attributes_for :images, allow_destroy: true
 
-  before_save :set_title, if: :year_changed? # :mark_changed? || :model_changed?
+  before_save :set_title, if: :year_changed?
   slug :slug_title
 
   def main_image
-    # images.where(main: true)
-    images.first
+    images.first.image.url
   end
 
   def set_title
@@ -60,5 +59,9 @@ class Car
         url: img.image.url
       }
     end
+  end
+
+  def to_card_json
+    { image: main_image, title: title, price: price, transmission: transmission, mileage: mileage}
   end
 end

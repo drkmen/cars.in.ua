@@ -1,4 +1,8 @@
-- @cars.each do |car|
-  %p
-    = link_to car_path(car) do
-      = car.inspect
+.container
+  .row
+    - @cars.each_slice(4) do |cars|
+      -#.col-md-3.cards
+      .card-deck
+        - cars.each do |car|
+          .card
+            = react_component('Card', car.to_card_json.merge(car_path: car_path(car)))

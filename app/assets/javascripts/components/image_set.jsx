@@ -13,6 +13,12 @@ class ImageSet extends React.Component {
         this.updateBorders = this.updateBorders.bind(this)
     }
 
+    componentWillReceiveProps() {
+        // console.log($(this));
+        // console.log(ReactDOM.findDOMNode(this))
+        $(this).css('border', '2px solid red')
+    }
+
     updateBorders() {
         const imagesLength = this.props.images.length
 
@@ -25,6 +31,7 @@ class ImageSet extends React.Component {
         if ([imagesLength, imagesLength - 1, imagesLength - 2, imagesLength - 3].includes(this.props.activeImageIndex) && this.rightPoint == imagesLength) {
             this.leftPoint = imagesLength - 7
         }
+        if (imagesLength <= 7) { this.leftPoint = 0; this.rightPoint = 6}
     }
 
     handleClick(e) {

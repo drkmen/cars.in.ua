@@ -7,10 +7,16 @@ class CarsController < ApplicationController
     @cars = Car.all.entries
   end
 
-  def show; end
+  def show
+    @next_car = Car.last
+    @prev_car = Car.first
+  end
 
   def new
     @car = Car.new
+    @mark_list = CarMarkList.all.pluck(:name, :id)
+    @fuels = Fuel.all.pluck(:type, :id)
+    @transmissions = Transmission.all.pluck(:type, :id)
   end
 
   def edit; end
@@ -20,6 +26,9 @@ class CarsController < ApplicationController
   end
 
   def create
+    p '.'*100
+    pp car_params
+    p '.'*100
     @car = Car.new(car_params.reject { |k| k['images'] })
     car_params['images'].each { |image|
       @car.images << Image.new(image: image)

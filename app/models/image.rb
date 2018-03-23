@@ -8,5 +8,4 @@ class Image
   field :main, type: Boolean, default: false
 
   belongs_to :car
-
 end

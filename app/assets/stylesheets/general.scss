@@ -12,6 +12,10 @@ h1, h2, h3, h4, h5 {
   }
 }
 
+background-orange {
+  background-color: $orange;
+}
+
 a {
   color: $black;
   text-decoration: none;
@@ -48,8 +52,8 @@ a {
 }
 
 #footer {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   margin-top: -100px;
-  border: 2px solid $black;
   min-height: 100px;
   width: 100%;
 }

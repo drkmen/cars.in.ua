@@ -6,4 +6,12 @@ class CarModelList
 
   field :name, type: String
   field :cars_count, type: Integer, default: 0
+
+  def to_json
+    {
+      id: id.to_s,
+      name: name,
+      cars_count: cars_count
+    }
+  end
 end

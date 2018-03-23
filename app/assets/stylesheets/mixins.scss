@@ -10,3 +10,11 @@ $red: #960a00;
   -o-transition: all $time $typeAnimation;
   transition: all $time $typeAnimation;
 }
+
+@mixin scale($time){
+  -moz-transform: scale($time);
+  -webkit-transform: scale($time);
+  -o-transform: scale($time);
+  -ms-transform: scale($time);
+  transform: scale($time);
+}
