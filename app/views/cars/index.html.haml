@@ -1,8 +1,7 @@
 .container
-  .row
+  .row.mx-auto
     - @cars.each_slice(4) do |cars|
-      -#.col-md-3.cards
       .card-deck
         - cars.each do |car|
-          .card
+          .card.mb-3{style: 'width: 18rem;'}
             = react_component('Card', car.to_card_json.merge(car_path: car_path(car)))

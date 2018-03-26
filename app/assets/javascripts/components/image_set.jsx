@@ -40,6 +40,7 @@ class ImageSet extends React.Component {
 
     render() {
         let imagesArray = this.props.images
+        if (imagesArray.length < 2) { return null }
         this.updateBorders()
         if (this.state.collapsed) {
             imagesArray = imagesArray.slice(this.leftPoint, this.rightPoint + 1)

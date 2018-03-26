@@ -50,8 +50,9 @@
 
     .main-image {
       position: relative;
-      @include transition(0.2s, ease-in-out);
       left: 0;
+      overflow: hidden;
+      @include transition(0.2s, ease-in-out);
 
       &.hide-left {
         left: -3000px;
@@ -85,12 +86,11 @@
     }
 
     .arrow {
-      display: none;
+      position: absolute;
       font-size: 30px;
       font-weight: 100;
 
       &.arrow-right, &.arrow-left {
-        position: absolute;
         top: 50%;
         @include transition(0.2s, ease-in-out);
 
@@ -118,27 +118,6 @@
     }
   }
 }
-
-
-//
-//.slide-enter {
-//  opacity: 0.01;
-//}
-//
-//.slide-enter.slide-enter-active {
-//  opacity: 1;
-//  transition: opacity 500ms ease-in;
-//}
-//
-//.slide-leave {
-//  opacity: 1;
-//}
-//
-//.slide-leave.slide-leave-active {
-//  opacity: 0.01;
-//  transition: opacity 300ms ease-in;
-//}
-//
 
 .arrow {
   font-size: 30px;
@@ -168,7 +147,7 @@
 
   &:hover {
     @include transition(0.2s, ease-in-out);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
 
     img.card-img-top {
       @include transition(0.2s, ease-in-out);

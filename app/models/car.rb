@@ -18,22 +18,20 @@ class Car
   field :vin, type: String
   field :sold, type: Boolean, default: false
 
-  field :user_id, type: Integer
-  field :fuel_id, type: Integer
-  field :transmission_id, type: Integer
-
   belongs_to :user
   belongs_to :mark, class_name: 'CarMarkList', counter_cache: true
   belongs_to :model, class_name: 'CarModelList', counter_cache: true
-  has_one :fuel
-  has_one :transmission
+  belongs_to :transmission
+  belongs_to :fuel
+
+  # has_one :fuel
+  # has_one :transmission
 
   has_many :images, dependent: :delete
   has_many :comments, dependent: :delete
   has_many :options
 
-  accepts_nested_attributes_for :model
-  accepts_nested_attributes_for :fuel
+  accepts_nested_attributes_for :model, :fuel, :transmission
   accepts_nested_attributes_for :images, allow_destroy: true
 
   before_save :set_title, if: :year_changed?
@@ -62,6 +60,14 @@ class Car
   end
 
   def to_card_json
-    { image: main_image, title: title, price: price, transmission: transmission, mileage: mileage}
+    {
+      image: main_image,
+      title: title,
+      price: price,
+      transmission: transmission&.type,
+      mileage: mileage,
+      fuel: fuel&.type,
+      engine: engine
+    }
   end
 end

@@ -16,22 +16,31 @@ class CarImages extends React.Component {
         this.changeMain = this.changeMain.bind(this)
         this.nextImage = this.nextImage.bind(this)
         this.prevImage = this.prevImage.bind(this)
-        this.mainImageSelector = $('.main-image')
+        // this.mainImageSelector = $('.main-image')
     }
 
-    // componentWillUpdate() {
-    //     console.log('componentWillUpdate()')
-    //     const $node = $(ReactDOM.findDOMNode(this)).find('.main-image')
-    //     $node.addClass('hide-left');
-    //     // setTimeout(()=>{$node.addClass('hide-left')}, 500)
-    // }
+    componentWillUpdate() {
+        // console.log('componentWillUpdate()')
+        // const $node = $(ReactDOM.findDOMNode(this)).find('.main-image')
+        // $node.addClass('hide-left');
+
+        // setTimeout(()=>{$node.addClass('hide-left')}, 500)
+        // $('.main-image').removeClass('animated slideOutLeft')
+        // $('.main-image').removeClass('animated slideOutRight')
+    }
     //
-    // componentDidUpdate() {
-    //     const $node = $(ReactDOM.findDOMNode(this)).find('.main-image')
-    //     setTimeout(()=>{$node.removeClass('hide-left')}, 500)
-    //
-    //     // $(ReactDOM.findDOMNode(this)).css('border', '10px solid red')
-    // }
+    componentDidUpdate() {
+        // const $node = $(ReactDOM.findDOMNode(this)).find('.main-image')
+        // setTimeout(()=>{$node.removeClass('hide-left')}, 500)
+
+        // $(ReactDOM.findDOMNode(this)).css('border', '10px solid red')
+
+        console.log('component did update')
+        setTimeout( () => {
+            $('.main-image img').removeClass('animated slideOutLeft')
+            $('.main-image img').removeClass('animated slideOutRight')
+        }, 400)
+    }
 
     // componentDidCatch(error, info) {
     //     // Display fallback UI
@@ -45,23 +54,26 @@ class CarImages extends React.Component {
     }
 
     prevImage() {
-        this.mainImageSelector.addClass('animated slideOutLeft')
+        $('.main-image img').addClass('animated slideOutRight')
+        // console.log(this.mainImageSelector)
         const prevIndex = this.activeImageIndex() - 1
         if (prevIndex > 0) {
             this.changeMain(this.props.images[prevIndex].id)
         } else {
             this.changeMain(this.props.images[this.props.images.length - 1].id)
         }
+        // $('.main-image').removeClass('animated slideOutLeft')
     }
 
     nextImage() {
-        this.mainImageSelector.addClass('animated slideOutRight')
+        $('.main-image img').addClass('animated slideOutLeft')
         const nextIndex = this.activeImageIndex() + 1
         if (nextIndex < this.props.images.length) {
             this.changeMain(this.props.images[nextIndex].id)
         } else {
             this.changeMain(this.props.images[0].id)
         }
+        // $('.main-image').removeClass('animated slideOutRight')
     }
 
     changeMain(id) {
