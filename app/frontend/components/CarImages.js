@@ -1,5 +1,8 @@
-// import PropTypes from 'prop-types';
-// import Image from './image';
+import React from "react"
+import PropTypes from "prop-types"
+import ImageSet from './ImageSet'
+import Image from "./image"
+import $ from "jquery"
 
 class CarImages extends React.Component {
 
@@ -117,3 +120,5 @@ class CarImages extends React.Component {
         )
     }
 }
+
+export default CarImages

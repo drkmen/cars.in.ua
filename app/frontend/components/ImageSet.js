@@ -1,3 +1,6 @@
+import React from "react"
+import PropTypes from "prop-types"
+import Image from "./image"
 // import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; // ES6
 
 class ImageSet extends React.Component {
@@ -63,3 +66,5 @@ class ImageSet extends React.Component {
         )
     }
 }
+
+export default ImageSet

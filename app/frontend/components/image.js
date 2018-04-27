@@ -1,6 +1,13 @@
+import React from "react"
+import PropTypes from "prop-types"
+
 // import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; // ES6
 
 class Image extends React.Component {
+
+    constructor() {
+        super();
+    }
 
     handleClick(id) {
         return e => {
@@ -29,3 +36,5 @@ class Image extends React.Component {
         )
     }
 }
+
+export default Image

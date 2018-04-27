@@ -6,7 +6,6 @@ git_source(:github) do |repo_name|
 end
 
 gem 'rails', '~> 5.1.4'
-gem 'react-rails'
 gem 'mongoid'
 gem 'mongoid-slug'
 gem 'mongoid_paranoia'
@@ -18,10 +17,12 @@ gem 'haml-rails'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'dotenv-rails'
 
-gem 'font-awesome-sass', '~> 5.0.6'
-gem 'bootstrap', '~> 4.0.0'
-gem 'jquery-rails' # need for bootstrap
-gem 'turbolinks'
+gem 'react-rails'
+gem 'webpacker'
+# gem 'font-awesome-sass', '~> 5.0.6'
+# gem 'bootstrap', '~> 4.0.0'
+# gem 'jquery-rails' # need for bootstrap
+# gem 'turbolinks'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'

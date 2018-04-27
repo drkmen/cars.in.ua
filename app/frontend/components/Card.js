@@ -1,3 +1,6 @@
+import React from "react"
+import PropTypes from "prop-types"
+
 class Card extends React.Component {
 
     hoverHandler() {
@@ -43,3 +46,9 @@ class Card extends React.Component {
     }
 
 }
+
+// Card.propTypes = {
+//     images: PropTypes.array
+// }
+
+export default Card
