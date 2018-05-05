@@ -49,6 +49,10 @@ class Car
     "#{title}-#{id.to_s}"
   end
 
+  def to_json
+    attributes.merge(images: images_to_json)
+  end
+
   def images_to_json
     images.map do |img|
       {

@@ -42,6 +42,7 @@
 
     &:hover {
       @include transition(0.2s, ease-in-out);
+
       .arrow {
         @include transition(0.2s, ease-in-out);
         display: inline-block;
@@ -87,7 +88,7 @@
 
     .arrow {
       position: absolute;
-      font-size: 30px;
+      font-size: 50px;
       font-weight: 100;
 
       &.arrow-right, &.arrow-left {
@@ -126,6 +127,7 @@
   &.next-car {
 
   }
+
   &.prev-car {
 
   }
@@ -155,3 +157,93 @@
     }
   }
 }
+
+
+
+
+
+.fade-enter {
+  opacity: 0.01;
+
+  img {
+    opacity: 0.01;
+  }
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 1s;
+
+  img {
+    opacity: 1;
+    transition: opacity 1s;
+  }
+}
+
+.fade-leave {
+  opacity: 1;
+
+  img {
+    opacity: 1;
+  }
+}
+
+.fade-leave-active {
+  opacity: 0;
+  transition: opacity 0.5s;
+
+  img {
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+}
+
+
+
+.example-enter {
+  opacity: 0.01;
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.example-leave {
+  opacity: 1;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+
+
+//
+//.example-enter {
+//  opacity: 0;
+//  transform:   translate(-250px,0);
+//  transform: translate3d(-250px,0,0);
+//}
+//.example-enter.example-enter-active {
+//  opacity: 1;
+//  transition: opacity 1s ease;
+//  transform:   translate(0,0);
+//  transform: translate3d(0,0,0);
+//  transition-property: transform, opacity;
+//  transition-duration: 300ms;
+//  transition-timing-function: cubic-bezier(0.175, 0.665, 0.320, 1), linear;
+//}
+//.example-leave {
+//  opacity: 1;
+//  transform:   translate(0,0,0);
+//  transform: translate3d(0,0,0);
+//  transition-property: transform, opacity;
+//  transition-duration: 300ms;
+//  transition-timing-function: cubic-bezier(0.175, 0.665, 0.320, 1), linear;
+//}
+//.example-leave.example-leave-active {
+//  opacity: 0;
+//  transform:   translate(250px,0);
+//  transform: translate3d(250px,0,0);
+//}

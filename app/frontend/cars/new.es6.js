@@ -3,8 +3,6 @@ $(document).ready(() => {
     let $model = $('select#car_model');
     let $mark = $('select#car_mark');
 
-    console.log($mark);
-
     fill_model_list = (markId) => {
         $.getJSON(`/car_mark_lists/${markId}/mark_models`, (data) => {
             $model.find('option').remove();
