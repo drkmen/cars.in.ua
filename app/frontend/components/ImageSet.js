@@ -1,7 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import Image from "./image";
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+// import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 class ImageSet extends React.Component {
 
@@ -36,9 +36,9 @@ class ImageSet extends React.Component {
     }
 
     render() {
-        let imagesArray = this.props.images
+        let imagesArray = this.props.images;
         if (imagesArray.length < 2) { return null }
-        this.updateBorders()
+        this.updateBorders();
         if (this.state.collapsed) {
             imagesArray = imagesArray.slice(this.leftPoint, this.rightPoint + 1)
         }
@@ -46,17 +46,16 @@ class ImageSet extends React.Component {
             <div className='images'>
                 {imagesArray.map(image =>
                     <div key={image.id}
-                         className={this.props.mainImage.id === image.id ? 'image active' : 'image'}
+                         className={this.props.mainImage.id === image.id ? 'image active-thumb' : 'image'}
                          data-target="#cars-slider"
                          data-slide-to={this.props.images.map(img => img.id).indexOf(image.id)}
                     >
-                        <Image
-                            id={image.id}
-                            src={image.url}
-                            height={100}
-                            width={100}
-                            key={image.id}
-                            handleClick={this.handleClick}
+                        <Image id={image.id}
+                               src={image.url}
+                               height={100}
+                               width={100}
+                               key={image.id}
+                               handleClick={this.handleClick}
                         />
                     </div>
                 )}

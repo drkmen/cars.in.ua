@@ -22,17 +22,13 @@ class CarImages extends React.Component {
     }
 
     componentDidMount() {
-        // this.mainImageSelector = $('.main-image img');
-        // $('#cars-slider').carousel({
-        //     interval: false
-        // })
+        $('#cars-slider').carousel({
+            interval: false
+        })
     }
 
-    componentDidCatch(error, info) {
-        // Display fallback UI
+    componentDidCatch(error, _info) {
         this.setState({ hasError: true, error: error });
-        // You can also log the error to an error reporting service
-        logErrorToMyService(error, info);
     }
 
     activeImageIndex() {
@@ -71,9 +67,11 @@ class CarImages extends React.Component {
 
                 <div id="cars-slider" className="carousel slide" data-ride="carousel">
                     <div className="carousel-inner">
+
                         <div className="carousel-item active">
                             <Image src={this.state.mainImage.url} className='d-block w-100 img-fluid'/>
                         </div>
+
                         {this.props.images.map(image =>
                             <div key={image.id} className="carousel-item">
                                 <Image key={image.id} src={image.url} className='d-block w-100 img-fluid'/>
@@ -81,11 +79,13 @@ class CarImages extends React.Component {
                         )}
 
                     </div>
+
                     <a className="carousel-control-prev" href="#cars-slider" role="button"
                        data-slide="prev" onClick={this.prevImage}>
                         <span className="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span className="sr-only">Previous</span>
                     </a>
+
                     <a className="carousel-control-next" href="#cars-slider" role="button"
                        data-slide="next" onClick={this.nextImage}>
                         <span className="carousel-control-next-icon" aria-hidden="true"></span>
