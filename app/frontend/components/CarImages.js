@@ -2,72 +2,44 @@ import React from "react"
 import PropTypes from "prop-types"
 import ImageSet from './ImageSet'
 import Image from "./image"
-// import { CSSTransitionGroup } from 'react-transition-group' // ES6
-// import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-// import CSSTransitionGroup from 'react-addons-css-transition-group';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 class CarImages extends React.Component {
 
     propTypes: {
-        images: PropTypes.array,
+        images: PropTypes.array
     }
 
     constructor(props) {
         super(props);
         this.state = {
             mainImage: this.props.images.find(image => image.main == true) || this.props.images[0],
-            hasError: false
-            // animate: false
+            hasError: false,
+            error: null
         };
         this.changeMain = this.changeMain.bind(this)
         this.nextImage = this.nextImage.bind(this)
         this.prevImage = this.prevImage.bind(this)
-        // this.mainImageSelector = $('.main-image')
     }
 
     componentDidMount() {
-        this.mainImageSelector = $('.main-image img');
+        // this.mainImageSelector = $('.main-image img');
+        // $('#cars-slider').carousel({
+        //     interval: false
+        // })
     }
 
-    componentWillUpdate() {
-        // console.log('componentWillUpdate()')
-        // console.log(this.state.animate)
-        // const $node = $(ReactDOM.findDOMNode(this)).find('.main-image')
-        // $node.addClass('hide-left');
-
-        // setTimeout(()=>{$node.addClass('hide-left')}, 500)
-        // this.mainImageSelector.addClass(`animated ${this.state.animate}`)
-        // $('.main-image').removeClass('animated slideOutRight')
+    componentDidCatch(error, info) {
+        // Display fallback UI
+        this.setState({ hasError: true, error: error });
+        // You can also log the error to an error reporting service
+        logErrorToMyService(error, info);
     }
-
-    componentDidUpdate() {
-        // const $node = $(ReactDOM.findDOMNode(this)).find('.main-image')
-        // setTimeout(()=>{$node.removeClass('hide-left')}, 500)
-
-        // $(ReactDOM.findDOMNode(this)).css('border', '10px solid red')
-
-        // console.log('component did update')
-        // setTimeout( () => {
-        //     $('.main-image img').removeClass('animated slideOutLeft')
-        //     $('.main-image img').removeClass('animated slideOutRight')
-        //     this.mainImageSelector.removeClass('animated slideOutLeft slideOutRight')
-        // }, 400)
-    }
-
-    // componentDidCatch(error, info) {
-    //     // Display fallback UI
-    //     this.setState({ hasError: true });
-    //     // You can also log the error to an error reporting service
-    //     logErrorToMyService(error, info);
-    // }
 
     activeImageIndex() {
         return this.props.images.map(img => img.id).indexOf(this.state.mainImage.id)
     }
 
     prevImage() {
-        // this.setState({animate: 'slideOutRight'});
         const prevIndex = this.activeImageIndex() - 1
         if (prevIndex > 0) {
             this.changeMain(this.props.images[prevIndex].id)
@@ -77,7 +49,6 @@ class CarImages extends React.Component {
     }
 
     nextImage() {
-        // this.setState({animate: 'slideOutLeft'});
         const nextIndex = this.activeImageIndex() + 1
         if (nextIndex < this.props.images.length) {
             this.changeMain(this.props.images[nextIndex].id)
@@ -90,47 +61,51 @@ class CarImages extends React.Component {
         this.setState({ mainImage: this.props.images.find(image => image.id === id) });
     }
 
-    renderLeft() {
-        return (
-            <div className="arrow arrow-left pointable" onClick={this.prevImage}>
-                <i className="fa fa-angle-left "></i>
-            </div>
-        )
-    }
-
-    renderRight() {
-        return (
-            <div className="arrow arrow-right pointable" onClick={this.nextImage}>
-                <i className="fa fa-angle-right "></i>
-            </div>
-        )
-    }
-
     render() {
+        if (this.state.hasError) {
+            return this.state.error
+        }
         return (
+
             <div className="car-images">
-                {this.renderLeft()}
 
-                <CSSTransitionGroup
-                    transitionName="fade"
-                    transitionEnterTimeout={100}
-                    transitionLeaveTimeout={100}>
+                <div id="cars-slider" className="carousel slide" data-ride="carousel">
+                    <div className="carousel-inner">
+                        <div className="carousel-item active">
+                            <Image src={this.state.mainImage.url} className='d-block w-100 img-fluid'/>
+                        </div>
+                        {this.props.images.map(image =>
+                            <div key={image.id} className="carousel-item">
+                                <Image key={image.id} src={image.url} className='d-block w-100 img-fluid'/>
+                            </div>
+                        )}
 
-                    <div className='main-image' key={this.state.mainImage.id}>
-                        <Image src={this.state.mainImage.url} className='img-fluid'/>
                     </div>
-                </CSSTransitionGroup>
+                    <a className="carousel-control-prev" href="#cars-slider" role="button"
+                       data-slide="prev" onClick={this.prevImage}>
+                        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span className="sr-only">Previous</span>
+                    </a>
+                    <a className="carousel-control-next" href="#cars-slider" role="button"
+                       data-slide="next" onClick={this.nextImage}>
+                        <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span className="sr-only">Next</span>
+                    </a>
+                </div>
 
-                {this.renderRight()}
-                <ImageSet
-                    images={this.props.images}
-                    mainImage={this.state.mainImage}
-                    nextImage={this.nextImage}
-                    prevImage={this.prevImage}
-                    clickHandler={this.changeMain}
-                    activeImageIndex={this.activeImageIndex()}
-                >
-                </ImageSet>
+                <div className='row image-set mx-auto'>
+                    <div className='col-md-12 mx-auto'>
+                        <ImageSet
+                            images={this.props.images}
+                            mainImage={this.state.mainImage}
+                            nextImage={this.nextImage}
+                            prevImage={this.prevImage}
+                            clickHandler={this.changeMain}
+                            activeImageIndex={this.activeImageIndex()}
+                        >
+                        </ImageSet>
+                    </div>
+                </div>
             </div>
         )
     }

@@ -16,12 +16,6 @@ class ImageSet extends React.Component {
         this.updateBorders = this.updateBorders.bind(this);
     }
 
-    componentWillReceiveProps() {
-        // console.log($(this));
-        // console.log(ReactDOM.findDOMNode(this))
-        $(this).css('border', '2px solid red');
-    }
-
     updateBorders() {
         const imagesLength = this.props.images.length;
 
@@ -50,25 +44,22 @@ class ImageSet extends React.Component {
         }
         return (
             <div className='images'>
-                <CSSTransitionGroup
-                    transitionName="fade"
-                    transitionEnterTimeout={300}
-                    transitionLeaveTimeout={300}
-                >
-
-                    {imagesArray.map(image =>
-                        <div className={this.props.mainImage.id === image.id ? 'image active' : 'image'} key={image.id}>
-                            <Image
-                                id={image.id}
-                                src={image.url}
-                                height={100}
-                                width={100}
-                                key={image.id}
-                                handleClick={this.handleClick}
-                            />
-                        </div>
-                    )}
-                </CSSTransitionGroup>
+                {imagesArray.map(image =>
+                    <div key={image.id}
+                         className={this.props.mainImage.id === image.id ? 'image active' : 'image'}
+                         data-target="#cars-slider"
+                         data-slide-to={this.props.images.map(img => img.id).indexOf(image.id)}
+                    >
+                        <Image
+                            id={image.id}
+                            src={image.url}
+                            height={100}
+                            width={100}
+                            key={image.id}
+                            handleClick={this.handleClick}
+                        />
+                    </div>
+                )}
             </div>
         )
     }

@@ -26,9 +26,6 @@ class CarsController < ApplicationController
   end
 
   def create
-    p '.'*100
-    pp car_params
-    p '.'*100
     @car = Car.new(car_params.reject { |k| k['images'] })
     car_params['images'].each { |image|
       @car.images << Image.new(image: image)

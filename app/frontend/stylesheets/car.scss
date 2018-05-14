@@ -4,7 +4,7 @@
 
 .car-show{
   //@include transition(0.2s, ease-in-out);
-  margin: 50px;
+  margin: 50px 50px 200px 50px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   position: relative;
 
@@ -72,17 +72,29 @@
         //  @include transition(0.2s, ease-in-out);
         //  display: inline-block;
         //}
+
+        img {
+          //@include transition(0.2s, ease-in-out);
+        //  @include scale(1.2);
+        //  opacity: 0;
+        }
       }
 
       img {
         display: block;
         margin-left: auto;
         margin-right: auto;
+        @include transition(0.2s, ease-in-out);
 
         z-index: -1;
         //max-width: 100%;
         width: 100%;
         position: relative;
+
+        &:hover {
+          @include scale(1.2);
+        }
+
       }
     }
 
@@ -109,6 +121,10 @@
         left: 0;
       }
     }
+
+    .image-set {
+      position: absolute;
+    }
   }
 
   .right-part {
@@ -133,11 +149,17 @@
   }
 }
 
-
 // index
 
 .card {
   @include transition(0.2s, ease-in-out);
+  background: #fff;
+  border-radius: 2px;
+  position: relative;
+  border: none;
+
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 
   .card-img {
     overflow: hidden;
@@ -149,7 +171,7 @@
 
   &:hover {
     @include transition(0.2s, ease-in-out);
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 
     img.card-img-top {
       @include transition(0.2s, ease-in-out);
@@ -164,86 +186,68 @@
 
 .fade-enter {
   opacity: 0.01;
-
-  img {
-    opacity: 0.01;
-  }
 }
 
 .fade-enter-active {
   opacity: 1;
-  transition: opacity 1s;
-
-  img {
-    opacity: 1;
-    transition: opacity 1s;
-  }
+  //transition: opacity 1s;
 }
 
 .fade-leave {
   opacity: 1;
-
-  img {
-    opacity: 1;
-  }
 }
 
 .fade-leave-active {
   opacity: 0;
-  transition: opacity 0.5s;
-
-  img {
-    opacity: 0;
-    transition: opacity 0.5s;
-  }
+  //transition: opacity 0.5s;
 }
+
+
+
+//.example-enter {
+//  opacity: 0.01;
+//}
+//
+//.example-enter.example-enter-active {
+//  opacity: 1;
+//  transition: opacity 500ms ease-in;
+//}
+//
+//.example-leave {
+//  opacity: 1;
+//}
+//
+//.example-leave.example-leave-active {
+//  opacity: 0.01;
+//  transition: opacity 300ms ease-in;
+//}
 
 
 
 .example-enter {
-  opacity: 0.01;
+  opacity: 0;
+  transform:   translate(-250px,0);
+  transform: translate3d(-250px,0,0);
 }
-
 .example-enter.example-enter-active {
   opacity: 1;
-  transition: opacity 500ms ease-in;
+  transition: opacity 1s ease;
+  transform:   translate(0,0);
+  transform: translate3d(0,0,0);
+  transition-property: transform, opacity;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.175, 0.665, 0.320, 1), linear;
 }
-
 .example-leave {
   opacity: 1;
+  transform:   translate(0,0,0);
+  transform: translate3d(0,0,0);
+  transition-property: transform, opacity;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.175, 0.665, 0.320, 1), linear;
 }
-
 .example-leave.example-leave-active {
-  opacity: 0.01;
-  transition: opacity 300ms ease-in;
+  opacity: 0;
+  transform:   translate(250px,0);
+  transform: translate3d(250px,0,0);
 }
-
-
-//
-//.example-enter {
-//  opacity: 0;
-//  transform:   translate(-250px,0);
-//  transform: translate3d(-250px,0,0);
-//}
-//.example-enter.example-enter-active {
-//  opacity: 1;
-//  transition: opacity 1s ease;
-//  transform:   translate(0,0);
-//  transform: translate3d(0,0,0);
-//  transition-property: transform, opacity;
-//  transition-duration: 300ms;
-//  transition-timing-function: cubic-bezier(0.175, 0.665, 0.320, 1), linear;
-//}
-//.example-leave {
-//  opacity: 1;
-//  transform:   translate(0,0,0);
-//  transform: translate3d(0,0,0);
-//  transition-property: transform, opacity;
-//  transition-duration: 300ms;
-//  transition-timing-function: cubic-bezier(0.175, 0.665, 0.320, 1), linear;
-//}
-//.example-leave.example-leave-active {
-//  opacity: 0;
-//  transform:   translate(250px,0);
-//  transform: translate3d(250px,0,0);
-//}

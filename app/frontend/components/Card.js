@@ -4,7 +4,7 @@ import PropTypes from "prop-types"
 class Card extends React.Component {
 
     hoverHandler() {
-        console.log('PRIVETYLI')
+        // console.log('PRIVETYLI')
         // $(ReactDOM.findDOMNode(this)).find('.card-img-top').addClass('animated zoomOut')
     }
 

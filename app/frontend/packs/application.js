@@ -8,14 +8,22 @@
 // layout file, like app/views/layouts/application.html.erb
 
 import 'jquery/src/jquery'
-import 'bootstrap';
+// import 'bootstrap';
+import 'bootstrap/dist/js/bootstrap';
 import 'turbolinks';
 
 import '../cars/new.es6';
 import '../cars/show.es6';
+
 import 'stylesheets/application.scss';
 
 // Support component names relative to this directory:
 var componentRequireContext = require.context("components", true);
 var ReactRailsUJS = require("react_ujs");
 ReactRailsUJS.useContext(componentRequireContext);
+
+import * as Turbolinks from 'turbolinks'
+// import * as $ from 'jquery'
+
+// Start turbolinks
+Turbolinks.start()
