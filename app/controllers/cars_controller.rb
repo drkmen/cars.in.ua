@@ -4,7 +4,7 @@ class CarsController < ApplicationController
   before_action :authenticate_user!, only: %i[new create edit delete]
 
   def index
-    @cars = Car.all.entries
+    @cars = Car.all.order(created_at: :desc).entries
   end
 
   def show

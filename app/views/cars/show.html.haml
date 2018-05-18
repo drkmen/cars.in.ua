@@ -1,11 +1,16 @@
-= link_to @next_car do
-  .arrow.prev-car.pointable
-    %i.fa.fa-angle-left
+.section
+  = link_to @next_car do
+    .arrow.prev-car.pointable{title: 'previous car'}
+      %i.fa.fa-angle-left
 
-= react_component('Car', { car: @car.to_json })
+  = react_component('car', { car: @car.to_json })
+
+  = link_to @prev_car do
+    .arrow.next-car.pointable{title: 'next car'}
+      %i.fa.fa-angle-right
+
+
 %hr
-%h1 alo
+.section
+  %h1 alo
 
-= link_to @prev_car do
-  .arrow.next-car.pointable
-    %i.fa.fa-angle-right

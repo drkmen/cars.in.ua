@@ -34,13 +34,6 @@
             display: inline-block;
             margin: 5px 0 0 5px;
 
-            &.active {
-              img {
-                width: 100% !important;;
-                height: 100% !important;
-              }
-            }
-
             &.active-thumb {
               padding-bottom: 5px;
               border-bottom: 2px solid $light-grey;
@@ -65,8 +58,18 @@
   font-weight: 100;
 
   &.next-car, &.prev-car {
+    position: absolute;
+    top: 50%;
     display: inline-block;
     font-size: 50px;
+  }
+
+  &.next-car {
+    right: 0;
+  }
+
+  &.prev-car {
+    left: 0;
   }
 }
 

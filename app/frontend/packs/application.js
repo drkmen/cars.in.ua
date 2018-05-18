@@ -10,7 +10,7 @@
 import 'jquery/src/jquery'
 // import 'bootstrap';
 import 'bootstrap/dist/js/bootstrap';
-import 'turbolinks';
+// import 'turbolinks';
 
 import '../cars/new.es6';
 import '../cars/show.es6';
@@ -22,8 +22,8 @@ var componentRequireContext = require.context("components", true);
 var ReactRailsUJS = require("react_ujs");
 ReactRailsUJS.useContext(componentRequireContext);
 
-import * as Turbolinks from 'turbolinks'
+// import * as Turbolinks from 'turbolinks'
 // import * as $ from 'jquery'
 
 // Start turbolinks
-Turbolinks.start()
+// Turbolinks.start()

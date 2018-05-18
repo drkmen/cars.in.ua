@@ -1,5 +1,5 @@
 import React from "react";
-import CarImages from "./CarImages";
+import CarImages from "./carImages";
 
 class Car extends React.Component {
 
