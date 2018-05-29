@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from '../image'
 import ImageSet from '../imageSet'
+import Modal from './modal'
 
 class Slider extends React.Component {
 
@@ -12,10 +13,29 @@ class Slider extends React.Component {
         // }
     }
 
+    // shouldComponentUpdate(nextProps, nextState){
+    //     // return !equals(nextProps, this.props);
+    //     return false
+    // }
+
     componentDidMount = () => {
-        $('#cars-slider').carousel({
+        // $('#cars-slider').carousel({
+        //     interval: false
+        // })
+        this.slider = $('#cars-slider')
+        this.slider.carousel({
             interval: false
         })
+        // this.modal = $('#modal')
+        // this.modal.modal()
+    }
+
+    openModal = () => {
+        this.modal('show')
+    }
+
+    closeModal = () => {
+        this.modal('hide')
     }
 
     render = () => {
@@ -52,11 +72,19 @@ class Slider extends React.Component {
             <div id='cars-slider' className='carousel slide' data-ride='carousel'>
                 <div className='carousel-inner'>
                     {this.props.images.map(image =>
-                        <div key={image.id} className={this.props.activeImage.id === image.id ? 'carousel-item active' : 'carousel-item'}>
-                            <Image key={image.id} src={image.url} className='d-block w-100 img-fluid'/>
+                        <div
+                            key={image.id}
+                            className={this.props.activeImage.id === image.id ? 'carousel-item active' : 'carousel-item'}>
+                            <Image
+                                key={image.id}
+                                src={image.url}
+                                className='d-block w-100 img-fluid'
+                                onClick={this.openModal}
+                            />
                         </div>
                     )}
                 </div>
+                <Modal closeModal={this.closeModal}/>
                 {this.props.controlls && controlPrev}
                 {this.props.controlls && controlNext}
                 {this.props.navigation && navigation}

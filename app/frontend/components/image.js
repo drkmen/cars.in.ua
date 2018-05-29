@@ -7,11 +7,11 @@ class Image extends React.Component {
         super();
     }
 
-    handleClick(id) {
+    changeActive(id) {
         return e => {
             e.stopPropagation();
 
-            this.props.handleClick(id);
+            this.props.changeActive(id);
         };
     }
 
@@ -28,7 +28,7 @@ class Image extends React.Component {
             <img src={this.props.src}
                  width={this.props.width}
                  height={this.props.height}
-                 onClick={this.handleClick(this.props.id)}
+                 onClick={this.changeActive(this.props.id)}
                  className={this.props.className}
             />
         )

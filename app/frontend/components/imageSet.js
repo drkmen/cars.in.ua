@@ -14,8 +14,6 @@ class ImageSet extends React.Component {
 
         this.leftPoint = 0
         this.rightPoint = 6
-        // this.handleClick = this.handleClick.bind(this)
-        // this.updateBorders = this.updateBorders.bind(this)
     }
 
     updateBorders = () => {
@@ -33,10 +31,14 @@ class ImageSet extends React.Component {
         if (imagesLength <= 7) { this.leftPoint = 0; this.rightPoint = 6 }
     }
 
-    handleClick = (id) => {
+    changeActive = (id) => {
         this.setState({ activeImage: this.props.images.find(image => image.id === id) })
         // this.props.activeImage = this.props.images.find(image => image.id === id)
         this.props.changeActive(id)
+    }
+
+    collapse = () => {
+        this.setState({ collapsed: !this.state.collapsed })
     }
 
     render() {
@@ -59,10 +61,11 @@ class ImageSet extends React.Component {
                                height={100}
                                width={100}
                                key={image.id}
-                               handleClick={this.handleClick}
+                               changeActive={this.changeActive}
                         />
                     </div>
                 )}
+                <span onClick={this.collapse}>Hide</span>
             </div>
         )
     }
