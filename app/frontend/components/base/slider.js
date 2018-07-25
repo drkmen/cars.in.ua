@@ -1,5 +1,5 @@
 import React from 'react'
-import Image from '../image'
+import Image from './image'
 import ImageSet from '../imageSet'
 import Modal from './modal'
 
@@ -77,7 +77,7 @@ class Slider extends React.Component {
                             className={this.props.activeImage.id === image.id ? 'carousel-item active' : 'carousel-item'}>
                             <Image
                                 key={image.id}
-                                src={image.url}
+                                image={image}
                                 className='d-block w-100 img-fluid'
                                 onClick={this.openModal}
                             />

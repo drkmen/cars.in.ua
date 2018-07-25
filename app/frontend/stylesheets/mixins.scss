@@ -3,7 +3,8 @@ $white: #fff;
 $orange: #ff3d35;
 $coral: #EC7B71;
 $red: #960a00;
-$light-grey: #09090980;
+$dark-grey: #09090980;
+$light-grey: #f8f9fa;
 
 @mixin transition($time, $typeAnimation){
   -webkit-transition: all $time $typeAnimation;

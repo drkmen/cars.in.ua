@@ -1,12 +1,16 @@
-import React from "react"
+import React from 'react'
+import Image from './base/image'
+import MaterialCard from './base/material_card'
 
 class Card extends React.Component {
 
     render() {
         return(
-            <div onMouseEnter={this.hoverHandler}>
-                <div className='card-img'>
-                    <img className='card-img-top img-fluid' src={this.props.image}></img>
+            <MaterialCard cssClass='hoverable'>
+                <div className='card-img-top'>
+                    <Image
+                        className='card-img-top img-fluid'
+                        image={this.props.image} />
                 </div>
                 <div className='card-body'>
                     <a href={this.props.car_path}>
@@ -35,7 +39,7 @@ class Card extends React.Component {
                 <div className="card-footer text-center bg-warning">
                     <h3 className='thin'>{this.props.price}</h3>
                 </div>
-            </div>
+            </MaterialCard>
         )
     }
 

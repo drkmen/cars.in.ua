@@ -25,7 +25,7 @@ class Image extends React.Component {
 
     render() {
         return (
-            <img src={this.props.src}
+            <img src={this.props.image.url}
                  width={this.props.width}
                  height={this.props.height}
                  onClick={this.changeActive(this.props.id)}

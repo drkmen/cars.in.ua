@@ -38,7 +38,7 @@ class Car
   slug :slug_title
 
   def main_image
-    images.first.image.url
+    images.first.image#.url
   end
 
   def set_title

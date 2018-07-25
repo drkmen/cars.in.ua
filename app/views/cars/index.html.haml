@@ -1,7 +1,10 @@
+- content_for :head do
+  %meta{:content => "no-cache", :name => "turbolinks-cache-control"}/
+
 .container
-  .row.mx-auto
+  .row
     - @cars.each_slice(4) do |cars|
-      .card-deck
+      .card-deck.mx-auto
         - cars.each do |car|
-          .card.mb-3{style: 'width: 18rem;'}
+          .mb-3{style: 'width: 20rem;'}
             = react_component('card', car.to_card_json.merge(car_path: car_path(car)))

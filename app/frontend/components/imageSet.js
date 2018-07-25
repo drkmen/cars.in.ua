@@ -1,5 +1,5 @@
 import React from "react"
-import Image from "./image"
+import Image from "./base/image"
 
 class ImageSet extends React.Component {
 
@@ -57,7 +57,7 @@ class ImageSet extends React.Component {
                          data-slide-to={this.props.images.map(img => img.id).indexOf(image.id)}
                     >
                         <Image id={image.id}
-                               src={image.url}
+                               image={image}
                                height={100}
                                width={100}
                                key={image.id}
