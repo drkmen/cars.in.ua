@@ -16,7 +16,6 @@ import Turbolinks from "turbolinks";
 import '../cars/new.es6';
 import '../cars/show.es6';
 
-
 // styles
 import 'stylesheets/application.scss';
 

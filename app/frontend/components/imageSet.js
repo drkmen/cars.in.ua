@@ -1,5 +1,6 @@
 import React from "react"
 import Image from "./base/image"
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class ImageSet extends React.Component {
 
@@ -50,6 +51,10 @@ class ImageSet extends React.Component {
         }
         return (
             <div className='images'>
+                <ReactCSSTransitionGroup
+                    transitionName="fade"
+                    transitionEnterTimeout={500}
+                    transitionLeaveTimeout={300}>
                 {imagesArray.map(image =>
                     <div key={image.id}
                          className={this.props.activeImage.id === image.id ? 'image active-thumb' : 'image'}
@@ -65,6 +70,7 @@ class ImageSet extends React.Component {
                         />
                     </div>
                 )}
+                </ReactCSSTransitionGroup>
                 <span onClick={this.collapse}>Hide</span>
             </div>
         )

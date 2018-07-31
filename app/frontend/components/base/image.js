@@ -3,8 +3,12 @@ import PropTypes from "prop-types"
 
 class Image extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+    }
+
+    static defaultProps = {
+        changeActive: function(){}
     }
 
     changeActive(id) {

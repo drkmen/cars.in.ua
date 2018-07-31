@@ -1,5 +1,7 @@
 @import "mixins";
 @import "fonts";
+@import "base/modal";
+@import "base/animations";
 
 html, body {
   background: linear-gradient($light-grey, white);
@@ -131,8 +133,4 @@ a {
   }
 }
 
-//#yourElement {
-//  -vendor-animation-duration: 3s;
-//  -vendor-animation-delay: 2s;
-//  -vendor-animation-iteration-count: infinite;
-//}
+

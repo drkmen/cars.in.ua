@@ -1,47 +1,35 @@
-import React from 'react'
-import Image from './image'
-import ImageSet from '../imageSet'
-import Modal from './modal'
+import React from 'react';
+import Image from './image';
+import ImageSet from '../imageSet';
+import Modal from './modal';
 
 class Slider extends React.Component {
 
     constructor(props) {
         super(props);
-        // this.state = {
-        //     activeImage: props.activeImage,
-        //     activeImageIndex: props.activeImageIndex()
-        // }
+        this.state = {
+            showModal: false
+        }
     }
 
-    // shouldComponentUpdate(nextProps, nextState){
-    //     // return !equals(nextProps, this.props);
-    //     return false
-    // }
-
     componentDidMount = () => {
-        // $('#cars-slider').carousel({
-        //     interval: false
-        // })
         this.slider = $('#cars-slider')
         this.slider.carousel({
             interval: false
         })
-        // this.modal = $('#modal')
-        // this.modal.modal()
-    }
+    };
 
-    openModal = () => {
-        this.modal('show')
-    }
-
-    closeModal = () => {
-        this.modal('hide')
-    }
+    toggleModal = () => {
+        this.setState({showModal: !this.state.showModal})
+    };
 
     render = () => {
         const controlPrev = (
-            <a className='carousel-control-prev' href='#cars-slider' role='button'
-               data-slide='prev' onClick={this.props.prevImage}>
+            <a className='carousel-control-prev'
+               href='#cars-slider'
+               role='button'
+               data-slide='prev'
+               onClick={this.props.prevImage}>
                 <span className='carousel-control-prev-icon' aria-hidden='true'></span>
                 <span className='sr-only'>Previous</span>
             </a>
@@ -69,22 +57,28 @@ class Slider extends React.Component {
         )
 
         return (
-            <div id='cars-slider' className='carousel slide' data-ride='carousel'>
-                <div className='carousel-inner'>
-                    {this.props.images.map(image =>
-                        <div
-                            key={image.id}
-                            className={this.props.activeImage.id === image.id ? 'carousel-item active' : 'carousel-item'}>
-                            <Image
-                                key={image.id}
-                                image={image}
-                                className='d-block w-100 img-fluid'
-                                onClick={this.openModal}
-                            />
-                        </div>
-                    )}
+            <div id='cars-slider' className='carousel slide' data-ride='carousel' >
+                <div onClick={this.toggleModal}>
+                    aloaloalo
                 </div>
-                <Modal closeModal={this.closeModal}/>
+                <div className='carousel-inner' onClick={this.toggleModal} >
+                    <Image
+                        image={this.props.activeImage}
+                        className='d-block w-100 img-fluid'
+                    />
+                </div>
+                <Modal
+                    show={this.state.showModal}
+                    close={this.toggleModal}
+                    dialog={{
+                        header: true,
+                        footer: false,
+                        body: true,
+                        cssClass: 'modal-lg'
+                    }}>
+                    {navigation}
+                </Modal>
+
                 {this.props.controlls && controlPrev}
                 {this.props.controlls && controlNext}
                 {this.props.navigation && navigation}

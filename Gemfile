@@ -13,6 +13,7 @@ gem 'puma', '~> 3.7'
 gem 'sass-rails', '~> 5.0'
 gem 'devise'
 gem 'haml-rails'
+gem 'foreman'
 
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'dotenv-rails'
