@@ -58,10 +58,10 @@ class Slider extends React.Component {
 
         return (
             <div id='cars-slider' className='carousel slide' data-ride='carousel' >
-                <div onClick={this.toggleModal}>
+                <div className='trigger' onClick={this.toggleModal}>
                     aloaloalo
                 </div>
-                <div className='carousel-inner' onClick={this.toggleModal} >
+                <div className='trigger' onClick={this.toggleModal}>
                     <Image
                         image={this.props.activeImage}
                         className='d-block w-100 img-fluid'
@@ -70,13 +70,14 @@ class Slider extends React.Component {
                 <Modal
                     show={this.state.showModal}
                     close={this.toggleModal}
-                    dialog={{
-                        header: true,
-                        footer: false,
-                        body: true,
-                        cssClass: 'modal-lg'
-                    }}>
-                    {navigation}
+                    dialog={false}
+                    opacity={0.8}>
+                    <div className='modal-body mx-auto'>
+                        <Image
+                            image={this.props.activeImage}
+                            className='d-block img-fluid'
+                        />
+                    </div>
                 </Modal>
 
                 {this.props.controlls && controlPrev}

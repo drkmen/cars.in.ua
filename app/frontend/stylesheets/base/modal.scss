@@ -1,34 +1,13 @@
-////.modal-fade {
-////  top: 0;
-////  left: 0;
-////  z-index: 999;
-////  position: fixed;
-////  background-color: $black;
-////  opacity: 0.8;
-////  width: 100%;
-////  height: 100%;
-////  overflow: hidden;
-////}
-//
-//.modal-ext {
-//  @extend .modal;
-//  display: block;
-//
-//  &.fade {
-//    @extend .modal.fade;
-//    background-color: $black;
-//    opacity: 0.8;
-//  }
-//
-//  .modal-body {
-//    z-index: 1051;
-//  }
-//}
-//
-//.modal-body {
-//  z-index: 1051;
-//}
-
 .modal {
   display: block;
+  overflow-y: scroll;
+
+  .modal-body {
+    position: relative;
+    width: 75%;
+  }
+
+  .close {
+    color: $white;
+  }
 }

@@ -27,14 +27,19 @@ class Modal extends React.Component {
     render = () => {
         if (!this.props.show) { return null }
 
+        const closeButton = (
+            <button
+                className='close'
+                onClick={this.props.close}>
+                <span>&times;</span>
+            </button>
+        )
+
+
         const header = (
             <div className='modal-header'>
                 {this.props.dialog.title && <h5 className='modal-title'>{this.props.dialog.title}</h5>}
-                <button
-                    className='close'
-                    onClick={this.props.close}>
-                    <span>&times;</span>
-                </button>
+                {closeButton}
             </div>
         );
 
@@ -61,6 +66,16 @@ class Modal extends React.Component {
             </div>
         );
 
+        if (!this.props.dialog) {
+            const closeButton = (
+                <button
+                    className='close'
+                    onClick={this.props.close}>
+                    <span>&times;</span>
+                </button>
+            )
+        }
+
         return (
             <div>
                 <ReactCSSTransitionGroup
@@ -71,10 +86,16 @@ class Modal extends React.Component {
                     transitionAppearTimeout={100}>
 
                     <div className='modal fade show'>
-                        {(this.props.dialog && dialog) || this.props.children}
+                        {closeButton}
+                        {(this.props.dialog && dialog) || (
+                            <div className='modal-content'>
+                                {this.props.children}
+                            </div>
+                        )}
                     </div>
                     <div className='modal-backdrop fade show'
-                         onClick={this.props.close} style={{opacity: this.props.opacity}}/>
+                         onClick={this.props.close}
+                         style={{opacity: this.props.opacity}}/>
                 </ReactCSSTransitionGroup>
             </div>
         )
