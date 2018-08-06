@@ -1,0 +1,13 @@
+.modal {
+  display: block;
+  overflow-y: scroll;
+
+  .modal-body {
+    position: relative;
+    width: 75%;
+  }
+
+  .close {
+    color: $white;
+  }
+}

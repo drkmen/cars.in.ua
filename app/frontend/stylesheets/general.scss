@@ -1,6 +1,10 @@
-@import "mixins";
+@import "base/mixins";
+@import "base/fonts";
+@import "base/modal";
+@import "base/animations";
 
 html, body {
+  background: linear-gradient($light-grey, white);
   font-family: 'Roboto', sans-serif;
   font-weight: 100;
   font-size: 14px;
@@ -95,3 +99,38 @@ a {
     }
   }
 }
+
+.card {
+  @include transition(0.2s, ease-in-out);
+  background: $white;
+  border-radius: 0;
+  border: none;
+  position: relative;
+
+  .card-footer {
+    border-radius: 0;
+    border: none;
+  }
+
+  .card-img, .card-img-top {
+    overflow: hidden;
+    border-radius: 0;
+    border: none
+  }
+
+  img.card-img-top {
+    @include transition(0.2s, ease-in-out);
+    border: none
+  }
+
+  &:hover {
+    @include transition(0.2s, ease-in-out);
+
+    img.card-img-top {
+      @include transition(0.2s, ease-in-out);
+      @include scale(1.2);
+    }
+  }
+}
+
+

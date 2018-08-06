@@ -1,10 +1,14 @@
-import React from "react"
-import PropTypes from "prop-types"
+import React from 'react'
+import PropTypes from 'prop-types'
 
 class Image extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+    }
+
+    static defaultProps = {
+        changeActive: function(){}
     }
 
     changeActive(id) {
@@ -25,7 +29,7 @@ class Image extends React.Component {
 
     render() {
         return (
-            <img src={this.props.src}
+            <img src={this.props.image.url}
                  width={this.props.width}
                  height={this.props.height}
                  onClick={this.changeActive(this.props.id)}

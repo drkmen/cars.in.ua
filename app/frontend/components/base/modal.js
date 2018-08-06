@@ -1,56 +1,102 @@
+// TODO: add props documentation
+
 import React from 'react'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class Modal extends React.Component {
 
     constructor(props) {
-        super(props)
+        super(props);
 
         this.state = {
-            open: props.open || false
+            show: props.show || false
         }
     }
 
-    componentDidMount = () => {
-        this.modal = $('#modal')
-        this.modal.modal('hide')
-    }
-
-    closeModal = () => {
-        console.log($('#modal'));
-        $('#modal').modal('hide')
-        console.log($(this).modal)
-        $(this).modal('hide')
-    }
-
-    openModal = () => {
-        this.modal.modal('show')
-    }
+    static defaultProps = {
+        closeButton: true,
+        closeOnClick: true,
+        opacity: 0.5,
+        dialog: {
+            header: true,
+            body: true,
+            footer: true
+        }
+    };
 
     render = () => {
+        if (!this.props.show) { return null }
+
+        const closeButton = (
+            <button
+                className='close'
+                onClick={this.props.close}>
+                <span>&times;</span>
+            </button>
+        )
+
+
+        const header = (
+            <div className='modal-header'>
+                {this.props.dialog.title && <h5 className='modal-title'>{this.props.dialog.title}</h5>}
+                {closeButton}
+            </div>
+        );
+
+        const body = (
+            <div className='modal-body'>
+                {this.props.children}
+            </div>
+        );
+
+        const footer = (
+            <div className='modal-footer'>
+                <button className='btn btn-secondary'>Close</button>
+                <button className='btn btn-primary'>Save changes</button>
+            </div>
+        );
+
+        const dialog = (
+            <div className={'modal-dialog ' + this.props.dialog.cssClass}>
+                <div className='modal-content'>
+                    {this.props.dialog.header && header}
+                    {this.props.dialog.body && body}
+                    {this.props.dialog.footer && footer}
+                </div>
+            </div>
+        );
+
+        if (!this.props.dialog) {
+            const closeButton = (
+                <button
+                    className='close'
+                    onClick={this.props.close}>
+                    <span>&times;</span>
+                </button>
+            )
+        }
+
         return (
-            <div className="modal fade"
-                 id="modal"
-                 tabIndex="-1"
-                 role="dialog"
-                 aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
-                {/*<div className="modal-dialog" role="document">*/}
-                    {/*<div className="modal-content">*/}
-                        {/*<div className="modal-header">*/}
-                            {/*<h5 className="modal-title" id="exampleModalLabel">Modal title</h5>*/}
-                            <button onClick={this.closeModal} type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        {/*</div>*/}
-                        {/*<div className="modal-body">*/}
-                            {/*...*/}
-                        {/*</div>*/}
-                        {/*<div className="modal-footer">*/}
-                            {/*<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>*/}
-                            {/*<button type="button" className="btn btn-primary">Save changes</button>*/}
-                        {/*</div>*/}
-                    {/*</div>*/}
-                {/*</div>*/}
+            <div>
+                <ReactCSSTransitionGroup
+                    transitionName='fade'
+                    transitionEnterTimeout={300}
+                    transitionLeaveTimeout={300}
+                    transitionAppear={true}
+                    transitionAppearTimeout={100}>
+
+                    <div className='modal fade show'>
+                        {closeButton}
+                        {(this.props.dialog && dialog) || (
+                            <div className='modal-content'>
+                                {this.props.children}
+                            </div>
+                        )}
+                    </div>
+                    <div className='modal-backdrop fade show'
+                         onClick={this.props.close}
+                         style={{opacity: this.props.opacity}}/>
+                </ReactCSSTransitionGroup>
             </div>
         )
     }

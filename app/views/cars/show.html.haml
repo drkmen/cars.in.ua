@@ -1,3 +1,6 @@
+- content_for :head do
+  %meta{:content => "no-cache", :name => "turbolinks-cache-control"}/
+
 .section
   = link_to @next_car do
     .arrow.prev-car.pointable{title: 'previous car'}
@@ -8,6 +11,8 @@
   = link_to @prev_car do
     .arrow.next-car.pointable{title: 'next car'}
       %i.fa.fa-angle-right
+
+  .row
 
 
 %hr
