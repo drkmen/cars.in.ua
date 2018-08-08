@@ -14,7 +14,7 @@ class Car
   field :color, type: String
   field :color_hex, type: String
   field :engine, type: String
-  field :fuel, type: String
+  # field :fuel, type: String
   field :vin, type: String
   field :sold, type: Boolean, default: false
 
@@ -49,8 +49,32 @@ class Car
     "#{title}-#{id.to_s}"
   end
 
+  # def to_json
+  #   attributes.merge(images: images_to_json, model: model&.name, mark: mark&.name&.capitalize)
+  # end
+
   def to_json
-    attributes.merge(images: images_to_json)
+    {
+      title: title,
+      description: description,
+      year: year,
+      mileage: mileage,
+      price: price,
+      color: color,
+      color_hex: color_hex,
+      engine: engine,
+      fuel: fuel,
+      vin: vin,
+      sold: sold,
+      seller: user,
+      mark: mark,
+      model: model,
+      transmission: transmission,
+      images: images_to_json,
+      comments: comments,
+      options: options,
+      additional_options: additional_options
+    }
   end
 
   def images_to_json

@@ -6,7 +6,7 @@
   margin: 50px 50px 200px 50px;
   position: relative;
   min-height: 75vh;
-  @extend .material-card.extra-large;
+  //@extend .material-card.extra-large;
 
   -moz-animation-duration: 0.3s;
   -moz-animation-delay: 0s;
@@ -26,16 +26,19 @@
 
     .car-images {
       .image-set {
-        position: absolute;
-
         .images {
-          text-align: center;
           @include transition(0.2s, ease-in-out);
 
           .image {
             @include transition(0.1s, ease-in-out);
             display: inline-block;
-            margin: 5px 0 0 5px;
+            margin: 5px 5px 0 0;
+
+            &.thumb {
+              &:nth-child(14n) {
+                margin-right: 0;
+              }
+            }
 
             &.active-thumb {
               padding-bottom: 5px;
@@ -52,6 +55,37 @@
 
     .description {
       word-wrap: break-word;
+    }
+  }
+
+  .information {
+
+    .info-block {
+      display: inline-block;
+      //border: 1px dotted black;
+      line-height: 15px;
+      padding: 0 10px 0 10px;
+      @extend .material-card.small;
+
+      .icon, .info {
+        display: inline-block;
+      }
+
+      .icon {
+        padding: 3px;
+      }
+
+      .info {
+        font-size: 20px;
+      }
+    }
+    //[class^="icon-"], [class*=" icon-"] {
+    //  font-weight: 900;
+    //}
+
+    .primary {
+      font-size: 30px;
+      color: $coral;
     }
   }
 }

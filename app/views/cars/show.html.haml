@@ -1,12 +1,13 @@
 - content_for :head do
-  %meta{:content => "no-cache", :name => "turbolinks-cache-control"}/
+  %meta{content: 'no-cache', name: 'turbolinks-cache-control'}/
 
 .section
   = link_to @next_car do
     .arrow.prev-car.pointable{title: 'previous car'}
       %i.fa.fa-angle-left
 
-  = react_component('car', { car: @car.to_json })
+  .car-show
+    = react_component 'car/carr', car: @car.to_json
 
   = link_to @prev_car do
     .arrow.next-car.pointable{title: 'next car'}

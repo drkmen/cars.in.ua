@@ -1,5 +1,5 @@
 import React from "react";
-import CarImages from "./carImages";
+import CarImages from "./car_images";
 
 class Car extends React.Component {
 
@@ -13,7 +13,7 @@ class Car extends React.Component {
                 </div>
 
                 <div className='col-md-6 images-wrapper'>
-                    <CarImages images={this.props.car.images}/>
+                    <Car_images images={this.props.car.images}/>
                 </div>
 
                 <div className='col-md-3 right-part'>

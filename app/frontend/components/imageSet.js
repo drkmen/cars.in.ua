@@ -5,7 +5,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 class ImageSet extends React.Component {
 
     constructor(props) {
-        super(props)
+        super(props);
 
         this.state = {
             collapsed: true
@@ -13,7 +13,13 @@ class ImageSet extends React.Component {
 
         this.leftPoint = 0;
         this.rightPoint = 6;
+        this.thumbSize = 0;
     }
+
+    componentDidMount = () => {
+        this.thumbSize = ($('.active-image').width() - 13 * 5) / 14; // 13 blocks with margin 5px, 14 blocks total
+        this.forceUpdate() //recalculate correct thumb sizes and rerender
+    };
 
     updateBorders = () => {
         const imagesLength = this.props.images.length;
@@ -45,9 +51,13 @@ class ImageSet extends React.Component {
         let imagesArray = this.props.images;
         if (imagesArray.length < 2) { return null }
         this.updateBorders();
-        if (this.state.collapsed) {
-            imagesArray = imagesArray.slice(this.leftPoint, this.rightPoint + 1)
-        }
+        // if (this.state.collapsed) {
+        //     imagesArray = imagesArray.slice(this.leftPoint, this.rightPoint + 1)
+        // }
+
+        console.log(this.thumbSize);
+        console.log(this.rightPoint);
+
         return (
             <div className='images'>
                 <ReactCSSTransitionGroup
@@ -57,21 +67,21 @@ class ImageSet extends React.Component {
 
                     {imagesArray.map(image =>
                         <div key={image.id}
-                             className={'image ' + (this.props.activeImage.id === image.id ? 'active-thumb' : '')}
+                             className={'image thumb ' + (this.props.activeImage.id === image.id ? 'active-thumb' : '')}
                              data-target='#cars-slider'
                              data-slide-to={this.props.images.map(img => img.id).indexOf(image.id)}
                         >
                             <Image id={image.id}
                                    image={image}
-                                   height={100}
-                                   width={100}
+                                   height={this.thumbSize}
+                                   width={this.thumbSize}
                                    key={image.id}
                                    changeActive={this.changeActive}
                             />
                         </div>
                     )}
                 </ReactCSSTransitionGroup>
-                <span onClick={this.collapse}>Hide</span>
+                {/*<span onClick={this.collapse}>Hide</span>*/}
             </div>
         )
     }

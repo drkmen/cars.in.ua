@@ -1,10 +1,17 @@
-$black: #000;
-$white: #fff;
+$blue: #4285F4;
+$red: #EA4335;
+$orange: #FBBC05;
+$green: #34A853;
 $orange: #ff3d35;
 $coral: #EC7B71;
-$red: #960a00;
+$dark-red: #960a00;
+
+$white: #fff;
+$light-grey: #E0E0E0;
+$very-light-grey: #f8f9fa;
+$grey :#9D9D9D;
 $dark-grey: #09090980;
-$light-grey: #f8f9fa;
+$black: #000;
 
 @mixin transition($time, $typeAnimation){
   -webkit-transition: all $time $typeAnimation;

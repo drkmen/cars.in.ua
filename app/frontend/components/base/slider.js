@@ -16,7 +16,9 @@ class Slider extends React.Component {
         this.slider = $('#cars-slider')
         this.slider.carousel({
             interval: false
-        })
+        });
+        // console.log($('.active-image').width())
+        // display: flex;flex-flow: row wrap;justify-content: space-between;
     };
 
     toggleModal = () => {
@@ -44,8 +46,8 @@ class Slider extends React.Component {
         )
 
         const navigation = (
-            <div className='row image-set mx-auto'>
-                <div className='col-md-12 mx-auto'>
+            <div className='row image-set'>
+                <div className='col-md-12'>
                     <ImageSet
                         images={this.props.images}
                         changeActive={this.props.changeActive}
@@ -58,13 +60,13 @@ class Slider extends React.Component {
 
         return (
             <div id='cars-slider' className='carousel slide' data-ride='carousel' >
-                <div className='trigger' onClick={this.toggleModal}>
-                    aloaloalo
-                </div>
+                {/*<div className='trigger' onClick={this.toggleModal}>*/}
+                    {/*aloaloalo*/}
+                {/*</div>*/}
                 <div className='trigger' onClick={this.toggleModal}>
                     <Image
                         image={this.props.activeImage}
-                        className='d-block w-100 img-fluid'
+                        className='d-block w-100 img-fluid active-image'
                     />
                 </div>
                 <Modal
