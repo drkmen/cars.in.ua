@@ -1,22 +1,55 @@
 - content_for :head do
   %meta{content: 'no-cache', name: 'turbolinks-cache-control'}/
-
-.section
+.car-show
   = link_to @next_car do
     .arrow.prev-car.pointable{title: 'previous car'}
       %i.fa.fa-angle-left
 
-  .car-show
+  .section
     = react_component 'car/carr', car: @car.to_json
+
+  %br
+  %br
+  %br
+
+  .row.section
+    .col-4
+      .material-card.large
+        %br
+        %br
+        seller info & about announcement
+        %br
+        %br
+
+    .col-4
+      .material-card.large
+        %br
+        %br
+        comments
+        %br
+        %br
+
+    .col-4
+      .material-card.large
+        %br
+        %br
+        comments\questions
+        %br
+        %br
 
   = link_to @prev_car do
     .arrow.next-car.pointable{title: 'next car'}
       %i.fa.fa-angle-right
 
-  .row
+  %hr
+  .row.section.material-card.large
+    .col
+      %br
+      %br
+      similar cars
+      %br
+      %br
 
-
-%hr
-.section
-  %h1 alo
+  %hr
+  .section
 

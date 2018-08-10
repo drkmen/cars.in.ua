@@ -1,4 +1,5 @@
 import React from 'react'
+import InfoBlock from './info_block'
 
 class CarDescription extends React.Component {
 
@@ -9,20 +10,18 @@ class CarDescription extends React.Component {
                 <div className='col'>
                     <div className='row'>
                         <div className='col primary'>
-
-                            <div className='info-block'>
-                                <div className='icon'>
-                                    <i className='icon-dashboard'/>
-                                </div>
-                                <div className='info text-center'>
-                                    <small className='font-300'>Пробег</small>
-                                    <p><b>{car.mileage}</b></p>
-                                </div>
-                            </div>
-
-                            <span className='icon-engine'/>{car.engine}
-                            <span className='icon-gas-station'/>{car.fuel.type}
-                            <span className='icon-gearshift-1'/>{car.transmission.type}
+                            <InfoBlock icon='icon-dashboard'
+                                       desc='Пробег'
+                                       value={car.mileage}/>
+                            <InfoBlock icon='icon-engine'
+                                       desc='Обьем двигателя'
+                                       value={car.engine  + ' л.'}/>
+                            <InfoBlock icon='icon-gas-station'
+                                       desc='Топливо'
+                                       value={car.fuel.type}/>
+                            <InfoBlock icon='icon-gearshift-1'
+                                       desc='Трансмиссия'
+                                       value={car.transmission.type}/>
                         </div>
                     </div>
 

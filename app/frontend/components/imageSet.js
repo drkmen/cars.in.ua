@@ -18,6 +18,7 @@ class ImageSet extends React.Component {
 
     componentDidMount = () => {
         this.thumbSize = ($('.active-image').width() - 13 * 5) / 14; // 13 blocks with margin 5px, 14 blocks total
+        if (this.thumbSize < 40) { this.thumbSize = 68 }
         this.forceUpdate() //recalculate correct thumb sizes and rerender
     };
 
@@ -54,9 +55,6 @@ class ImageSet extends React.Component {
         // if (this.state.collapsed) {
         //     imagesArray = imagesArray.slice(this.leftPoint, this.rightPoint + 1)
         // }
-
-        console.log(this.thumbSize);
-        console.log(this.rightPoint);
 
         return (
             <div className='images'>

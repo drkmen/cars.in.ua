@@ -69,18 +69,18 @@ class Slider extends React.Component {
                         className='d-block w-100 img-fluid active-image'
                     />
                 </div>
-                <Modal
-                    show={this.state.showModal}
-                    close={this.toggleModal}
-                    dialog={false}
-                    opacity={0.8}>
-                    <div className='modal-body mx-auto'>
-                        <Image
-                            image={this.props.activeImage}
-                            className='d-block img-fluid'
-                        />
-                    </div>
-                </Modal>
+                {/*<Modal*/}
+                    {/*show={this.state.showModal}*/}
+                    {/*close={this.toggleModal}*/}
+                    {/*dialog={false}*/}
+                    {/*opacity={0.8}>*/}
+                    {/*<div className='modal-body mx-auto'>*/}
+                        {/*<Image*/}
+                            {/*image={this.props.activeImage}*/}
+                            {/*className='d-block img-fluid'*/}
+                        {/*/>*/}
+                    {/*</div>*/}
+                {/*</Modal>*/}
 
                 {this.props.controlls && controlPrev}
                 {this.props.controlls && controlNext}

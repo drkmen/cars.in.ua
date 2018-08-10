@@ -58,7 +58,7 @@ class Car
       title: title,
       description: description,
       year: year,
-      mileage: mileage,
+      mileage: mileage.to_s.in_groups_of(3),
       price: price,
       color: color,
       color_hex: color_hex,
