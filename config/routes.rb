@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   root to: 'home#index'
   devise_for :users
 
-  resources :cars
+  resources :cars do
+    resources :comments, only: %i[create destroy update]
+  end
 
   # you don't need all CRUD routes
   resources :car_mark_lists do

@@ -1,33 +1,35 @@
-import React from "react";
-import CarImages from "./car_images";
+import React from 'react';
+import CarImages from './car_images';
+import CarDescription from './car_description'
 
 class Car extends React.Component {
-
     render() {
         return(
-            <div className='row car-show'>
-                <div className='col-md-3 left-part'>
-                    <div className='features'>
-
+            <div className='row car'>
+                <div className='col-7 images-wrapper'>
+                    <CarImages images={this.props.car.images}/>
+                </div>
+                <div className='col-5 car-description'>
+                    <div className='row'>
+                        <div className='col-6'>
+                            <h1 className='font-300'>
+                                {this.props.car.mark.name}
+                                &nbsp;
+                                {this.props.car.model.name}
+                                <span className='grey'> {this.props.car.year} </span>
+                            </h1>
+                        </div>
+                        <div className='col-6'>
+                            <h1 className='thin float-right'>
+                                <span className=''>${this.props.car.price}</span>
+                            </h1>
+                        </div>
                     </div>
-                </div>
-
-                <div className='col-md-6 images-wrapper'>
-                    <Car_images images={this.props.car.images}/>
-                </div>
-
-                <div className='col-md-3 right-part'>
-                    <h1 className='thin'>
-                        <div className='float-left'>{this.props.car.title}</div>
-                        <div className='float-right'>${this.props.car.price}</div>
-                        <div className='clearfix'></div>
-                    </h1>
-                    <div className='description'>{this.props.car.description}</div>
+                    <CarDescription car={this.props.car}></CarDescription>
                 </div>
             </div>
         )
     }
-
 }
 
 export default Car

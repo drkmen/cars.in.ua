@@ -7,7 +7,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700|Roboto:100,300,300i,400,400i,500,700,900&subset=cyrillic');
 
 html, body {
-  background: linear-gradient($very-light-grey, white);
+  background: linear-gradient($light-grey, $very-light-grey);
   //font-family: 'Roboto', sans-serif;
   //font-family: 'Roboto Condensed', sans-serif;
 
@@ -81,6 +81,7 @@ a {
   position: relative;
   width: 100%;
   min-height: 100px;
+  background: $white;
 }
 
 #wrapper {

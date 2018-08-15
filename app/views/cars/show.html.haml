@@ -6,49 +6,52 @@
       %i.fa.fa-angle-left
 
   .section
-    = react_component 'car/carr', car: @car.to_json
+    = react_component 'car/car', car: @car.to_json
 
   %br
   %br
   %br
 
-  .row.section
-    .col-4
-      .material-card.large
-        %br
-        %br
-        seller info & about announcement
-        %br
-        %br
+  .section
+    .row
+      .col-4
+        .material-card.large
+          %br
+          %br
+          seller info & about announcement
+          %br
+          %br
 
-    .col-4
-      .material-card.large
-        %br
-        %br
-        comments
-        %br
-        %br
+      .col-4
+        .material-card.large
+          %br
+          %br
+          comments
+          %br
+          %br
 
-    .col-4
-      .material-card.large
-        %br
-        %br
-        comments\questions
-        %br
-        %br
+      .col-4
+        .material-card.large.comments
+          %br
+          %br
+          comments
+          %br
+          %br
+
 
   = link_to @prev_car do
     .arrow.next-car.pointable{title: 'next car'}
       %i.fa.fa-angle-right
 
   %hr
-  .row.section.material-card.large
-    .col
-      %br
-      %br
-      similar cars
-      %br
-      %br
+  .section.material-card.large
+    .row
+      .col-12
+        %br
+        %br
+        similar cars
+        %br
+        %br
 
   %hr
   .section
