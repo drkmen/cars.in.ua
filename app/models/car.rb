@@ -1,10 +1,10 @@
 class Car
-  include Optionable #, Paranoidable
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Attributes::Dynamic
   include Mongoid::Paranoia
   include Mongoid::Slug
+  include Optionable, Commentable #, Paranoidable
 
   field :title, type: String
   field :description, type: String
@@ -14,22 +14,21 @@ class Car
   field :color, type: String
   field :color_hex, type: String
   field :engine, type: String
-  # field :fuel, type: String
   field :vin, type: String
   field :sold, type: Boolean, default: false
 
-  belongs_to :user
+  belongs_to :user, counter_cache: true
   belongs_to :mark, class_name: 'CarMarkList', counter_cache: true
   belongs_to :model, class_name: 'CarModelList', counter_cache: true
   belongs_to :transmission
   belongs_to :fuel
 
-  # has_one :fuel
-  # has_one :transmission
-
   has_many :images, dependent: :delete
-  has_many :comments, dependent: :delete
   has_many :options
+
+  # embeds_many :comments, as: :commentable
+  embeds_many :trades
+  embeds_many :swaps
 
   accepts_nested_attributes_for :model, :fuel, :transmission
   accepts_nested_attributes_for :images, allow_destroy: true
@@ -38,7 +37,7 @@ class Car
   slug :slug_title
 
   def main_image
-    images.first.image#.url
+    images.first.image
   end
 
   def set_title
@@ -59,7 +58,7 @@ class Car
       description: description,
       year: year,
       mileage: mileage.to_s.in_groups_of(3),
-      price: price,
+      price: price.to_i.to_s.in_groups_of(3),
       color: color,
       color_hex: color_hex,
       engine: engine,
@@ -99,3 +98,5 @@ class Car
     }
   end
 end
+
+

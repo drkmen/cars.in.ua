@@ -19,10 +19,14 @@ class CarsController < ApplicationController
     @transmissions = Transmission.all.pluck(:type, :id)
   end
 
-  def edit; end
+  def edit
+    @mark_list = CarMarkList.all.pluck(:name, :id)
+    @fuels = Fuel.all.pluck(:type, :id)
+    @transmissions = Transmission.all.pluck(:type, :id)
+  end
 
   def update
-    @car.update_attributes!(car_params)
+    redirect_to @car if @car.update_attributes!(car_params)
   end
 
   def create

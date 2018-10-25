@@ -6,6 +6,7 @@
       %i.fa.fa-angle-left
 
   .section
+    = link_to edit_car_path(@car), edit_car_path(@car)
     = react_component 'car/car', car: @car.to_json
 
   %br
@@ -26,7 +27,7 @@
         .material-card.large
           %br
           %br
-          comments
+          = react_component 'car/comments', comments: @car.comments.map(&:to_json)
           %br
           %br
 

@@ -1,6 +1,5 @@
 import React from 'react'
 import Image from './base/image'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class ImageSet extends React.Component {
 
@@ -19,17 +18,12 @@ class ImageSet extends React.Component {
     }
 
     componentDidMount = () => {
-        // this.thumbSize = ($('.active-image').width() - 13 * 5) / 14; // 13 blocks with margin 5px, 14 blocks total
-        // console.log(this.thumbSize);
-        // if (this.thumbSize < 40) { this.thumbSize = 68 }
-        // this.forceUpdate() //recalculate correct thumb sizes and rerender
         this.updateThumbSizes()
     };
 
     updateThumbSizes = () => {
         if (this.props.thumbSize) { this.thumbSize = this.props.thumbSize }
         this.thumbSize = ($('.active-image').width() - 13 * 5) / 14; // 13 blocks with margin 5px, 14 blocks total
-        // console.log(this.thumbSize);
         if (this.thumbSize < 40) { this.thumbSize = 68 }
         this.forceUpdate() //recalculate correct thumb sizes and rerender
     }
@@ -69,39 +63,43 @@ class ImageSet extends React.Component {
         let imagesArray = this.props.images;
         if (imagesArray.length < 2) { return null }
         this.updateBorders();
+
         if (this.state.collapsed) {
             imagesArray = imagesArray.slice(this.leftPoint, this.rightPoint + 1)
         }
 
+        const collapseText = this.state.collapsed ? 'Show more' : 'Hide';
+
         return (
             <div className='row images'>
-                <ReactCSSTransitionGroup
-                    transitionName='fade'
-                    transitionEnterTimeout={500}
-                    transitionLeaveTimeout={300}>
-
-                    <div className='col'>
-                        {imagesArray.map((image, index) =>
-                            <div key={image.id}
-                                 className={'image thumb ' + (this.props.activeImage.id === image.id ? 'active-thumb' : '')}
-                                 data-target='#cars-slider'
-                                 data-slide-to={this.props.images.map(img => img.id).indexOf(image.id)}
-                            >
-                                <Image id={image.id}
-                                       image={image}
-                                       height={this.thumbSize}
-                                       width={this.thumbSize}
-                                       key={image.id}
-                                       changeActive={this.changeActive}
-                                />
-                            </div>
-                        )}
-                    </div>
-                </ReactCSSTransitionGroup>
-                <span onClick={this.collapse}>Hide</span>
+                <div className='col-12'>
+                    {imagesArray.map(image =>
+                        <div key={image.id}
+                             className={'image thumb ' + (this.props.activeImage.id === image.id ? 'active-thumb' : '')}
+                             data-target='#cars-slider'
+                             data-slide-to={this.props.images.map(img => img.id).indexOf(image.id)}
+                        >
+                            <Image id={image.id}
+                                   image={image}
+                                   height={this.thumbSize}
+                                   width={this.thumbSize}
+                                   key={image.id}
+                                   changeActive={this.changeActive}
+                            />
+                        </div>
+                    )}
+                </div>
+                <div className='col-12 text-center' onClick={this.collapse}>{collapseText}</div>
             </div>
         )
     }
 }
 
 export default ImageSet
+
+// import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+// <ReactCSSTransitionGroup
+// transitionName='fade'
+// transitionEnterTimeout={500}
+// transitionLeaveTimeout={300}>
+//     </ReactCSSTransitionGroup>
