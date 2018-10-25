@@ -6,8 +6,7 @@
       %i.fa.fa-angle-left
 
   .section
-    = link_to edit_car_path(@car), edit_car_path(@car)
-    = react_component 'car/car', car: @car.to_json
+    = react_component 'car/car', car: @car.to_json, edit_car_path: edit_car_path(@car)
 
   %br
   %br

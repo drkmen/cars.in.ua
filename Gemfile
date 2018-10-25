@@ -16,6 +16,7 @@ gem 'haml-rails'
 gem 'foreman'
 
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+gem 'rmagick'
 gem 'dotenv-rails'
 
 gem 'react-rails'

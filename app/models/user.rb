@@ -42,7 +42,6 @@ class User
   field :phone, type: String
   field :city, type: String
   field :reputation, type: Integer
-  field :avatar
 
   field :cars_count, type: Fixnum, default: 0
 
@@ -50,6 +49,8 @@ class User
   has_many :comments
   has_many :trades
   has_many :swaps
+
+  mount_uploader :avatar, AvatarUploader
 
   def name
     "#{first_name} #{last_name}"

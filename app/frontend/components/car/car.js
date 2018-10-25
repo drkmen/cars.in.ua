@@ -25,6 +25,16 @@ class Car extends React.Component {
                             </h1>
                         </div>
                     </div>
+                    <div className='row'>
+                        <div className='col-12'>
+                            <a href={this.props.edit_car_path}><i className='fa fa-pencil'></i> Edit car</a>
+                            <span className='grey float-right'>
+                                <i className='fa fa-eye'></i>
+                                &nbsp;
+                                999_999
+                            </span>
+                        </div>
+                    </div>
                     <CarDescription car={this.props.car}></CarDescription>
                 </div>
             </div>
