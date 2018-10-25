@@ -15,7 +15,11 @@ class Card extends React.Component {
                 </div>
                 <div className='card-body'>
                     <a href={this.props.car_path}>
-                        <h4 className='card-title thin'>{this.props.title}</h4>
+                        <h4 className='card-title thin'>
+                            {this.props.title}
+                            &nbsp;
+                            <span className='float-right grey'> {this.props.year} </span>
+                        </h4>
                     </a>
 
                     {/*<InfoBlock icon='icon-dashboard'*/}
@@ -46,10 +50,16 @@ class Card extends React.Component {
 
                     <div className='row'>
                         <div className='col-md-6'>
-                            <img src='/assets/icons/engine.svg' height='17' width='17'/>{this.props.engine}
+                            <InfoBlock icon='icon-engine'
+                                       desc='Двигатель'
+                                       value={this.props.engine}/>
+                            {/*<img src='/assets/icons/engine.svg' height='17' width='17'/>{this.props.engine}*/}
                         </div>
                         <div className='col-md-6'>
-                            <img src='/assets/icons/gas-station.svg' height='17' width='17'/>{this.props.fuel}
+                            <InfoBlock icon='icon-gas-station'
+                                       desc='Топливо'
+                                       value={this.props.fuel}/>
+                            {/*<img src='/assets/icons/gas-station.svg' height='17' width='17'/>{this.props.fuel}*/}
                         </div>
                     </div>
 

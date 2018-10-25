@@ -1,0 +1,14 @@
+.container
+  Info
+  -#= image_tag @user.avatar
+  %hr
+    %h4 Your cars
+    - @user.cars.each_slice(4) do |cars|
+      .card-deck.mx-auto
+        - cars.each do |car|
+          .mb-3{style: 'width: 20rem;'}
+            = react_component('card', car.to_card_json.merge(car_path: car_path(car)))
+
+  %hr
+    %h4 Saved cars
+  %hr

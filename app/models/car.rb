@@ -89,7 +89,8 @@ class Car
   def to_card_json
     {
       image: main_image,
-      title: title,
+      title: "#{mark&.name&.capitalize} #{model&.name}",
+      year: year,
       price: price,
       transmission: transmission&.type,
       mileage: mileage,

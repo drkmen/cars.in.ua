@@ -42,6 +42,7 @@ class User
   field :phone, type: String
   field :city, type: String
   field :reputation, type: Integer
+  field :avatar
 
   field :cars_count, type: Fixnum, default: 0
 

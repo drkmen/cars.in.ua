@@ -18,7 +18,7 @@
             = link_to 'Cars', cars_path, class: 'nav-link'
           - if current_user
             %li.nav-item.nav-link
-              = current_user.email
+              = link_to current_user.email, user_path(current_user.id)
           - else
             %li.nav-item
               = link_to 'Sign in', new_user_session_path, class: 'nav-link'

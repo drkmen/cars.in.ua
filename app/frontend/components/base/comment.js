@@ -16,8 +16,8 @@ class Comment extends React.Component {
                 <div className="media">
                     <img className="mr-3" src={'this.props.user'} alt=""/>
                     <div className="media-body">
-                        <h5 className="mt-0">{this.props.user}
-                            <span className='float-right'>?</span>
+                        <h5 className="mt-0">
+                            {this.props.user.name}
                         </h5>
                         {this.props.comment.body}
                     </div>

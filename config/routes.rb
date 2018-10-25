@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root to: 'home#index'
   devise_for :users
 
+  resources :users, except: :index
   resources :cars do
     resources :comments, only: %i[create destroy update]
   end
