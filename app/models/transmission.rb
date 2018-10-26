@@ -1,7 +1,7 @@
 class Transmission
   include Mongoid::Document
 
-  field :type, type: String
+  field :name, type: String
 
   has_many :cars#, inverse_of: nil
 end

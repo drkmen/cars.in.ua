@@ -14,14 +14,18 @@ class Car
   field :color, type: String
   field :color_hex, type: String
   field :engine, type: String
+  field :equipment, type: String
   field :vin, type: String
   field :sold, type: Boolean, default: false
+  field :completed, type: Boolean, default: false
 
-  belongs_to :user, counter_cache: true
+  belongs_to :car_type, counter_cache: true
+  belongs_to :car_carcass, counter_cache: true
   belongs_to :mark, class_name: 'CarMarkList', counter_cache: true
   belongs_to :model, class_name: 'CarModelList', counter_cache: true
   belongs_to :transmission
   belongs_to :fuel
+  belongs_to :user, counter_cache: true
 
   has_many :images, dependent: :delete
   has_many :options
@@ -29,8 +33,9 @@ class Car
   # embeds_many :comments, as: :commentable
   embeds_many :trades
   embeds_many :swaps
+  embeds_one :address
 
-  accepts_nested_attributes_for :model, :fuel, :transmission
+  # accepts_nested_attributes_for :model, :fuel, :transmission
   accepts_nested_attributes_for :images, allow_destroy: true
 
   before_save :set_title, if: :year_changed?
@@ -71,7 +76,12 @@ class Car
       transmission: transmission,
       images: images_to_json,
       comments: comments,
+      trades: trades,
+      swaps: swaps,
       options: options,
+      address: address.to_json,
+      car_type: car_type,
+      car_carcass: car_carcass,
       additional_options: additional_options
     }
   end

@@ -13,7 +13,7 @@ import 'bootstrap/dist/js/bootstrap';
 import Turbolinks from "turbolinks";
 
 // first party
-import '../cars/new.es6';
+import '../cars/form.es6';
 import '../cars/show.es6';
 
 // styles

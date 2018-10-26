@@ -2,6 +2,7 @@ class CarsController < ApplicationController
 
   before_action :find_car, only: %i[show edit delete update]
   before_action :authenticate_user!, only: %i[new create edit delete]
+  before_action :prepare_related_data, only: %i[new edit]
 
   def index
     @cars = Car.all.order(created_at: :desc).entries
@@ -14,15 +15,10 @@ class CarsController < ApplicationController
 
   def new
     @car = Car.new
-    @mark_list = CarMarkList.all.pluck(:name, :id)
-    @fuels = Fuel.all.pluck(:type, :id)
-    @transmissions = Transmission.all.pluck(:type, :id)
   end
 
   def edit
     @mark_list = CarMarkList.all.pluck(:name, :id)
-    @fuels = Fuel.all.pluck(:type, :id)
-    @transmissions = Transmission.all.pluck(:type, :id)
   end
 
   def update
@@ -47,5 +43,15 @@ class CarsController < ApplicationController
     params.require(:car).permit!
     # params.require(:car).permit(:mark, :model, :description, :year, :mileage, :price,
     #                             :color, :engine, :fuel, :vin, images: {image: []})
+  end
+
+  def prepare_related_data
+    @related_data = {
+      transmissions: Transmission.all.pluck(:name, :id),
+      mark_list: CarMarkList.all.pluck(:name, :id),
+      car_types: CarType.all.pluck(:name, :id),
+      carcasses: CarCarcass.all.pluck(:name, :id),
+      fuels: Fuel.all.pluck(:name, :id)
+    }
   end
 end
