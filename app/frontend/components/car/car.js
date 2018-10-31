@@ -27,6 +27,7 @@ class Car extends React.Component {
                     </div>
                     <div className='row'>
                         <div className='col-12'>
+                            <span className='grey'>Created: {this.props.car.created_at} </span>
                             <a href={this.props.edit_car_path}><i className='fa fa-pencil'></i> Edit car</a>
                             <span className='grey float-right'>
                                 <i className='fa fa-eye'></i>
@@ -35,7 +36,7 @@ class Car extends React.Component {
                             </span>
                         </div>
                     </div>
-                    <CarDescription car={this.props.car}></CarDescription>
+                    <CarDescription car={this.props.car}/>
                 </div>
             </div>
         )

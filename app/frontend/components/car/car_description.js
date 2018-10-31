@@ -1,5 +1,6 @@
 import React from 'react'
 import InfoBlock from './info_block'
+import Options from './options'
 
 class CarDescription extends React.Component {
 
@@ -8,8 +9,7 @@ class CarDescription extends React.Component {
         return(
             <div className='row information'>
                 <div className='col'>
-                    <div className='row'>
-
+                    <div className='row section'>
                         <div className='col-6'>
                             <h4 className='d-inline-block'>{car.address.full}</h4>
                             <p>{car.car_carcass.name} / {car.car_type.name}</p>
@@ -33,17 +33,22 @@ class CarDescription extends React.Component {
                             </div>
                         </div>
                     </div>
-                        {/*<div className='clearfix'></div>*/}
 
-                    <div className='row'>
-                        <div className='col secondary'>
+                    <div className='row section'>
+                        <div className='col-12'>
+                            <h5>Описание</h5>
+                        </div>
+                        <div className='col-12 description'>
                             {car.description}
                         </div>
                     </div>
 
-                    <div className='row'>
-                        <div className='col additional'>
-
+                    <div className='row section'>
+                        <div className='col-12'>
+                            <h5>Опции</h5>
+                        </div>
+                        <div className='col-12 options'>
+                            <Options options={car.options}/>
                         </div>
                     </div>
 

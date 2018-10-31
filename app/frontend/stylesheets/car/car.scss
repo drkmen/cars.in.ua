@@ -100,12 +100,20 @@
     padding-right: 50px;
 
     .information {
-      padding-top: 25px;
+      padding-top: 10px;
+
+      .section {
+        padding-top: 20px;
+      }
 
       .primary {
         //padding-top: 25px;
         //font-size: 30px;
         //color: $coral;
+      }
+
+      .options {
+        font-weight: 500;
       }
 
       //.info-block {

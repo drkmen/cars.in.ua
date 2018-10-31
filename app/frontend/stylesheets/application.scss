@@ -3,7 +3,8 @@ $fa-font-path: "~font-awesome/fonts";
 @import '~bootstrap/dist/css/bootstrap';
 @import '~animate.css';
 
-@import "car_icons";
 @import "general";
-@import "car";
+@import "car/car_icons";
+@import "car/car";
+@import "car/form";
 

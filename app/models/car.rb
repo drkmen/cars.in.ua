@@ -28,7 +28,7 @@ class Car
   belongs_to :user, counter_cache: true
 
   has_many :images, dependent: :delete
-  has_many :options
+  has_and_belongs_to_many :options
 
   # embeds_many :comments, as: :commentable
   embeds_many :trades
@@ -70,6 +70,7 @@ class Car
       fuel: fuel,
       vin: vin,
       sold: sold,
+      created_at: created_at.strftime('%d/%m/%Y'),
       seller: user,
       mark: mark,
       model: model,
@@ -78,7 +79,8 @@ class Car
       comments: comments,
       trades: trades,
       swaps: swaps,
-      options: options,
+      # options: [options.group_by(&:type)],
+      options: grouped_options,
       address: address.to_json,
       car_type: car_type,
       car_carcass: car_carcass,
@@ -107,6 +109,15 @@ class Car
       fuel: fuel&.type,
       engine: engine
     }
+  end
+
+  def grouped_options
+    options.pluck(:type).uniq.map do |type|
+      {
+        type: type,
+        options: options.select { |opt| opt.type == type }
+      }
+    end
   end
 end
 

@@ -90,5 +90,29 @@
         .form-group
           = f.file_field :images, class: 'form-control-file', multiple: true
 
-        .form-group
-          = f.submit
+    %h3
+      Options
+      %hr
+
+    .form-row
+      - Option.all.group_by(&:type).each do |options|
+        %div{ class: "col-#{12 / Option.all.group_by(&:type).size}"}
+          %h5= options.first
+          - options.last.each do |opt|
+            .option-group
+              = check_box_tag 'car[option_ids][]', opt.id.to_s
+              &nbsp
+              = label_tag opt.id, opt.name
+            -#%br
+          -#options[options_ids][]
+
+          -#= collection_check_boxes :options, :options_ids, options[1], :id, :name do |b|
+            = b.label(class: "check_box") { b.check_box(class: '') + b.text }
+        -#<%=collection_check_boxes(:player_profile, :playing_role_ids, PlayerRole.all, :id, :name)%>
+        -#= f.fields_for :options, @car.options do |opt_fields|
+          = opt_fields.check_box :name
+
+
+    .form-row
+      .form-group
+        = f.submit class: 'btn btn-warning'
