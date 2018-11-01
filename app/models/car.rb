@@ -15,6 +15,7 @@ class Car
   field :color_hex, type: String
   field :engine, type: String
   field :equipment, type: String
+  field :doors, type: Integer, default: 5
   field :vin, type: String
   field :sold, type: Boolean, default: false
   field :completed, type: Boolean, default: false
@@ -26,6 +27,7 @@ class Car
   belongs_to :transmission
   belongs_to :fuel
   belongs_to :user, counter_cache: true
+  alias :seller :user
 
   has_many :images, dependent: :delete
   has_and_belongs_to_many :options
@@ -53,10 +55,6 @@ class Car
     "#{title}-#{id.to_s}"
   end
 
-  # def to_json
-  #   attributes.merge(images: images_to_json, model: model&.name, mark: mark&.name&.capitalize)
-  # end
-
   def to_json
     {
       title: title,
@@ -71,6 +69,7 @@ class Car
       vin: vin,
       sold: sold,
       created_at: created_at.strftime('%d/%m/%Y'),
+      doors: doors,
       seller: user,
       mark: mark,
       model: model,
@@ -79,7 +78,6 @@ class Car
       comments: comments,
       trades: trades,
       swaps: swaps,
-      # options: [options.group_by(&:type)],
       options: grouped_options,
       address: address.to_json,
       car_type: car_type,
@@ -104,9 +102,9 @@ class Car
       title: "#{mark&.name&.capitalize} #{model&.name}",
       year: year,
       price: price,
-      transmission: transmission&.type,
+      transmission: transmission&.name,
       mileage: mileage,
-      fuel: fuel&.type,
+      fuel: fuel&.name,
       engine: engine
     }
   end

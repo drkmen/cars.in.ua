@@ -12,7 +12,7 @@ class CarDescription extends React.Component {
                     <div className='row section'>
                         <div className='col-6'>
                             <h4 className='d-inline-block'>{car.address.full}</h4>
-                            <p>{car.car_carcass.name} / {car.car_type.name}</p>
+                            <p>{car.car_type.name} / {car.car_carcass.name} / {car.doors} дверей</p>
                         </div>
                         <div className='col-6'>
                             <div className='row float-right'>

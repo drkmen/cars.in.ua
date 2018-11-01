@@ -1,0 +1,11 @@
+.container
+  = form_for [@car, @car.comments.new] do |f|
+    .form-row
+      .col-12
+        .form-group
+          = f.text_field :body, class: 'form-control', placeholder: 'comment...'
+
+    .form-row
+      .col-12
+        .form-group
+          = f.submit class: 'btn btn-warning'

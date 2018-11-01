@@ -10,6 +10,8 @@
 // third party
 import 'jquery/src/jquery';
 import 'bootstrap/dist/js/bootstrap';
+import {} from 'jquery-ujs'
+import * as moment from 'moment';
 import Turbolinks from "turbolinks";
 
 // first party
@@ -31,6 +33,7 @@ ReactRailsUJS.detectEvents();
 let $prevCar;
 
 $(document).on('turbolinks:click', function(e){
+    console.log(moment().format());
     $prevCar = $(e.target.firstChild).attr('class').indexOf('prev-car') >= 0;
     $('.car-show').addClass('animated ' + ($prevCar ? 'slideOutRight' : 'slideOutLeft'));
 });

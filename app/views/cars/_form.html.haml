@@ -9,6 +9,7 @@
       = f.fields_for :address do |ff|
         .col-3
           .form-group
+            = @car.address.country
             = ff.label :country
             = ff.text_field :country, class: 'form-control', placeholder: 'Country'
         .col-3
@@ -69,24 +70,29 @@
       %hr
 
     .form-row
-      .col-6
+      .col-3
         .form-group
           = f.label :fuel
           = f.select :fuel_id, @related_data[:fuels], {}, class: 'custom-select'
-      .col-6
+      .col-3
+        .form-group
+          = f.label :vin
+          = f.text_field :vin, class: 'form-control'
+      .col-3
         .form-group
           = f.label :equipment
           = f.text_field :equipment, class: 'form-control'
+      .col-3
+        .form-group
+          = f.label :doors
+          = f.text_field :doors, class: 'form-control'
+
 
     .form-row
       .col-12
         .form-group
           = f.label :description
           = f.text_area :description, class: 'form-control'
-
-        .form-group
-          = f.label :vin
-          = f.text_field :vin, class: 'form-control'
         .form-group
           = f.file_field :images, class: 'form-control-file', multiple: true
 
@@ -100,7 +106,7 @@
           %h5= options.first
           - options.last.each do |opt|
             .option-group
-              = check_box_tag 'car[option_ids][]', opt.id.to_s
+              = check_box_tag 'car[option_ids][]', opt.id.to_s, @car.options.pluck(:id).include?(opt.id)
               &nbsp
               = label_tag opt.id, opt.name
             -#%br

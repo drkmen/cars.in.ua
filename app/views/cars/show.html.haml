@@ -1,5 +1,6 @@
 - content_for :head do
   %meta{content: 'no-cache', name: 'turbolinks-cache-control'}/
+
 .car-show
   = link_to @next_car do
     .arrow.prev-car.pointable{title: 'previous car'}
@@ -16,27 +17,25 @@
     .row
       .col-4
         .material-card.large
+          %h5.text-center About seller
+          = @car.seller.email
           %br
+          = @car.seller&.phone
           %br
-          seller info & about announcement
+          = @car.seller&.name
           %br
-          %br
+          = @car.seller&.cars_count
+          -#= link_to 'Delete car', car_path(@car), method: :delete
 
       .col-4
         .material-card.large
-          %br
-          %br
-          = react_component 'car/comments', comments: @car.comments.map(&:to_json)
-          %br
-          %br
+          %h5.text-center Questions & Comments
+          = react_component 'car/comments', comments: @car_comments
+          = render '/cars/comments/form'
 
       .col-4
         .material-card.large.comments
-          %br
-          %br
-          comments
-          %br
-          %br
+          %h5.text-center Swaps & Trades
 
 
   = link_to @prev_car do

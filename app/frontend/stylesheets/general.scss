@@ -3,7 +3,7 @@
 @import "fonts/google_sans";
 @import "base/modal";
 @import "base/animations";
-@import "base/button";
+@import "base/bootstrap_overrides";
 
 //@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700|Roboto:100,300,300i,400,400i,500,700,900&subset=cyrillic');
@@ -78,6 +78,10 @@ a {
   &.active {
     color: $coral;
   }
+
+  &.delete {
+    color: $red;
+  }
 }
 
 #header {
@@ -113,6 +117,8 @@ a {
 }
 
 .material-card {
+  padding: 15px 20px;
+
   &.small {
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   }

@@ -10,7 +10,6 @@ class Comments extends React.Component {
     render() {
         return(
             <div className='comments'>
-                Comment list
                 {this.props.comments.map(comment =>
                     <Comment key={comment.id} comment={comment} user={comment.user}></Comment>
                 )}

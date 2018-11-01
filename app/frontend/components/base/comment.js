@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 class Comment extends React.Component {
 
@@ -11,15 +12,43 @@ class Comment extends React.Component {
     }
 
     render() {
+        const user = this.props.user || { name: 'Guest' };
+        const comment = this.props.comment;
         return(
             <div className='comment'>
                 <div className="media">
                     <img className="mr-3" src={'this.props.user'} alt=""/>
                     <div className="media-body">
-                        <h5 className="mt-0">
-                            {this.props.user.name}
-                        </h5>
-                        {this.props.comment.body}
+                        <div>
+                            <h5 className="d-inline mt-0">
+                                {user.name}
+                            </h5>
+                            <small className='grey float-right'>
+                                {moment(comment.created_at).fromNow()}
+                            </small>
+                        </div>
+
+                        <div>
+                            {comment.body}
+                        </div>
+
+                        <div className='float-right'>
+                            <small>
+                                {comment.comment_owner && comment.update_path && (
+                                    <a href={comment.update_path}>Edit</a>
+                                )}
+                                {comment.comment_owner && comment.delete_path && (
+                                    <span> |
+                                        <a className='delete' href={comment.delete_path} data-method="delete"> Delete</a>
+                                    </span>
+                                )}
+                                {comment.reply_path && (
+                                    <span> |
+                                        <a href={comment.reply_path}> Reply</a>
+                                    </span>
+                                )}
+                            </small>
+                        </div>
                     </div>
                 </div>
                 <hr/>

@@ -11,6 +11,12 @@ class CarsController < ApplicationController
   def show
     @next_car = Car.last
     @prev_car = Car.first
+    @car_comments = @car.comments.map(&:to_json)
+    if current_user
+      @car_comments.each do |cm|
+        cm.merge! comment_owner: current_user.id == cm.dig(:user, :id)
+      end
+    end
   end
 
   def new
@@ -27,9 +33,9 @@ class CarsController < ApplicationController
 
   def create
     @car = Car.new(car_params.reject { |k| k['images'] })
-    car_params['images'].each { |image|
+    car_params['images'].each do |image|
       @car.images << Image.new(image: image)
-    }
+    end
     redirect_to @car if @car.save!
   end
 
