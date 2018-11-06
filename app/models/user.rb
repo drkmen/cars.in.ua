@@ -1,6 +1,7 @@
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Commentable
 
   devise :database_authenticatable, :registerable, :confirmable, :recoverable, stretches: 12
 
@@ -38,16 +39,35 @@ class User
 
   field :first_name, type: String
   field :last_name, type: String
+  field :age, type: Integer
   field :phone, type: String
   field :city, type: String
+  field :reputation, type: Integer
+  field :showroom, type: Boolean, default: false
 
-  has_many :comments
-  has_many :trades, class_name: 'Comment', inverse_of: :trades
-  has_many :swaps, class_name: 'Comment', inverse_of: :swaps
+  field :cars_count, type: Fixnum, default: 0
+
   has_many :cars
+  has_many :comments
+  has_many :trades
+  has_many :swaps
+
+  embeds_one :address
+
+  mount_uploader :avatar, AvatarUploader
 
   def name
     "#{first_name} #{last_name}"
   end
 
+  def to_json
+    {
+      id: id,
+      name: name,
+      email: email,
+      age: age,
+      phone: phone,
+      city: city
+    }
+  end
 end

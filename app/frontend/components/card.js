@@ -1,12 +1,12 @@
 import React from 'react'
 import Image from './base/image'
-import MaterialCard from './base/material_card'
+import InfoBlock from "./car/info_block";
 
 class Card extends React.Component {
 
     render() {
         return(
-            <MaterialCard cssClass='hoverable'>
+            <div className='card'>
                 <div className='card-img-top'>
                     <Image
                         className='card-img-top img-fluid'
@@ -14,24 +14,36 @@ class Card extends React.Component {
                 </div>
                 <div className='card-body'>
                     <a href={this.props.car_path}>
-                        <h4 className='card-title thin'>{this.props.title}</h4>
+                        <h4 className='card-title thin'>
+                            {this.props.title}
+                            &nbsp;
+                            <span className='float-right grey'> {this.props.year} </span>
+                        </h4>
                     </a>
 
                     <div className='row'>
                         <div className='col-md-6'>
-                            <img src='/assets/icons/gearshift.svg' height='17' width='17'/>{this.props.transmission}
+                            <InfoBlock icon='icon-gearshift-1'
+                                       desc='Трансмиссия'
+                                       value={this.props.transmission}/>
                         </div>
                         <div className='col-md-6'>
-                            <img src='/assets/icons/dashboard.svg' height='17' width='17'/>{this.props.mileage}
+                            <InfoBlock icon='icon-dashboard'
+                                       desc='Пробег'
+                                       value={this.props.mileage}/>
                         </div>
                     </div>
 
                     <div className='row'>
                         <div className='col-md-6'>
-                            <img src='/assets/icons/engine.svg' height='17' width='17'/>{this.props.engine}
+                            <InfoBlock icon='icon-engine'
+                                       desc='Двигатель'
+                                       value={this.props.engine}/>
                         </div>
                         <div className='col-md-6'>
-                            <img src='/assets/icons/gas-station.svg' height='17' width='17'/>{this.props.fuel}
+                            <InfoBlock icon='icon-gas-station'
+                                       desc='Топливо'
+                                       value={this.props.fuel}/>
                         </div>
                     </div>
 
@@ -39,7 +51,7 @@ class Card extends React.Component {
                 <div className="card-footer text-center bg-warning">
                     <h3 className='thin'>{this.props.price}</h3>
                 </div>
-            </MaterialCard>
+            </div>
         )
     }
 

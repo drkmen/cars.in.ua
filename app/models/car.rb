@@ -1,10 +1,13 @@
+require 'elasticsearch/model'
+
 class Car
-  include Optionable #, Paranoidable
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Attributes::Dynamic
   include Mongoid::Paranoia
   include Mongoid::Slug
+
+  include Optionable, Commentable, Searchable
 
   field :title, type: String
   field :description, type: String
@@ -14,31 +17,35 @@ class Car
   field :color, type: String
   field :color_hex, type: String
   field :engine, type: String
-  field :fuel, type: String
+  field :equipment, type: String
+  field :doors, type: Integer, default: 5
   field :vin, type: String
   field :sold, type: Boolean, default: false
+  field :completed, type: Boolean, default: false
 
-  belongs_to :user
+  belongs_to :car_type, counter_cache: true
+  belongs_to :car_carcass, counter_cache: true
   belongs_to :mark, class_name: 'CarMarkList', counter_cache: true
   belongs_to :model, class_name: 'CarModelList', counter_cache: true
   belongs_to :transmission
   belongs_to :fuel
-
-  # has_one :fuel
-  # has_one :transmission
+  belongs_to :user, counter_cache: true
+  alias :seller :user
 
   has_many :images, dependent: :delete
-  has_many :comments, dependent: :delete
-  has_many :options
+  has_and_belongs_to_many :options
 
-  accepts_nested_attributes_for :model, :fuel, :transmission
+  embeds_many :trades
+  embeds_many :swaps
+  embeds_one :address
+
   accepts_nested_attributes_for :images, allow_destroy: true
 
   before_save :set_title, if: :year_changed?
   slug :slug_title
 
   def main_image
-    images.first.image#.url
+    images.first.image
   end
 
   def set_title
@@ -50,7 +57,38 @@ class Car
   end
 
   def to_json
-    attributes.merge(images: images_to_json)
+    {
+      title: title,
+      description: description,
+      year: year,
+      mileage: mileage.to_s.in_groups_of(3),
+      price: price.to_i.to_s.in_groups_of(3),
+      color: color,
+      color_hex: color_hex,
+      engine: engine,
+      fuel: fuel,
+      vin: vin,
+      sold: sold,
+      created_at: created_at.strftime('%d/%m/%Y'),
+      doors: doors,
+      seller: user,
+      mark: mark,
+      model: model,
+      transmission: transmission,
+      images: images_to_json,
+      comments: comments,
+      trades: trades,
+      swaps: swaps,
+      options: grouped_options,
+      address: address.to_json,
+      car_type: car_type,
+      car_carcass: car_carcass,
+      additional_options: additional_options
+    }
+  end
+
+  def as_indexed_json(options = {})
+    as_json(except: [:id, :_id])
   end
 
   def images_to_json
@@ -66,12 +104,24 @@ class Car
   def to_card_json
     {
       image: main_image,
-      title: title,
+      title: "#{mark&.name&.capitalize} #{model&.name}",
+      year: year,
       price: price,
-      transmission: transmission&.type,
+      transmission: transmission&.name,
       mileage: mileage,
-      fuel: fuel&.type,
+      fuel: fuel&.name,
       engine: engine
     }
   end
+
+  def grouped_options
+    options.pluck(:type).uniq.map do |type|
+      {
+        type: type,
+        options: options.select { |opt| opt.type == type }
+      }
+    end
+  end
 end
+
+

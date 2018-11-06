@@ -1,49 +1,124 @@
 .container
   = form_for @car do |f|
+
+    %h3
+      Tell us, there is the car
+      %hr
+
+    .form-row
+      = f.fields_for :address do |ff|
+        .col-3
+          .form-group
+            = @car.address.country
+            = ff.label :country
+            = ff.text_field :country, class: 'form-control', placeholder: 'Country'
+        .col-3
+          .form-group
+            = ff.label :city
+            = ff.text_field :city, class: 'form-control', placeholder: 'City'
+      .col-3
+        .form-group
+          = f.label :car_type
+          = f.select :car_type_id, @related_data[:car_types], {}, class: 'custom-select'
+      .col-3
+        .form-group
+          = f.label :car_carcass
+          = f.select :car_carcass_id, @related_data[:carcasses], {}, class: 'custom-select'
+
+    %h3
+      Main
+      %hr
+
     .form-row
       .col-3
         .form-group
           = f.label :mark
-          = f.select :mark, @mark_list, {}, class: 'custom-select'
+          = f.select :mark_id, @related_data[:mark_list], { prompt: 'Select Mark' }, class: 'custom-select'
       .col-3
         .form-group
           = f.label :model
-          = f.select :model, [], {}, { class: 'custom-select', disabled: true }
+          = f.select :model_id, [], {}, { class: 'custom-select', disabled: true }
       .col-3
         .form-group
           = f.label :year
           = f.number_field :year, in: (1970..DateTime.now.year), step: 1, class: 'form-control'
+      .col-3
+        .form-group
+          = f.label :transmission
+          = f.select :transmission_id, @related_data[:transmissions], {}, class: 'custom-select'
 
-    .form-group
-      .form-row
-        .col-3
+    .form-row
+      .col-3
+        .form-group
+          = f.label :engine
+          = f.text_field :engine, class: 'form-control'
+      .col-3
+        .form-group
           = f.label :mileage
           = f.text_field :mileage, class: 'form-control'
-        .col-3
+      .col-3
+        .form-group
           = f.label :price
           = f.text_field :price, class: 'form-control'
-        .col-3
+      .col-3
+        .form-group
           = f.label :color
           = f.text_field :color, class: 'form-control'
 
-    .form-group
-      = f.label :description
-      = f.text_area :description, class: 'form-control'
+    %h3
+      General
+      %hr
 
-    .form-group
-      = f.label :engine
-      = f.text_field :engine, class: 'form-control'
-    .form-group
-      = f.label :transmission
-      = f.select :transmission_id, @transmissions, {}, class: 'custom-select'
-    .form-group
-      = f.label :fuel
-      = f.select :fuel_id, @fuels, {}, class: 'custom-select'
-    .form-group
-      = f.label :vin
-      = f.text_field :vin, class: 'form-control'
-    .form-group
-      = f.file_field :images, class: 'form-control-file', multiple: true
+    .form-row
+      .col-3
+        .form-group
+          = f.label :fuel
+          = f.select :fuel_id, @related_data[:fuels], {}, class: 'custom-select'
+      .col-3
+        .form-group
+          = f.label :vin
+          = f.text_field :vin, class: 'form-control'
+      .col-3
+        .form-group
+          = f.label :equipment
+          = f.text_field :equipment, class: 'form-control'
+      .col-3
+        .form-group
+          = f.label :doors
+          = f.text_field :doors, class: 'form-control'
 
-    .form-group
-      = f.submit
+
+    .form-row
+      .col-12
+        .form-group
+          = f.label :description
+          = f.text_area :description, class: 'form-control'
+        .form-group
+          = f.file_field :images, class: 'form-control-file', multiple: true
+
+    %h3
+      Options
+      %hr
+
+    .form-row
+      - Option.all.group_by(&:type).each do |options|
+        %div{ class: "col-#{12 / Option.all.group_by(&:type).size}"}
+          %h5= options.first
+          - options.last.each do |opt|
+            .option-group
+              = check_box_tag 'car[option_ids][]', opt.id.to_s, @car.options.pluck(:id).include?(opt.id)
+              &nbsp
+              = label_tag opt.id, opt.name
+            -#%br
+          -#options[options_ids][]
+
+          -#= collection_check_boxes :options, :options_ids, options[1], :id, :name do |b|
+            = b.label(class: "check_box") { b.check_box(class: '') + b.text }
+        -#<%=collection_check_boxes(:player_profile, :playing_role_ids, PlayerRole.all, :id, :name)%>
+        -#= f.fields_for :options, @car.options do |opt_fields|
+          = opt_fields.check_box :name
+
+
+    .form-row
+      .form-group
+        = f.submit class: 'btn btn-warning'

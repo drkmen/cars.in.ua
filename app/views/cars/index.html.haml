@@ -1,7 +1,7 @@
 - content_for :head do
   %meta{:content => "no-cache", :name => "turbolinks-cache-control"}/
 
-.container
+.container.cars-index
   .row
     - @cars.each_slice(4) do |cars|
       .card-deck.mx-auto

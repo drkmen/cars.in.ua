@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 
 class Image extends React.Component {
@@ -8,7 +9,17 @@ class Image extends React.Component {
     }
 
     static defaultProps = {
-        changeActive: function(){}
+        changeActive: function(){},
+        // onMount: function(){}
+    }
+
+    componentDidMount = () => {
+        console.log('img mounted');
+        // console.log(this.props);
+
+        // console.log(ReactDOM.findDOMNode(this));
+
+        // this.props.onMount(ReactDOM.findDOMNode(this))
     }
 
     changeActive(id) {

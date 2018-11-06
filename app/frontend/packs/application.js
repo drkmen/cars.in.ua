@@ -9,16 +9,19 @@
 
 // third party
 import 'jquery/src/jquery';
-import 'bootstrap/dist/js/bootstrap';
+import 'bootstrap';
+import Rails from 'rails-ujs';
 import Turbolinks from "turbolinks";
+import * as moment from 'moment';
 
 // first party
-import '../cars/new.es6';
+import '../cars/form.es6';
 import '../cars/show.es6';
 
 // styles
 import 'stylesheets/application.scss';
 
+Rails.start();
 Turbolinks.start();
 
 // Support component names relative to this directory:
@@ -44,3 +47,10 @@ $(document).on('turbolinks:load', function(){
 $(document).on('turbolinks:before-cache.transition', function(){
     $('.car-show').removeClass('animated slideInRight slideOutRight slideOutLeft slideInLeft');
 });
+
+
+// $('#exampleModal').modal();
+// $('#exampleModal').modal('show');
+console.log('cheeeeee');
+var bootstrap_enabled = (typeof $().modal == 'function');
+// console.log(bootstrap_enabled);

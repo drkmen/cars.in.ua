@@ -1,5 +1,6 @@
 class CarModelList
   include Mongoid::Document
+  include Mongoid::Timestamps
 
   has_many :cars
   belongs_to :mark, class_name: 'CarMarkList', inverse_of: :models

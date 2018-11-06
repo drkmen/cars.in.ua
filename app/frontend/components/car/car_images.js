@@ -1,7 +1,6 @@
-import React from "react"
-import PropTypes from "prop-types"
-// import ImageSet from './imageSet'
-import Slider from './base/slider'
+import React from 'react';
+import PropTypes from 'prop-types';
+import Slider from '../base/slider';
 
 class CarImages extends React.Component {
 
@@ -16,10 +15,6 @@ class CarImages extends React.Component {
             hasError: false,
             error: null
         };
-        // this.activeImage = this.props.images.find(image => image.main == true) || this.props.images[0],
-        // this.changeMain = this.changeMain.bind(this)
-        // this.nextImage = this.nextImage.bind(this)
-        // this.prevImage = this.prevImage.bind(this)
     }
 
     componentDidCatch = (error, _info) => {

@@ -1,16 +1,25 @@
 class Comment
+  include Rails.application.routes.url_helpers
   include Mongoid::Document
   include Mongoid::Timestamps
 
   field :body, type: String
-  field :type, type: String
-  field :user_id, type: Integer
-  field :car_id, type: Integer
 
+  belongs_to :commentable, polymorphic: true
   belongs_to :user, optional: true
-  belongs_to :car, optional: true
 
-  scope :swaps, -> { where(type: 'swap') }
-  scope :trades, -> { where(type: 'trade') }
-
+  def to_json
+    path = car_comment_path(id: self.id, car_id: commentable.id)
+    {
+      body: body,
+      user: user&.to_json,
+      commentable: commentable,
+      created_at: created_at,
+      updated_at: updated_at,
+      update_path: path,
+      delete_path: path,
+      reply_path: nil,
+      # comment_owner: false # filled in car/show view :(
+    }
+  end
 end
