@@ -14,7 +14,8 @@ class CarsController < ApplicationController
     @car_comments = @car.comments.map(&:to_json)
     if current_user
       @car_comments.each do |cm|
-        cm.merge! comment_owner: current_user.id == cm.dig(:user, :id)
+        cm.merge! comment_owner: current_user.id == cm.dig(:user, :id),
+                  car_owner: current_user.id == cm[:commentable][:user]
       end
     end
   end

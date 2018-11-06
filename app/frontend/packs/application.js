@@ -9,10 +9,10 @@
 
 // third party
 import 'jquery/src/jquery';
-import 'bootstrap/dist/js/bootstrap';
-import {} from 'jquery-ujs'
-import * as moment from 'moment';
+import 'bootstrap';
+import Rails from 'rails-ujs';
 import Turbolinks from "turbolinks";
+import * as moment from 'moment';
 
 // first party
 import '../cars/form.es6';
@@ -21,6 +21,7 @@ import '../cars/show.es6';
 // styles
 import 'stylesheets/application.scss';
 
+Rails.start();
 Turbolinks.start();
 
 // Support component names relative to this directory:
@@ -33,7 +34,6 @@ ReactRailsUJS.detectEvents();
 let $prevCar;
 
 $(document).on('turbolinks:click', function(e){
-    console.log(moment().format());
     $prevCar = $(e.target.firstChild).attr('class').indexOf('prev-car') >= 0;
     $('.car-show').addClass('animated ' + ($prevCar ? 'slideOutRight' : 'slideOutLeft'));
 });
@@ -47,3 +47,10 @@ $(document).on('turbolinks:load', function(){
 $(document).on('turbolinks:before-cache.transition', function(){
     $('.car-show').removeClass('animated slideInRight slideOutRight slideOutLeft slideInLeft');
 });
+
+
+// $('#exampleModal').modal();
+// $('#exampleModal').modal('show');
+console.log('cheeeeee');
+var bootstrap_enabled = (typeof $().modal == 'function');
+// console.log(bootstrap_enabled);

@@ -1,6 +1,7 @@
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Commentable
 
   devise :database_authenticatable, :registerable, :confirmable, :recoverable, stretches: 12
 
@@ -42,6 +43,7 @@ class User
   field :phone, type: String
   field :city, type: String
   field :reputation, type: Integer
+  field :showroom, type: Boolean, default: false
 
   field :cars_count, type: Fixnum, default: 0
 
@@ -49,6 +51,8 @@ class User
   has_many :comments
   has_many :trades
   has_many :swaps
+
+  embeds_one :address
 
   mount_uploader :avatar, AvatarUploader
 

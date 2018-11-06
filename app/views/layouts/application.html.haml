@@ -7,10 +7,13 @@
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
     = stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload'
   %body
+    -#= render '/shared/modal', id: 'signin222', title: 'Sign in'
     .container-fluid
       #header.container.material-card.medium
         -#%p.notice= notice
         -#%p.alert= alert
+
+
         %ul.nav.justify-content-center
           %li.nav-item
             = link_to 'Home', root_path, class: 'nav-link'
@@ -23,7 +26,9 @@
               = link_to 'Logout', destroy_user_session_path, method: :delete
           - else
             %li.nav-item
-              = link_to 'Sign in', new_user_session_path, class: 'nav-link'
+              = link_to 'Sign in', new_user_session_path, class: 'nav-link'#, 'data-toggle' => 'modal', 'data-target' => '#signin'
+              -#%a.nav-link{'data-toggle' => 'modal', 'data-target' => '#signin222', type: 'button'}
+                Sign In
             %li.nav-item
               = link_to 'Sign up', new_user_registration_path, class: 'nav-link'
     .container-fluid
@@ -32,3 +37,7 @@
 
     #footer
       %h1 nogi
+
+  -#%button.btn.btn-primary{"data-target" => "#exampleModal", "data-toggle" => "modal", :type => "button"}
+    -#Launch demo modal
+  -#= render '/shared/modal2'

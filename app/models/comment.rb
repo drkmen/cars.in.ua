@@ -13,7 +13,7 @@ class Comment
     {
       body: body,
       user: user&.to_json,
-      # commentable: commentable,
+      commentable: commentable,
       created_at: created_at,
       updated_at: updated_at,
       update_path: path,

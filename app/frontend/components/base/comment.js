@@ -37,7 +37,7 @@ class Comment extends React.Component {
                                 {comment.comment_owner && comment.update_path && (
                                     <a href={comment.update_path}>Edit</a>
                                 )}
-                                {comment.comment_owner && comment.delete_path && (
+                                {(comment.car_owner || comment.comment_owner) && comment.delete_path && (
                                     <span> |
                                         <a className='delete' href={comment.delete_path} data-method="delete"> Delete</a>
                                     </span>
