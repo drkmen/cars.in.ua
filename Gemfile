@@ -9,6 +9,10 @@ gem 'rails', '~> 5.1.4'
 gem 'mongoid'
 gem 'mongoid-slug'
 gem 'mongoid_paranoia'
+
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
+
 gem 'puma', '~> 3.7'
 gem 'sass-rails', '~> 5.0'
 gem 'devise'

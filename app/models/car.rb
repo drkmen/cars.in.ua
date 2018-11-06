@@ -1,10 +1,13 @@
+require 'elasticsearch/model'
+
 class Car
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Attributes::Dynamic
   include Mongoid::Paranoia
   include Mongoid::Slug
-  include Optionable, Commentable #, Paranoidable
+
+  include Optionable, Commentable, Searchable
 
   field :title, type: String
   field :description, type: String
@@ -32,12 +35,10 @@ class Car
   has_many :images, dependent: :delete
   has_and_belongs_to_many :options
 
-  # embeds_many :comments, as: :commentable
   embeds_many :trades
   embeds_many :swaps
   embeds_one :address
 
-  # accepts_nested_attributes_for :model, :fuel, :transmission
   accepts_nested_attributes_for :images, allow_destroy: true
 
   before_save :set_title, if: :year_changed?
@@ -84,6 +85,10 @@ class Car
       car_carcass: car_carcass,
       additional_options: additional_options
     }
+  end
+
+  def as_indexed_json(options = {})
+    as_json(except: [:id, :_id])
   end
 
   def images_to_json
