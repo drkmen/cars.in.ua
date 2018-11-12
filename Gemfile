@@ -10,6 +10,8 @@ gem 'mongoid'
 gem 'mongoid-slug'
 gem 'mongoid_paranoia'
 
+gem 'dotenv-rails'
+
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 
@@ -18,10 +20,10 @@ gem 'sass-rails', '~> 5.0'
 gem 'devise'
 gem 'haml-rails'
 gem 'foreman'
+gem 'auto_ria_api', '~> 0.1.1'
 
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'rmagick'
-gem 'dotenv-rails'
 
 gem 'react-rails'
 gem 'webpacker'

@@ -5,5 +5,6 @@ class CarType
   has_many :cars
 
   field :name, type: String
+  field :uid
   field :cars_count, type: Integer, default: 0
 end

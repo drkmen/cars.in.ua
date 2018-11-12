@@ -14,7 +14,7 @@ class Image extends React.Component {
     }
 
     componentDidMount = () => {
-        console.log('img mounted');
+        // console.log('img mounted');
         // console.log(this.props);
 
         // console.log(ReactDOM.findDOMNode(this));

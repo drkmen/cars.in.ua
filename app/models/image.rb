@@ -9,4 +9,8 @@ class Image
 
   belongs_to :car
   # embedded_in :car
+
+  # def image
+  #   super || 'car-placeholder'
+  # end
 end

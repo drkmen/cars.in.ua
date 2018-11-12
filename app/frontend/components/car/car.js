@@ -36,7 +36,12 @@ class Car extends React.Component {
                             </span>
                         </div>
                     </div>
-                    <CarDescription car={this.props.car}/>
+                    <CarDescription car={this.props.car}
+                                    car_type={this.props.car.car_type}
+                                    // car_carcass={this.props.car.car_carcass}
+                                    // fuel={this.props.car.fuel}
+                                    // transmission={this.props.car.transmission}
+                    />
                 </div>
             </div>
         )

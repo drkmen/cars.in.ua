@@ -9,6 +9,7 @@ class Car
 
   include Optionable, Commentable, Searchable
 
+  field :uid
   field :title, type: String
   field :description, type: String
   field :year, type: String
@@ -24,9 +25,9 @@ class Car
   field :completed, type: Boolean, default: false
 
   belongs_to :car_type, counter_cache: true
-  belongs_to :car_carcass, counter_cache: true
-  belongs_to :mark, class_name: 'CarMarkList', counter_cache: true
-  belongs_to :model, class_name: 'CarModelList', counter_cache: true
+  belongs_to :car_carcass, counter_cache: true, optional: true
+  belongs_to :mark, class_name: 'CarMark', counter_cache: true
+  belongs_to :model, class_name: 'CarModel', counter_cache: true
   belongs_to :transmission
   belongs_to :fuel
   belongs_to :user, counter_cache: true
@@ -45,7 +46,7 @@ class Car
   slug :slug_title
 
   def main_image
-    images.first.image
+    images&.first&.image || images.new.image # stub for placeholder
   end
 
   def set_title
@@ -83,7 +84,8 @@ class Car
       address: address.to_json,
       car_type: car_type,
       car_carcass: car_carcass,
-      additional_options: additional_options
+      additional_options: additional_options,
+      
     }
   end
 
@@ -92,13 +94,15 @@ class Car
   end
 
   def images_to_json
-    images.map do |img|
+    imgs = images.map do |img|
       {
         id: img.id.to_s,
         main: img.main,
         url: img.image.url
       }
     end
+    return [images.new] if imgs.empty?
+    imgs
   end
 
   def to_card_json

@@ -1,11 +1,12 @@
-class CarModelList
+class CarModel
   include Mongoid::Document
   include Mongoid::Timestamps
 
   has_many :cars
-  belongs_to :mark, class_name: 'CarMarkList', inverse_of: :models
+  belongs_to :mark, class_name: 'CarMark', inverse_of: :models
 
   field :name, type: String
+  field :uid
   field :cars_count, type: Integer, default: 0
 
   def to_json

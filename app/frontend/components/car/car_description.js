@@ -6,13 +6,14 @@ class CarDescription extends React.Component {
 
     render() {
         const car = this.props.car
+
         return(
             <div className='row information'>
                 <div className='col'>
                     <div className='row section'>
                         <div className='col-6'>
                             <h4 className='d-inline-block'>{car.address.full}</h4>
-                            <p>{car.car_type.name} / {car.car_carcass.name} / {car.doors} дверей</p>
+                            <p>{this.props.car_type.name} / {this.props.car_carcass.name} / {car.doors} дверей</p>
                         </div>
                         <div className='col-6'>
                             <div className='row float-right'>
@@ -25,10 +26,10 @@ class CarDescription extends React.Component {
                                                value={car.engine  + ' л.'}/>
                                     <InfoBlock icon='icon-gas-station'
                                                desc='Топливо'
-                                               value={car.fuel.name}/>
+                                               value={this.props.fuel.name}/>
                                     <InfoBlock icon='icon-gearshift-1'
                                                desc='Трансмиссия'
-                                               value={car.transmission.name}/>
+                                               value={this.props.transmission.name}/>
                                 </div>
                             </div>
                         </div>
@@ -51,12 +52,25 @@ class CarDescription extends React.Component {
                             <Options options={car.options}/>
                         </div>
                     </div>
-
                 </div>
             </div>
         )
     }
+}
 
+CarDescription.defaultProps = {
+    car_type: {
+        name: 'DEFAULT TYPE'
+    },
+    car_carcass: {
+        name: null
+    },
+    fuel: {
+        name: 'DEFAULT FUEL'
+    },
+    transmission: {
+        name: 'DEFAULT transmission'
+    }
 }
 
 export default CarDescription

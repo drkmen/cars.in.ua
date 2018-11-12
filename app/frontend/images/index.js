@@ -1,0 +1,1 @@
+import './car-placeholder.jpg'

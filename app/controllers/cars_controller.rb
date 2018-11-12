@@ -5,6 +5,9 @@ class CarsController < ApplicationController
   before_action :prepare_related_data, only: %i[new edit]
 
   def index
+    # p '-'*100
+    # p AutoRiaApi::Base.new(api_key: ENV['AUTO_RIA_API_KEY']).types
+    # p '-'*100
     @cars = Car.all.order(created_at: :desc).entries
   end
 
