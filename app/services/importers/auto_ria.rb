@@ -3,19 +3,38 @@ module Importers
     class Importer
 
       def self.get_single_car(id)
-        # 23120045
         res = client.info car_id: id
+
+        pp res
+        # p '-'*100
+        # p res['autoData']['fuelNameEng']
+        # p Fuel.find_or_create_by(name: res['autoData']['fuelNameEng']).id
+        # p '-'*100
+
         car = Car.new uid: res['autoData']['autoId'],
                       created_at: res['addDate'],
                       updated_at: res['updateDate'],
+                      imported: true,
+                      imported_at: DateTime.now,
                       price: res['USD'],
                       description: res['autoData']['description'],
                       year: res['autoData']['year'],
                       mileage: res['autoData']['raceInt'],
+                      engine: res['autoData']['fuelName'],
 
                       mark_id: CarMark.find_or_create_by(uid: res['markId'], name: res['markName']).id,
                       model_id: CarModel.find_or_create_by(uid: res['modelId'], name: res['modelName']).id,
-                      car_type_id: CarType.find_or_create_by(uid: res['autoData']['categoryId'], name: res['autoData']['categoryNameEng']).id,
+                      transmission_id: Transmission.find_or_create_by(name: res['autoData']['gearboxName']).id,
+                      fuel_id: Fuel.find_or_create_by(name: res['autoData']['fuelNameEng']).id,
+                      car_type_id: CarType.find_or_create_by(uid: res['autoData']['categoryId'],
+                                                             name: res['autoData']['categoryNameEng']).id,
+
+                      additional_options: {
+                        additional_currencies: {
+                          'UAH': res['UAH'],
+                          'EUR': res['EUR']
+                        }
+                      },
 
                       gearbox_name: res['autoData']['gearboxName'],
                       fuel_name_eng: res['autoData']['fuelNameEng'],
@@ -23,9 +42,11 @@ module Importers
                       photoData: res['photoData'],
                       auto_ria_link: res['linkToView']
 
-        p '*'*100
-        p car
-        p '*'*100
+        car.images << Image.new(remote_image_url: res['photoData']['seoLinkF']) # main image
+
+        get_images(id, car)
+        # p '.'*100
+        # pp car
         car.save!
       end
 
@@ -39,8 +60,11 @@ module Importers
 
       protected
 
-      def get_images(id)
-
+      def self.get_images(id, inner_car)
+        photos = client.photos(car_id: id)
+        photos['data']&.first&.last&.each do |_key, value|
+          inner_car.images << Image.new(remote_image_url: value.dig('formats')&.last)
+        end
       end
 
       def get_options(id)

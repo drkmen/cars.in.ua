@@ -1,10 +1,12 @@
 class Option
   include Mongoid::Document
 
-  field :name, type: String
-  field :type, type: String
-
   has_and_belongs_to_many :car
+  belongs_to :car_type
+
+  field :name, type: String
+  field :uid
+  field :type, type: String
 
   validates :name, uniqueness: true
 

@@ -15,7 +15,7 @@ $(document).ready(() => {
     let $mark = $('select#car_mark_id');
 
     fill_model_list = (markId) => {
-        $.getJSON(`/car_mark_lists/${markId}/mark_models`, (data) => {
+        $.getJSON(`/car_marks/${markId}/mark_models`, (data) => {
             $model.find('option').remove();
 
             $.each(data, (index, item) => {

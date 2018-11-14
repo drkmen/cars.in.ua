@@ -20,7 +20,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'devise'
 gem 'haml-rails'
 gem 'foreman'
-gem 'auto_ria_api', '~> 0.1.1'
+gem 'auto_ria_api', '0.1.4'
 
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'rmagick'

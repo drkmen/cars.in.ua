@@ -8,7 +8,7 @@ class CarsController < ApplicationController
     # p '-'*100
     # p AutoRiaApi::Base.new(api_key: ENV['AUTO_RIA_API_KEY']).types
     # p '-'*100
-    @cars = Car.all.order(created_at: :desc).entries
+    @cars = Car.all.order(imported_at: :desc, created_at: :desc).entries
   end
 
   def show
@@ -25,6 +25,7 @@ class CarsController < ApplicationController
 
   def new
     @car = Car.new
+    @car.build_address
   end
 
   def edit
@@ -58,7 +59,7 @@ class CarsController < ApplicationController
   def prepare_related_data
     @related_data = {
       transmissions: Transmission.all.pluck(:name, :id),
-      mark_list: CarMarkList.all.pluck(:name, :id),
+      mark_list: CarMark.all.pluck(:name, :id),
       car_types: CarType.all.pluck(:name, :id),
       carcasses: CarCarcass.all.pluck(:name, :id),
       fuels: Fuel.all.pluck(:name, :id)

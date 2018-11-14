@@ -23,6 +23,8 @@ class Car
   field :vin, type: String
   field :sold, type: Boolean, default: false
   field :completed, type: Boolean, default: false
+  field :imported,  type: Boolean, default: false
+  field :imported_at, type: DateTime
 
   belongs_to :car_type, counter_cache: true
   belongs_to :car_carcass, counter_cache: true, optional: true

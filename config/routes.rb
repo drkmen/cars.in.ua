@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   end
 
   # you don't need all CRUD routes
-  resources :car_mark_lists do
+  resources :car_marks do
     get 'mark_models'
   end
 end

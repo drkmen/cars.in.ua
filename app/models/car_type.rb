@@ -3,6 +3,7 @@ class CarType
   include Mongoid::Timestamps
 
   has_many :cars
+  has_many :options
 
   field :name, type: String
   field :uid
