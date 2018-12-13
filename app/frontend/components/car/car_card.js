@@ -1,8 +1,12 @@
 import React from 'react'
-import Image from './base/image'
-import InfoBlock from "./car/info_block";
+import Image from '../base/image'
+import InfoBlock from "./info_block";
 
-class Card extends React.Component {
+class CarCard extends React.Component {
+
+    defaultProps = {
+
+    }
 
     render() {
         return(
@@ -57,4 +61,4 @@ class Card extends React.Component {
 
 }
 
-export default Card
+export default CarCard

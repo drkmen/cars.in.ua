@@ -9,7 +9,7 @@
       = f.fields_for :address do |ff|
         .col-3
           .form-group
-            = @car.address.country
+            = @car&.address&.country
             = ff.label :country
             = ff.text_field :country, class: 'form-control', placeholder: 'Country'
         .col-3

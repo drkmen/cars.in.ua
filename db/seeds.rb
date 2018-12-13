@@ -75,28 +75,32 @@ client = AutoRiaApi::Base.new(api_key: ENV['AUTO_RIA_API_KEY'])
 # { name: "Автодом", value: 8 },
 # { name: "Воздушный транспорт", value: 9 }
 
-client.types.each do |type|
-  p "creating car types: #{type['name']}"
-  car_type = CarType.create! uid: type['value'], name: type['name']
-  next unless type['value'].to_i == 1
+client.regions.each do |region|
 
-  client.carcasses(type: type['value']).each do |carcass|
-    p "creating carcasses: #{carcass['name']}"
-    CarCarcass.create! uid: carcass['value'], name: carcass['name']
-  end
-
-  client.marks(type: type['value']).each do |mark|
-    p "creating car marks: #{mark['name']}"
-    i_mark = CarMark.create uid: mark['value'], name: mark['name']
-
-    client.models(type: type['value'], mark: mark['value']).each do |model|
-      p "creating car models: #{model['name']}"
-      i_mark.models.create! uid: model['value'], name: model['name']
-    end
-  end
-
-  client.options(type: type['value']).each do |option|
-    p "creating options: #{option['name']}"
-    car_type.options.create! uid: option['value'], name: option['name']
-  end
 end
+
+# client.types.each do |type|
+#   p "creating car types: #{type['name']}"
+#   car_type = CarType.create! uid: type['value'], name: type['name']
+#   next unless type['value'].to_i == 1
+#
+#   client.carcasses(type: type['value']).each do |carcass|
+#     p "creating carcasses: #{carcass['name']}"
+#     CarCarcass.create! uid: carcass['value'], name: carcass['name']
+#   end
+#
+#   client.marks(type: type['value']).each do |mark|
+#     p "creating car marks: #{mark['name']}"
+#     i_mark = CarMark.create uid: mark['value'], name: mark['name']
+#
+#     client.models(type: type['value'], mark: mark['value']).each do |model|
+#       p "creating car models: #{model['name']}"
+#       i_mark.models.create! uid: model['value'], name: model['name']
+#     end
+#   end
+#
+#   client.options(type: type['value']).each do |option|
+#     p "creating options: #{option['name']}"
+#     car_type.options.create! uid: option['value'], name: option['name']
+#   end
+# end

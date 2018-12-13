@@ -9,6 +9,17 @@ class Car
 
   include Optionable, Commentable, Searchable
 
+  # settings do
+  #   mappings dynamic: false do
+  #     indexes :mark, type: :text
+  #     indexes :model, type: :text
+  #     indexes :title, type: :text, analyzer: :english
+  #     indexes :year, type: :text
+  #     indexes :color, type: :text
+  #     indexes :completed, type: :boolean
+  #   end
+  # end
+
   field :uid
   field :title, type: String
   field :description, type: String
@@ -25,6 +36,7 @@ class Car
   field :completed, type: Boolean, default: false
   field :imported,  type: Boolean, default: false
   field :imported_at, type: DateTime
+  field :published_at, type: DateTime
 
   belongs_to :car_type, counter_cache: true
   belongs_to :car_carcass, counter_cache: true, optional: true
@@ -73,6 +85,7 @@ class Car
       vin: vin,
       sold: sold,
       created_at: created_at.strftime('%d/%m/%Y'),
+      published_at: published_at&.strftime('%d/%m/%Y'),
       doors: doors,
       seller: user,
       mark: mark,
@@ -86,13 +99,20 @@ class Car
       address: address.to_json,
       car_type: car_type,
       car_carcass: car_carcass,
-      additional_options: additional_options,
-      
+      additional_options: additional_options
     }
   end
 
   def as_indexed_json(options = {})
-    as_json(except: [:id, :_id])
+    as_json(
+      only: [:title, :year, :price, :color],
+      include: {
+        mark: { only: :name },
+        model: { only: :name },
+        fuel: { only: :name },
+        transmission: { only: :name }
+      }
+    )
   end
 
   def images_to_json
@@ -112,7 +132,7 @@ class Car
       image: main_image,
       title: "#{mark&.name&.capitalize} #{model&.name}",
       year: year,
-      price: price,
+      price: '$' + price.to_i.to_s.in_groups_of(3),
       transmission: transmission&.name,
       mileage: mileage,
       fuel: fuel&.name,
@@ -128,6 +148,31 @@ class Car
       }
     end
   end
+
+  def self.search_similar(car:)
+    # p '/'*100
+    # p car.mark.name
+    # p '/'*100
+    self.search({
+      size: 10,
+      query: {
+        bool: {
+          should: [
+            { match: { "car_carcass.name": { query: car.car_carcass&.name || CarCarcass.first.name  } } },
+            { match: { "mark.name": { query: car.mark.name, fuzziness: 'auto' } } },
+            { match: { "model.name": { query: car.model.name, fuzziness: 'auto' } } },
+            { match: { "fuel.name": { query: car.fuel.name } } },
+            { match: { "transmission.name": { query: car.transmission.name } } }
+          ]
+        }
+      }
+    })
+  end
 end
 
-
+# belongs_to :car_type, counter_cache: true
+# belongs_to :car_carcass, counter_cache: true, optional: true
+# belongs_to :mark, class_name: 'CarMark', counter_cache: true
+# belongs_to :model, class_name: 'CarModel', counter_cache: true
+# belongs_to :transmission
+# belongs_to :fuel

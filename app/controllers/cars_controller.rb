@@ -8,12 +8,35 @@ class CarsController < ApplicationController
     # p '-'*100
     # p AutoRiaApi::Base.new(api_key: ENV['AUTO_RIA_API_KEY']).types
     # p '-'*100
-    @cars = Car.all.order(imported_at: :desc, created_at: :desc).entries
+    @cars = Car.all.order(created_at: :desc).entries
   end
 
   def show
-    @next_car = Car.last
-    @prev_car = Car.first
+    # @similar_car = Car.search @car.title
+    # @similar_cars = Car.search("#{@car.mark.name} #{@car.model.name}").records.to_a
+
+    p '.'*100
+    @similar_cars = Car.search_similar(car: @car)
+    p "-----------------------SCORES: #{@similar_cars.results.map { |che| che._score}}"
+    p "-----------------------SCORE: #{@similar_cars.results.first._score}"
+    @similar_cars = @similar_cars.records.to_a
+    p @similar_cars.size
+    p '.'*100
+
+
+
+
+    # @similar_cars = Car.search(query:
+    #                                {
+    #                                  must: [
+    #                                    match: { 'mark' => @car.mark.name },
+    #                                    match_phrase: { 'model' => @car.model.name }
+    #                                  ]
+    #                                }
+    # ).records.to_a
+    #
+    # @next_car = Car.last
+    # @prev_car = Car.first
     @car_comments = @car.comments.map(&:to_json)
     if current_user
       @car_comments.each do |cm|
@@ -28,9 +51,7 @@ class CarsController < ApplicationController
     @car.build_address
   end
 
-  def edit
-    @mark_list = CarMarkList.all.pluck(:name, :id)
-  end
+  def edit; end
 
   def update
     redirect_to @car if @car.update_attributes!(car_params)
@@ -64,5 +85,6 @@ class CarsController < ApplicationController
       carcasses: CarCarcass.all.pluck(:name, :id),
       fuels: Fuel.all.pluck(:name, :id)
     }
+    @car.build_address if @car.address.present?
   end
 end

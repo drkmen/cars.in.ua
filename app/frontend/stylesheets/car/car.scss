@@ -140,6 +140,12 @@
       //}
     }
   }
+
+  .section {
+    &.similar-cars {
+      padding: 0;
+    }
+  }
 }
 
 .arrow {
@@ -160,6 +166,41 @@
 
   &.prev-car {
     left: -43px;
+  }
+}
+
+.car-card-small {
+  .image-container {
+    color: $white;
+    position: relative;
+
+    .img-hover {
+      @include transition(0.2s, ease-out);
+
+      width: 100%;
+      padding: 0.5em;
+      background-color:rgba(0, 0, 0, 0.5);
+      position: absolute;
+      bottom: 0;
+
+      max-height: 35px;
+      overflow: hidden;
+
+      h5 {
+        font-size: 1.1em;
+      }
+    }
+
+    &:hover {
+      @include transition(0.2s, ease-in-out);
+
+      .img-hover {
+        @include transition(0.2s, ease-in);
+        background-color:rgba(0, 0, 0, 0.7);
+        max-height: 100%;
+      }
+    }
+
   }
 }
 

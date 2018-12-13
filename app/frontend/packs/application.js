@@ -51,6 +51,5 @@ $(document).on('turbolinks:before-cache.transition', function(){
 
 // $('#exampleModal').modal();
 // $('#exampleModal').modal('show');
-console.log('cheeeeee');
-var bootstrap_enabled = (typeof $().modal == 'function');
+// var bootstrap_enabled = (typeof $().modal == 'function');
 // console.log(bootstrap_enabled);

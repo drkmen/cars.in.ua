@@ -6,6 +6,7 @@ class CarDescription extends React.Component {
 
     render() {
         const car = this.props.car
+        console.log(car.options)
 
         return(
             <div className='row information'>
@@ -44,14 +45,14 @@ class CarDescription extends React.Component {
                         </div>
                     </div>
 
-                    <div className='row section'>
+                    {car.options.length > 1 && (<div className='row section'>
                         <div className='col-12'>
                             <h5>Опции</h5>
                         </div>
                         <div className='col-12 options'>
                             <Options options={car.options}/>
                         </div>
-                    </div>
+                    </div>)}
                 </div>
             </div>
         )
@@ -63,7 +64,7 @@ CarDescription.defaultProps = {
         name: 'DEFAULT TYPE'
     },
     car_carcass: {
-        name: null
+        name: 'DEFAULT CARCASS'
     },
     fuel: {
         name: 'DEFAULT FUEL'

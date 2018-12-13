@@ -2,9 +2,10 @@
   %meta{content: 'no-cache', name: 'turbolinks-cache-control'}/
 
 .car-show
-  = link_to @next_car do
-    .arrow.prev-car.pointable{title: 'previous car'}
-      %i.fa.fa-angle-left
+  - if @similar_cars.present?
+    = link_to @similar_cars[@similar_cars.index(@car).pred] do
+      .arrow.prev-car.pointable{title: 'previous car'}
+        %i.fa.fa-angle-left
 
   .section
     = react_component 'car/car', car: @car.to_json, edit_car_path: edit_car_path(@car)
@@ -38,19 +39,22 @@
           %h5.text-center Swaps & Trades
 
 
-  = link_to @prev_car do
-    .arrow.next-car.pointable{title: 'next car'}
-      %i.fa.fa-angle-right
+  - if @similar_cars.present?
+    = link_to @similar_cars[@similar_cars.index(@car).next % @similar_cars.size] do
+      .arrow.next-car.pointable{title: 'next car'}
+        %i.fa.fa-angle-right
 
-  %hr
-  .section.material-card.large
-    .row
-      .col-12
-        %br
-        %br
-        similar cars
-        %br
-        %br
+  - if @similar_cars.present?
+    %hr
+    .section.similar-cars.material-card.large
+      %h5.text-center Similar cars
+      .mx-auto
+        .row.no-margin
+          - @similar_cars.each do |car|
+            .col.no-padding
+              = link_to car_path(car) do
+                = react_component('car/car_card_small', car.to_card_json.merge(car_path: car_path(car)))
+
 
   %hr
   .section
