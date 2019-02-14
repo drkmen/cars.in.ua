@@ -1,4 +1,7 @@
-class Transmission
+class Country
+
+  # manufacturer country
+
   include Mongoid::Document
 
   field :name, type: String

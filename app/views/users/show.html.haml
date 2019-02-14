@@ -1,14 +1,80 @@
-.container
-  Info
-  -#= image_tag @user.avatar
-  %hr
-    %h4 Your cars
-    - @user.cars.each_slice(4) do |cars|
-      .card-deck.mx-auto
-        - cars.each do |car|
-          .mb-3{style: 'width: 20rem;'}
-            = react_component('card', car.to_card_json.merge(car_path: car_path(car)))
+.user
+  .container-fluid.profile-header
+    .container
+      .row
+        .col
+          %h5.text-center
+            %ul#user-tabs.nav.nav-tabs{role: 'tablist'}
+              %li.nav-item
+                %a#profile-tab.nav-link{'aria-controls' => 'profile', 'aria-selected' => 'false', 'data-toggle' => 'tab', href: '#profile', role: 'tab'}
+                  Profile
 
-  %hr
-    %h4 Saved cars
-  %hr
+              %li.nav-item
+                %a#cars-tab.nav-link.active{'aria-controls' => 'cars', 'aria-selected' => 'true', 'data-toggle' => 'tab', href: '#cars', role: 'tab'}
+                  Cars
+
+              %li.nav-item
+                %a#notifications-tab.nav-link{'aria-controls' => 'notifications', 'aria-selected' => 'false', 'data-toggle' => 'tab', href: '#notifications', role: 'tab'}
+                  Notifications
+
+              %li.nav-item
+                %a#settings-tab.nav-link{'aria-controls' => 'settings', 'aria-selected' => 'false', 'data-toggle' => 'tab', href: '#settings', role: 'tab'}
+                  Settings
+
+
+  .container
+    #user-tabs-content.tab-content
+      -# profile tab
+      .text-right
+        %span.pointable{'aria-controls' => 'edit_user', 'aria-expanded' => 'false', 'data-toggle' => 'collapse', href: '#edit_user', role: 'button'}
+          %i.fa.fa-pencil
+          Edit Profile
+
+      = render 'shared/collapse', id: 'edit_user' do
+        = render 'users/form'
+
+      #profile.tab-pane.fade{'aria-labelledby' => 'profile-tab', role: 'tabpanel'}
+        Hello there
+        .media
+          = image_tag @user.avatar, class: 'img-fluid rounded-circle', size: '125x125'
+          .media-body
+            %div
+              %h5.d-inline.mt-0
+                = @user.name
+              %p
+                %small.grey
+                  = @user.email
+              %p= @user.phone
+              %p= @user.age
+
+
+      -# cars tab
+      #cars.tab-pane.fade.show.active{'aria-labelledby' => 'cars-tab', role: 'tabpanel'}
+        %p
+        %h4.pointable{'aria-controls' => 'own_cars', 'aria-expanded' => 'false', 'data-toggle' => 'collapse', href: '#own_cars', role: 'button'}
+          Your cars
+        = render 'shared/collapse', id: 'own_cars' do
+          - @user.cars.each_slice(4) do |cars|
+            .card-deck.mx-auto
+              - cars.each do |car|
+                .mb-3.mx-auto{style: 'width: 19rem;'}
+                  = react_component('car/car_card', car.to_card_json)
+
+        %hr
+          %h4.pointable{'aria-controls' => 'saved_cars', 'aria-expanded' => 'false', 'data-toggle' => 'collapse', href: '#saved_cars', role: 'button'}
+            Saved cars
+          = render 'shared/collapse', id: 'saved_cars' do
+            - @user.favorite_cars.each_slice(4) do |cars|
+              .card-deck.mx-auto
+                - cars.each do |car|
+                  .mb-3.mx-auto{style: 'width: 19rem;'}
+                    = react_component('car/car_card', car.to_card_json)
+
+      -# notifications tab
+      #notifications.tab-pane.fade{'aria-labelledby' => 'notifications-tab', role: 'tabpanel'}
+        Notifications
+
+      -# settings tab
+      #settings.tab-pane.fade{'aria-labelledby' => 'settings-tab', role: 'tabpanel'}
+        Settings
+

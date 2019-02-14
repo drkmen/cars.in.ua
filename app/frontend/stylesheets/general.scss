@@ -54,6 +54,10 @@ h1, h2, h3, h4, h5 {
   color: $grey;
 }
 
+.gold {
+  color: $orange;
+}
+
 a {
   color: $black;
   text-decoration: none;
@@ -186,4 +190,9 @@ a {
   }
 }
 
+.user-card {
+  .body {
+    padding-left: 15px;
+  }
+}
 

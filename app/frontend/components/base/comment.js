@@ -17,7 +17,7 @@ class Comment extends React.Component {
         return(
             <div className='comment'>
                 <div className="media">
-                    <img className="mr-3" src={'this.props.user'} alt=""/>
+                    <img className="mr-3 img-fluid rounded-circle" src={user.avatar.url} alt="" width='50' height='50'/>
                     <div className="media-body">
                         <div>
                             <h5 className="d-inline mt-0">

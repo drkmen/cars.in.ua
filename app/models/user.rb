@@ -3,6 +3,7 @@ class User
   include Mongoid::Timestamps
   include Commentable
 
+  mount_uploader :avatar, ImageUploader
   devise :database_authenticatable, :registerable, :confirmable, :recoverable, stretches: 12
 
   ## Database authenticatable
@@ -37,6 +38,7 @@ class User
   ## Token authenticatable
   # field :authentication_token, :type => String
 
+  # field :avatar
   field :first_name, type: String
   field :last_name, type: String
   field :age, type: Integer
@@ -51,6 +53,8 @@ class User
   has_many :comments
   has_many :trades
   has_many :swaps
+  has_many :favorites, dependent: :delete
+  # has_many :favorite_cars, through: :favorites
 
   embeds_one :address
 
@@ -60,6 +64,10 @@ class User
     "#{first_name} #{last_name}"
   end
 
+  def favorite_cars
+    favorites.map(&:car).compact
+  end
+
   def to_json
     {
       id: id,
@@ -67,7 +75,8 @@ class User
       email: email,
       age: age,
       phone: phone,
-      city: city
+      city: city,
+      avatar: avatar
     }
   end
 end

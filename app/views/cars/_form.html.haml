@@ -6,16 +6,15 @@
       %hr
 
     .form-row
-      = f.fields_for :address do |ff|
-        .col-3
-          .form-group
-            = @car&.address&.country
-            = ff.label :country
-            = ff.text_field :country, class: 'form-control', placeholder: 'Country'
-        .col-3
-          .form-group
-            = ff.label :city
-            = ff.text_field :city, class: 'form-control', placeholder: 'City'
+      -#= f.fields_for :address do |ff|
+      .col-3
+        .form-group
+          = f.label :region
+          = f.select :region_id, @related_data[:regions], {}, class: 'custom-select'
+      .col-3
+        .form-group
+          = f.label :city
+          = f.select :city_id, @related_data[:cities], {}, class: 'custom-select'
       .col-3
         .form-group
           = f.label :car_type

@@ -4,16 +4,54 @@ import Options from './options'
 
 class CarDescription extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            favorite: this.props.car.favorite
+        };
+    }
+
+    toggleFavorite = () => {
+        this.setState((prevState) => {
+            return(
+                { favorite: !prevState.favorite }
+            )
+
+        })
+    }
+
+    addToFavorite = () => {
+        $.ajax({
+            method: this.props.car.paths.add_favorite.method,
+            url: this.props.car.paths.add_favorite.url,
+            success: () => { this.toggleFavorite() }
+        })
+    }
+
+    removeFromFavorite = () => {
+        $.ajax({
+            method: this.props.car.paths.remove_from_favorite.method,
+            url: this.props.car.paths.remove_from_favorite.url,
+            success: () => { this.toggleFavorite() }
+        })
+    }
+
     render() {
         const car = this.props.car
-        console.log(car.options)
+        const favorite = this.state.favorite
+        const favoriteIcon = (
+            <i className={favorite ? 'fa fa-star gold' : 'fa fa-star-o'}
+               title={favorite ? 'Remove from favorite' : 'Add to favorite'}
+               onClick={favorite ? this.removeFromFavorite : this.addToFavorite}>
+            </i>
+        )
 
         return(
             <div className='row information'>
                 <div className='col'>
                     <div className='row section'>
                         <div className='col-6'>
-                            <h4 className='d-inline-block'>{car.address.full}</h4>
+                            <h4 className='d-inline-block'>{car.address}</h4>
                             <p>{this.props.car_type.name} / {this.props.car_carcass.name} / {car.doors} дверей</p>
                         </div>
                         <div className='col-6'>
@@ -53,6 +91,13 @@ class CarDescription extends React.Component {
                             <Options options={car.options}/>
                         </div>
                     </div>)}
+
+                    <p></p>
+                    <div className='row section'>
+                        <div className='col-12 actions text-center'>
+                            {favoriteIcon}
+                        </div>
+                    </div>
                 </div>
             </div>
         )

@@ -1,6 +1,8 @@
 require 'elasticsearch/model'
 
 class Car
+  delegate :url_helpers, to: 'Rails.application.routes'
+
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Attributes::Dynamic
@@ -38,13 +40,16 @@ class Car
   field :imported_at, type: DateTime
   field :published_at, type: DateTime
 
+  belongs_to :user, counter_cache: true
   belongs_to :car_type, counter_cache: true
   belongs_to :car_carcass, counter_cache: true, optional: true
   belongs_to :mark, class_name: 'CarMark', counter_cache: true
   belongs_to :model, class_name: 'CarModel', counter_cache: true
-  belongs_to :transmission
-  belongs_to :fuel
-  belongs_to :user, counter_cache: true
+  belongs_to :transmission, counter_cache: true
+  belongs_to :fuel, counter_cache: true
+  belongs_to :region, counter_cache: true
+  belongs_to :city, counter_cache: true, optional: true
+  # belongs_to :country, counter_cache: true, optional: true
   alias :seller :user
 
   has_many :images, dependent: :delete
@@ -52,12 +57,14 @@ class Car
 
   embeds_many :trades
   embeds_many :swaps
-  embeds_one :address
+  # embeds_one :address
 
   accepts_nested_attributes_for :images, allow_destroy: true
 
   before_save :set_title, if: :year_changed?
   slug :slug_title
+
+  scope :active, -> { where(completed: true) }
 
   def main_image
     images&.first&.image || images.new.image # stub for placeholder
@@ -71,8 +78,14 @@ class Car
     "#{title}-#{id.to_s}"
   end
 
+  def address
+    return nil unless region&.name && city.name
+    "#{region.name}, #{city.name}"
+  end
+
   def to_json
     {
+      id: id.to_s,
       title: title,
       description: description,
       year: year,
@@ -96,10 +109,27 @@ class Car
       trades: trades,
       swaps: swaps,
       options: grouped_options,
-      address: address.to_json,
+      region: region,
+      city: city,
+      address: address,
       car_type: car_type,
       car_carcass: car_carcass,
-      additional_options: additional_options
+      additional_options: additional_options,
+      # favorite: current_user.favorites.find(car_id: self.id).present?,
+      paths: {
+        edit_car_path: {
+          url: url_helpers.edit_car_path(self),
+          method: :get
+        },
+        add_favorite: {
+          url: url_helpers.car_add_to_favorite_path(self),
+          method: :get
+        },
+        remove_from_favorite: {
+          url: url_helpers.car_remove_from_favorite_path(self),
+          method: :delete
+        }
+      }
     }
   end
 
@@ -136,7 +166,8 @@ class Car
       transmission: transmission&.name,
       mileage: mileage,
       fuel: fuel&.name,
-      engine: engine
+      engine: engine,
+      car_path: url_helpers.car_path(self)
     }
   end
 
@@ -144,25 +175,23 @@ class Car
     options.pluck(:type).uniq.map do |type|
       {
         type: type,
-        options: options.select { |opt| opt.type == type }
+        options: options.select { |opt| opt.type == type }.map(&:to_json)
       }
     end
   end
 
   def self.search_similar(car:)
-    # p '/'*100
-    # p car.mark.name
-    # p '/'*100
     self.search({
       size: 10,
       query: {
         bool: {
           should: [
-            { match: { "car_carcass.name": { query: car.car_carcass&.name || CarCarcass.first.name  } } },
             { match: { "mark.name": { query: car.mark.name, fuzziness: 'auto' } } },
             { match: { "model.name": { query: car.model.name, fuzziness: 'auto' } } },
-            { match: { "fuel.name": { query: car.fuel.name } } },
-            { match: { "transmission.name": { query: car.transmission.name } } }
+            { match: { "price": { query: car.price, fuzziness: 'auto' } } },
+            { match: { "car_carcass.name": { query: car.car_carcass&.name || CarCarcass.first.name  } } },
+            { match: { "transmission.name": { query: car.transmission.name } } },
+            { match: { "fuel.name": { query: car.fuel.name } } }
           ]
         }
       }

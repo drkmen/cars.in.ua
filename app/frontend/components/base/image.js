@@ -1,26 +1,11 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 
 class Image extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     static defaultProps = {
         changeActive: function(){},
-        // onMount: function(){}
-    }
-
-    componentDidMount = () => {
-        // console.log('img mounted');
-        // console.log(this.props);
-
-        // console.log(ReactDOM.findDOMNode(this));
-
-        // this.props.onMount(ReactDOM.findDOMNode(this))
-    }
+    };
 
     changeActive(id) {
         return e => {

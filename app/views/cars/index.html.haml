@@ -7,4 +7,4 @@
       .card-deck.mx-auto
         - cars.each do |car|
           .mb-3{style: 'width: 20rem;'}
-            = react_component('car/car_card', car.to_card_json.merge(car_path: car_path(car)))
+            = react_component('car/car_card', car.to_card_json)

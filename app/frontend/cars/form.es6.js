@@ -1,15 +1,6 @@
-$( document ).on('turbolinks:load', () => {
-
-    // $('#exampleModal').modal({
-    //     keyboard: true
-    // })
-    // $('#exampleModal').modal('show');
-    // $('#exampleModal').modal('hide');
-
-});
+// $( document ).on('turbolinks:load', () => {});
 
 $(document).ready(() => {
-    // $('#exampleModal').modal({keyboard: true, backdrop: 'static'})
 
     let $model = $('select#car_model_id');
     let $mark = $('select#car_mark_id');

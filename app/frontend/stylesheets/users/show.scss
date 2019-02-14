@@ -1,0 +1,23 @@
+.user {
+  .profile-header {
+    background-color: $very-light-grey;
+    padding: 25px;
+
+    h5, ul {
+      margin: 0;
+    }
+
+    ul {
+      &.header-list {
+        li {
+          padding: 0 1em;
+          display: inline;
+        }
+      }
+    }
+  }
+
+  #user-tabs-content {
+    padding-top: 25px;
+  }
+}

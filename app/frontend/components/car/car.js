@@ -11,7 +11,8 @@ class Car extends React.Component {
                 </div>
                 <div className='col-5 car-description'>
                     <div className='row'>
-                        <div className='col-6'>
+
+                        <div className='col-8'>
                             <h1 className='font-300'>
                                 {this.props.car.mark.name}
                                 &nbsp;
@@ -19,7 +20,7 @@ class Car extends React.Component {
                                 <span className='grey'> {this.props.car.year} </span>
                             </h1>
                         </div>
-                        <div className='col-6'>
+                        <div className='col-4'>
                             <h1 className='thin float-right'>
                                 <span className=''>${this.props.car.price}</span>
                             </h1>
@@ -28,7 +29,7 @@ class Car extends React.Component {
                     <div className='row'>
                         <div className='col-12'>
                             <span className='grey'>Created: {this.props.car.published_at || this.props.car.created_at} </span>
-                            <a href={this.props.edit_car_path}><i className='fa fa-pencil'></i> Edit car</a>
+                            <a href={this.props.car.paths.edit_car_path.url}><i className='fa fa-pencil'></i> Edit car</a>
                             <span className='grey float-right'>
                                 <i className='fa fa-eye'></i>
                                 &nbsp;

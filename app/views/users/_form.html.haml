@@ -1,0 +1,35 @@
+= form_with model: @user do |form|
+  .row
+    .col-6
+      .form-group
+        = form.label :first_name
+        = form.text_field :first_name, class: 'form-control'
+    .col-6
+      .form-group
+        = form.label :last_name
+        = form.text_field :last_name, class: 'form-control'
+  .row
+    .col-4
+      .form-group
+        = form.label :email
+        = form.text_field :email, class: 'form-control'
+    .col-4
+      .form-group
+        = form.label :age
+        = form.text_field :age, class: 'form-control'
+    .col-4
+      .form-group
+        = form.label :phone
+        = form.text_field :phone, class: 'form-control'
+
+
+  .row
+    .col-6
+      .form-group
+        = form.label :avatar
+        = form.file_field :avatar, class: 'form-control-file'
+
+  .row
+    .col
+      .form-group
+        = form.submit class: 'btn btn-warning'

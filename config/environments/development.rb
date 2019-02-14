@@ -4,7 +4,7 @@ Rails.application.configure do
 
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-  config.action_controller.action_on_unpermitted_parameters = :raise
+  # config.action_controller.action_on_unpermitted_parameters = :raise
 
   # Settings specified here will take precedence over those in config/application.rb.
 

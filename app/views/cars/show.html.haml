@@ -1,3 +1,6 @@
+.text-center.save-car-star
+  %i.fa.fa-star-o
+
 - content_for :head do
   %meta{content: 'no-cache', name: 'turbolinks-cache-control'}/
 
@@ -8,10 +11,19 @@
         %i.fa.fa-angle-left
 
   .section
-    = react_component 'car/car', car: @car.to_json, edit_car_path: edit_car_path(@car)
+    = react_component 'car/car', car: @car.to_json.merge(favorite: current_user.favorites.where(car_id: @car.id).present?)#, edit_car_path: edit_car_path(@car)
 
   %br
   %br
+  %br
+
+  -#.section
+  -#  .actions.text-center
+  -#    %ul
+  -#      %li
+  -#        %small Add to Isbrannoe
+  -#        %i.fa.fa-star-o
+
   %br
 
   .section
@@ -19,14 +31,36 @@
       .col-4
         .material-card.large
           %h5.text-center About seller
-          = @car.seller&.email
-          %br
-          = @car.seller&.phone
-          %br
-          = @car.seller&.name
-          %br
-          = @car.seller&.cars_count
-          -#= link_to 'Delete car', car_path(@car), method: :delete
+          - if current_user == @car.seller
+            Statistic
+          - else
+            - if @car.seller
+              .media.user-card
+                = image_tag @car.seller.avatar, class: 'img-fluid rounded-circle', size: '125x125'
+                .media-body
+                  .body
+                    %div
+                      %h5.d-inline.mt-0
+                        = @car.seller.name
+                        %small.grey
+                          = @car.seller.age
+                          years
+                      %small.grey.float-right
+                        since:
+                        = time_ago_in_words @car.seller.created_at
+                    %p
+                      %small.grey
+                        = @car.seller.email
+                    %p= @car.seller.phone
+
+            - elsif @car.imported
+              %p.text-center
+                This car was imported from
+                = @car.additional_options[:imported_from]
+              %p.text-center
+                You can view original post at:
+                %br
+                = link_to @car.additional_options[:original_link], @car.additional_options[:original_link], class: 'underlined'
 
       .col-4
         .material-card.large
@@ -45,9 +79,11 @@
         %i.fa.fa-angle-right
 
   - if @similar_cars.present?
+    %br
     %hr
+    %h3.font-300.text-center Similar cars
+    %br
     .section.similar-cars.material-card.large
-      %h5.text-center Similar cars
       .mx-auto
         .row.no-margin
           - @similar_cars.each do |car|

@@ -22,7 +22,11 @@
 
 // show
 
-.car-show{
+.save-car-star {
+  font-size: 30px;
+}
+
+.car-show {
   //margin: 30px 0 0 0;
   //padding: 50px 50px 200px 50px;
   //padding: 0 0 200px 0;
@@ -144,6 +148,12 @@
   .section {
     &.similar-cars {
       padding: 0;
+    }
+  }
+
+  .actions {
+    i {
+      font-size: 2em;
     }
   }
 }
