@@ -149,6 +149,18 @@
     &.similar-cars {
       padding: 0;
     }
+
+    &.cards {
+      .about {
+        background-color: $white;
+        margin-left: -35px;
+      }
+
+      .suggestions-wrapper {
+        background-color: $white;
+        margin-right: -35px;
+      }
+    }
   }
 
   .actions {

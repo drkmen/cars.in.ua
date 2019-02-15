@@ -10,12 +10,12 @@ class CommentsController < ApplicationController
     end
   end
 
-  def destroy
-    @comment.destroy
-  end
-
   def update
 
+  end
+
+  def destroy
+    @comment.destroy
   end
 
   private

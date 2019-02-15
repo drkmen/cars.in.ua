@@ -105,9 +105,12 @@
           %h5= options.first
           - options.last.each do |opt|
             .option-group
-              = check_box_tag 'car[option_ids][]', opt.id.to_s, @car.options.pluck(:id).include?(opt.id)
-              &nbsp
-              = label_tag opt.id, opt.name
+              %label
+                = check_box_tag 'car[option_ids][]', opt.id.to_s, @car.options.pluck(:id).include?(opt.id)
+                = opt.name
+                &nbsp
+
+
             -#%br
           -#options[options_ids][]
 

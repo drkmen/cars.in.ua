@@ -14,7 +14,7 @@ class Comment extends React.Component {
     render() {
         const user = this.props.user || { name: 'Guest' };
         const comment = this.props.comment;
-        return(
+        return (
             <div className='comment'>
                 <div className="media">
                     <img className="mr-3 img-fluid rounded-circle" src={user.avatar.url} alt="" width='50' height='50'/>

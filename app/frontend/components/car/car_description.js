@@ -83,7 +83,7 @@ class CarDescription extends React.Component {
                         </div>
                     </div>
 
-                    {car.options.length > 1 && (<div className='row section'>
+                    {car.options.length >= 1 && (<div className='row section'>
                         <div className='col-12'>
                             <h5>Опции</h5>
                         </div>

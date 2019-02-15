@@ -14,13 +14,17 @@ class CarsController < ApplicationController
     p "-----------------------SCORES: #{@similar_cars.results.map { |che| che._score}}"
     p "-----------------------SCORE: #{@similar_cars.results.first._score}"
     @similar_cars = @similar_cars.records.to_a
-    @car_comments = @car.comments.map(&:to_json)
+    # @car_comments = @car.comments.map(&:to_json)
 
     if current_user
-      @car_comments.each do |cm|
+      @car.comments.map(&:to_json).each do |cm|
         cm.merge! comment_owner: current_user.id == cm.dig(:user, :id),
-                  car_owner: current_user.id == cm[:commentable][:user],
-                  favorite: current_user.favorites.find(car_id: @car.id).present?
+                  car_owner: current_user.id == cm[:commentable][:user]
+      end
+
+      @car.swaps.map(&:to_json).each do |cm|
+        cm.merge! swap_owner: current_user.id == cm.dig(:user, :id),
+                  car_owner: current_user.id == cm.dig(:car, :owner_id)
       end
     end
   end

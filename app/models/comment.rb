@@ -11,6 +11,7 @@ class Comment
   def to_json
     path = car_comment_path(id: self.id, car_id: commentable.id)
     {
+      id: id.to_s,
       body: body,
       user: user&.to_json,
       commentable: commentable,

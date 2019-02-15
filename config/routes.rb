@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   resources :users, except: :index
   resources :cars do
     resources :comments, only: %i[create destroy update]
+    resources :swaps, only: %i[create destroy update]
+    resources :trades, only: %i[create destroy update]
     get 'add_to_favorite'
     delete 'remove_from_favorite'
   end

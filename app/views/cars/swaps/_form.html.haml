@@ -1,0 +1,11 @@
+.container
+  = form_for [@car, @car.swaps.new] do |f|
+    .form-row
+      .col-12
+        .form-group
+          = f.text_field :message, class: 'form-control', placeholder: 'swap with'
+
+    .form-row
+      .col-12
+        .form-group
+          = f.submit class: 'btn btn-warning'

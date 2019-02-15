@@ -105,9 +105,6 @@ class Car
       model: model,
       transmission: transmission,
       images: images_to_json,
-      comments: comments,
-      trades: trades,
-      swaps: swaps,
       options: grouped_options,
       region: region,
       city: city,
@@ -115,7 +112,9 @@ class Car
       car_type: car_type,
       car_carcass: car_carcass,
       additional_options: additional_options,
-      # favorite: current_user.favorites.find(car_id: self.id).present?,
+      comments: comments.map(&:to_json),
+      swaps: swaps.map(&:to_json),
+      trades: trades.map(&:to_json),
       paths: {
         edit_car_path: {
           url: url_helpers.edit_car_path(self),
