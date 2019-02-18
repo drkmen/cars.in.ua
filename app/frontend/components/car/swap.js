@@ -1,21 +1,20 @@
 import React from 'react';
-import moment from "../base/comment";
+import moment from 'moment';
 
 class Swap extends React.Component {
 
     render() {
         const swap = this.props.swap
-        console.log(swap)
         const user = swap.user
-        console.log(user)
         return (
-            <div className='swap'>
-                <div className="media">
-                    <img className="mr-3 img-fluid rounded-circle" src={user.avatar.url} alt="" width='50' height='50'/>
-                    <div className="media-body">
+            <div className={swap.active ? 'swap' : 'swap declined'}>
+                <div className='media'>
+                    <img className='mr-3 img-fluid rounded-circle' src={user.avatar.url} width='50' height='50'/>
+                    <div className='media-body'>
                         <div>
-                            <h5 className="d-inline mt-0">
+                            <h5 className='d-inline mt-0'>
                                 {user.name}
+                                <small>, suggested Swap </small>
                             </h5>
                             <small className='grey float-right'>
                                 {moment(swap.created_at).fromNow()}
@@ -29,12 +28,19 @@ class Swap extends React.Component {
 
                         <div className='float-right'>
                             <small>
-                                {swap.swap_owner && swap.swap_path && (
-                                    <a href={swap.update_path}>Edit</a>
+                                {swap.swap_owner && (swap.update_path || swap.delete_path) && (
+                                    <div>
+                                        {swap.update_path && swap.active && (
+                                            <a href={swap.update_path}>Edit</a>
+                                        )}
+                                        {swap.delete_path && swap.active && (
+                                            <a className='delete' href={swap.delete_path} data-method='delete'> delete</a>
+                                        )}
+                                    </div>
                                 )}
-                                {(swap.car_owner || swap.swap_owner) && swap.delete_path && (
+                                {swap.car_owner && swap.decline_path && swap.active && (
                                     <span> |
-                                        <a className='delete' href={swap.delete_path} data-method="delete"> Delete</a>
+                                        <a className='delete' href={swap.decline_path} > decline</a>
                                     </span>
                                 )}
                             </small>

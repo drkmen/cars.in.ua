@@ -65,14 +65,15 @@
       .col-4
         .material-card.large.questions
           %h5.text-center Questions & Comments
-          = react_component 'car/comments', comments: @car.to_json[:comments]
+          = react_component 'car/comments', comments: @car_comments
           = render '/cars/comments/form'
 
       .col-4
         .material-card.large.suggestions-wrapper
           %h5.text-center Swaps & Trades
-          = react_component 'car/suggestions', suggestions: @car.to_json[:swaps] + @car.to_json[:trades]
-          = render '/cars/suggestions'
+          = react_component 'car/suggestions', suggestions: @car_suggestions
+          - unless current_user == @car.user
+            = render '/cars/suggestions'
 
 
   - if @similar_cars.index(@car)

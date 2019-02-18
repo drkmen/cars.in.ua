@@ -58,8 +58,6 @@ class User
 
   embeds_one :address
 
-  mount_uploader :avatar, AvatarUploader
-
   def name
     "#{first_name} #{last_name}"
   end
@@ -70,13 +68,15 @@ class User
 
   def to_json
     {
-      id: id,
+      id: id.to_s,
       name: name,
       email: email,
       age: age,
       phone: phone,
       city: city,
-      avatar: avatar
+      avatar: {
+        url: avatar&.url
+      }
     }
   end
 end

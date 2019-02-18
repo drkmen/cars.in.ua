@@ -115,6 +115,7 @@ class Car
       comments: comments.map(&:to_json),
       swaps: swaps.map(&:to_json),
       trades: trades.map(&:to_json),
+      # suggestions: swaps.map(&:to_json) + trades.map(&:to_json),
       paths: {
         edit_car_path: {
           url: url_helpers.edit_car_path(self),

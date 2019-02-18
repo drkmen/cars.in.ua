@@ -159,6 +159,20 @@
       .suggestions-wrapper {
         background-color: $white;
         margin-right: -35px;
+
+        .swap, .trade {
+          &.declined {
+            filter: grayscale(100%)
+          }
+        }
+      }
+
+      .material-card {
+        &.about, &.questions, &.suggestions-wrapper {
+          h5 {
+            padding-bottom: 20px;
+          }
+        }
       }
     }
   }

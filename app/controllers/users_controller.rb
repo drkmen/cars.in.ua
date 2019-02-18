@@ -14,6 +14,10 @@ class UsersController < ApplicationController
     else
       flash[:error] = @user.errors
     end
+  # rescue => e
+  #   p '.'*100
+  #   pp e.backtrace
+  #   p '.'*100
   end
 
   def delete

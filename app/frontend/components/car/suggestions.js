@@ -5,6 +5,7 @@ import Swap from './swap'
 class Suggestions extends React.Component {
 
     render(){
+        console.log(this.props)
         return(
             <div className='suggestions'>
                 {this.props.suggestions.map(suggestion =>
