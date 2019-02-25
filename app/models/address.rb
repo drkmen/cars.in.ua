@@ -15,7 +15,7 @@ class Address
     "#{country}, #{city}"
   end
 
-  def to_json
+  def as_hash
     {
       full: to_s,
       country: country,

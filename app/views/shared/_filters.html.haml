@@ -1,0 +1,60 @@
+-#= @related_data
+= form_tag search_path, method: :get, id: 'search_form', remote: true do
+  .row
+    .col
+      = hidden_field nil, :q, value: params[:q]
+
+      -#.row
+        .col-6
+          .form-group
+            = label_tag 'Mark', nil
+            = select_tag 'mark', [12,4], class: 'custom-select'
+        .col-6
+          .form-group
+            = label_tag 'model', nil
+            = select_tag 'model', [12,4], class: 'custom-select'
+
+      %hr
+      .text-center
+        %span.pointable{'aria-controls' => 'car_carcasses', 'aria-expanded' => 'true', 'data-toggle' => 'collapse', href: '#car_carcasses', role: 'button'}
+          %h5 Carcass type
+
+      = render 'shared/collapse', id: 'car_carcasses', collapsed: false do
+        .form-group
+          - @related_data[:carcasses].each do |carcass|
+            .option-group
+              %label
+                = check_box_tag 'filters[]carcasses[]', carcass[:name]
+                = carcass[:name]
+
+      %hr
+      .text-center
+        %span.pointable{'aria-controls' => 'car_gearbox', 'aria-expanded' => 'true', 'data-toggle' => 'collapse', href: '#car_gearbox', role: 'button'}
+          %h5 Gearbox
+
+      = render 'shared/collapse', id: 'car_gearbox', collapsed: false do
+        .form-group
+          - @related_data[:transmissions].each do |transmission|
+            .option-group
+              %label
+                = check_box_tag 'filters[]transmissions[]', transmission[:name]
+                = transmission[:name]
+
+      %hr
+      .text-center
+        %span.pointable{'aria-controls' => 'car_fuel', 'aria-expanded' => 'true', 'data-toggle' => 'collapse', href: '#car_fuel', role: 'button'}
+          %h5 Fuel
+
+      = render 'shared/collapse', id: 'car_fuel', collapsed: false do
+        .form-group
+          - @related_data[:fuels].each do |fuel|
+            .option-group
+              %label
+                = check_box_tag 'filters[]fuels[]', fuel[:name]
+                = fuel[:name]
+
+      = submit_tag 'filter', class: 'input-group-text d-none'
+    -#= text_field_tag :search, nil, id: 'search',  class: 'form-control', placeholder: 'Search'
+
+:javascript
+  $(document).on('ready')

@@ -55,8 +55,10 @@ class Car
   has_many :images, dependent: :delete
   has_and_belongs_to_many :options
 
-  embeds_many :trades
-  embeds_many :swaps
+  # embeds_many :trades
+  has_many :trades
+  # embeds_many :swaps
+  has_many :swaps
   # embeds_one :address
 
   accepts_nested_attributes_for :images, allow_destroy: true
@@ -83,7 +85,7 @@ class Car
     "#{region.name}, #{city.name}"
   end
 
-  def to_json
+  def as_hash
     {
       id: id.to_s,
       title: title,
@@ -104,7 +106,7 @@ class Car
       mark: mark,
       model: model,
       transmission: transmission,
-      images: images_to_json,
+      images: images_as_hash,
       options: grouped_options,
       region: region,
       city: city,
@@ -112,9 +114,9 @@ class Car
       car_type: car_type,
       car_carcass: car_carcass,
       additional_options: additional_options,
-      comments: comments.map(&:to_json),
-      swaps: swaps.map(&:to_json),
-      trades: trades.map(&:to_json),
+      comments: comments.map(&:as_hash),
+      swaps: swaps.map(&:as_hash),
+      trades: trades.map(&:as_hash),
       # suggestions: swaps.map(&:to_json) + trades.map(&:to_json),
       paths: {
         edit_car_path: {
@@ -133,19 +135,7 @@ class Car
     }
   end
 
-  def as_indexed_json(options = {})
-    as_json(
-      only: [:title, :year, :price, :color],
-      include: {
-        mark: { only: :name },
-        model: { only: :name },
-        fuel: { only: :name },
-        transmission: { only: :name }
-      }
-    )
-  end
-
-  def images_to_json
+  def images_as_hash
     imgs = images.map do |img|
       {
         id: img.id.to_s,
@@ -157,7 +147,7 @@ class Car
     imgs
   end
 
-  def to_card_json
+  def as_card_hash
     {
       image: main_image,
       title: "#{mark&.name&.capitalize} #{model&.name}",
@@ -167,6 +157,7 @@ class Car
       mileage: mileage,
       fuel: fuel&.name,
       engine: engine,
+      sold: sold,
       car_path: url_helpers.car_path(self)
     }
   end
@@ -197,11 +188,63 @@ class Car
       }
     })
   end
-end
 
-# belongs_to :car_type, counter_cache: true
-# belongs_to :car_carcass, counter_cache: true, optional: true
-# belongs_to :mark, class_name: 'CarMark', counter_cache: true
-# belongs_to :model, class_name: 'CarModel', counter_cache: true
-# belongs_to :transmission
-# belongs_to :fuel
+  def filter
+
+  end
+
+  # def self.filter(filters)
+  #   p '/'*100
+  #   # p filters[:carcasses]
+  #   p '/'*100
+  #   self.search( {
+  #     # query: {
+  #     #   bool: {
+  #     #     should: [
+  #     #       terms: {
+  #     #         title: ['Toyota Rav 4 2019']
+  #     #         # "car_carcass.name": filters[:carcasses] || '',
+  #     #         # "transmission.name": filters[:transmissions] || '',
+  #     #         # "fuel.name": filters[:fuels] || '' ,
+  #     #       }
+  #     #     ]
+  #     #   }
+  #     #
+  #     #     # bool: {
+  #     #     #   should: [
+  #     #     #     { terms: { "car_carcass.name": filters[:carcasses]&.first }},
+  #     #     #     { terms: { "transmission.name": filters[:transmissions]&.first }},
+  #     #     #     { terms: { "fuel.name": filters[:fuels]&.first }},
+  #     #     #       # "transmission.name": filters[:transmissions] || '',
+  #     #     #       # "fuel.name": filters[:fuels] || ''
+  #     #     #   ]
+  #     #     # }
+  #     # }
+  #
+  #     "query": {
+  #       "bool": {
+  #         "must": [
+  #           { "terms": { "title":   ["toyota"]        }},
+  #           # { "match": { "content": "C-HR" }}
+  #         ],
+  #         "filter": [
+  #           { "term":  { "completed": false }},
+  #         #   { "range": { "publish_date": { "gte": "2015-01-01" }}}
+  #         ]
+  #         }
+  #     }
+  #   })
+  # end
+
+  def as_indexed_json(options = {})
+    as_json(
+        only: [:title, :year, :price, :color],
+        include: {
+            mark: { only: :name },
+            model: { only: :name },
+            fuel: { only: :name },
+            transmission: { only: :name }
+        }
+    )
+  end
+end

@@ -9,13 +9,14 @@ class Trade
   field :active, type: Boolean, default: true
 
   belongs_to :user
-  embedded_in :car
+  # embedded_in :car
+  belongs_to :car
 
   def decline!
     self.update_attributes active: false
   end
 
-  def to_json
+  def as_hash
     {
       id: id.to_s,
       active: active,
@@ -26,7 +27,7 @@ class Trade
       update_path: car_trade_path(self.id, car_id: car.id),
       delete_path: car_trade_path(self.id, car_id: car.id),
       decline_path: car_trade_decline_path(self.id, car_id: car.id),
-      user: user.to_json,
+      user: user.as_hash,
       car: {
         id: car.id.to_s,
         owner_id: car.user.id.to_s

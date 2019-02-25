@@ -17,6 +17,7 @@ import * as moment from 'moment';
 // first party
 import '../cars/form.es6';
 import '../cars/show.es6';
+import '../search/index.es6';
 
 // styles
 import 'stylesheets/application.scss';

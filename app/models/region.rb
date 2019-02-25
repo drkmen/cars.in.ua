@@ -7,4 +7,12 @@ class Region
 
   has_many :cars
   has_many :cities
+
+  def as_hash
+    {
+      id: id.to_s,
+      name: name,
+      cars_count: cars_count
+    }
+  end
 end

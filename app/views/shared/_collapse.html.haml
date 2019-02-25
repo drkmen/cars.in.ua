@@ -1,4 +1,5 @@
 - id ||= '#collapseExample'
-.collapse{ id: id }
-  .card.card-body
-    = yield
+- collapse = defined?(collapsed) ? collapsed : true
+
+%div{ id: id, class: collapse ? 'collapse' : 'collapse show'  }
+  = yield

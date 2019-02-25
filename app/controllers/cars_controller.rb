@@ -2,7 +2,7 @@ class CarsController < ApplicationController
 
   before_action :find_car, only: %i[show edit delete update]
   before_action :authenticate_user!, only: %i[new create edit delete]
-  before_action :prepare_related_data, only: %i[new edit]
+  before_action :prepare_related_data, only: %i[index new edit]
 
   def index
     # @cars = Car.active.order(created_at: :desc).entries
@@ -15,14 +15,16 @@ class CarsController < ApplicationController
     p "-----------------------SCORE: #{@similar_cars.results.first._score}"
     @similar_cars = @similar_cars.records.to_a
 
-    @car_suggestions = (@car.swaps + @car.trades).map(&:to_json).each do |obj|
-      obj.merge! "#{obj[:type]}_owner".to_sym => current_user.id.to_s == obj[:user][:id],
-                 car_owner: current_user.id.to_s == obj.dig(:car, :owner_id)
-    end
+    if current_user
+      @car_suggestions = (@car.swaps + @car.trades).map(&:as_json).each do |obj|
+        obj.merge! "#{obj[:type]}_owner".to_sym => current_user.id.to_s == obj[:user][:id],
+                   car_owner: current_user.id.to_s == obj.dig(:car, :owner_id)
+      end
 
-    @car_comments = @car.comments.map(&:to_json).each do |cm|
-      cm.merge! comment_owner: current_user.id == cm.dig(:user, :id),
-                car_owner: current_user.id == cm[:commentable][:user]&.to_s
+      @car_comments = @car.comments.map(&:as_hash).each do |cm|
+        cm.merge! comment_owner: current_user.id == cm.dig(:user, :id),
+                  car_owner: current_user.id == cm[:commentable][:user]&.to_s
+      end
     end
   end
 
@@ -62,15 +64,15 @@ class CarsController < ApplicationController
     params.require(:car).permit!
   end
 
-  def prepare_related_data
-    @related_data = {
-      transmissions: Transmission.all.pluck(:name, :id),
-      mark_list: CarMark.all.pluck(:name, :id),
-      car_types: CarType.all.pluck(:name, :id),
-      carcasses: CarCarcass.all.pluck(:name, :id),
-      fuels: Fuel.all.pluck(:name, :id),
-      regions: Region.all.pluck(:name, :id),
-      cities: City.all.pluck(:name, :id)
-    }
-  end
+  # def prepare_related_data
+  #   @related_data = {
+  #     transmissions: Transmission.all.pluck(:name, :id),
+  #     mark_list: CarMark.all.pluck(:name, :id),
+  #     car_types: CarType.all.pluck(:name, :id),
+  #     carcasses: CarCarcass.all.pluck(:name, :id),
+  #     fuels: Fuel.all.pluck(:name, :id),
+  #     regions: Region.all.pluck(:name, :id),
+  #     cities: City.all.pluck(:name, :id)
+  #   }
+  # end
 end

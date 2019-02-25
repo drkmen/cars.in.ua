@@ -1,0 +1,7 @@
+.row
+  .col-8.offset-2
+    = form_tag search_path, method: :get, enforce_utf8: false do
+      .input-group
+        .input-group-append
+          = submit_tag 'Search', class: 'input-group-text', name: nil
+        = text_field_tag :q, nil, id: 'search',  class: 'form-control', placeholder: 'Search'

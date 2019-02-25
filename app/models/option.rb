@@ -10,7 +10,7 @@ class Option
 
   validates :name, uniqueness: true
 
-  def to_json
+  def as_hash
     {
       id: id.to_s,
       name: name,

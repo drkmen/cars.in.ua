@@ -86,7 +86,6 @@
           = f.label :doors
           = f.text_field :doors, class: 'form-control'
 
-
     .form-row
       .col-12
         .form-group
@@ -94,6 +93,16 @@
           = f.text_area :description, class: 'form-control'
         .form-group
           = f.file_field :images, class: 'form-control-file', multiple: true
+
+    %h3
+      Sold
+      %hr
+
+    .form-row
+      .col-12
+        .form-group
+          = f.label :sold
+          = f.text_field :sold, class: 'form-control'
 
     %h3
       Options

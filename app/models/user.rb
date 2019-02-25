@@ -53,10 +53,20 @@ class User
   has_many :comments
   has_many :trades
   has_many :swaps
+
   has_many :favorites, dependent: :delete
   # has_many :favorite_cars, through: :favorites
 
   embeds_one :address
+
+  # def trades
+  #   Car.where 'trades.user_id' => self.id
+  # end
+
+  # def swaps
+  #   ???
+  #   Car.where('swaps.user_id' => self.id).map(&:swaps).select { |sw| sw.user_id == self.id }
+  # end
 
   def name
     "#{first_name} #{last_name}"
@@ -66,7 +76,8 @@ class User
     favorites.map(&:car).compact
   end
 
-  def to_json
+  # should be as_json
+  def as_hash
     {
       id: id.to_s,
       name: name,

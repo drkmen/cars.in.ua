@@ -1,1 +1,9 @@
-%h1 drastre
+.container.cars-index
+  = render '/shared/search'
+
+  .row
+    - @recent_cars.each_slice(4) do |cars|
+      .card-deck.mx-auto
+        - cars.each do |car|
+          .mb-3{style: 'width: 20rem;'}
+            = react_component('car/car_card', car.as_card_hash)

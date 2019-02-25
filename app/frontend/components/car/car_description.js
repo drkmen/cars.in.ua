@@ -40,10 +40,12 @@ class CarDescription extends React.Component {
         const car = this.props.car
         const favorite = this.state.favorite
         const favoriteIcon = (
-            <i className={favorite ? 'fa fa-star gold' : 'fa fa-star-o'}
-               title={favorite ? 'Remove from favorite' : 'Add to favorite'}
-               onClick={favorite ? this.removeFromFavorite : this.addToFavorite}>
-            </i>
+            !car.car_owner && (
+                <i className={favorite ? 'fa fa-star gold' : 'fa fa-star-o'}
+                   title={favorite ? 'Remove from favorite' : 'Add to favorite'}
+                   onClick={favorite ? this.removeFromFavorite : this.addToFavorite}
+                ></i>
+            )
         )
 
         return(
@@ -106,16 +108,16 @@ class CarDescription extends React.Component {
 
 CarDescription.defaultProps = {
     car_type: {
-        name: 'DEFAULT TYPE'
+        name: 'missing'
     },
     car_carcass: {
-        name: 'DEFAULT CARCASS'
+        name: 'missing'
     },
     fuel: {
-        name: 'DEFAULT FUEL'
+        name: 'missing'
     },
     transmission: {
-        name: 'DEFAULT transmission'
+        name: 'missing'
     }
 }
 

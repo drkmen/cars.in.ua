@@ -9,7 +9,7 @@ class CarModel
   field :uid
   field :cars_count, type: Integer, default: 0
 
-  def to_json
+  def as_hash
     {
       id: id.to_s,
       name: name,

@@ -3,6 +3,18 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  def prepare_related_data
+    @related_data = {
+      transmissions: Transmission.all.map(&:as_hash),
+      mark_list: CarMark.all.map(&:as_hash),
+      car_types: CarType.all.map(&:as_hash),
+      carcasses: CarCarcass.all.map(&:as_hash),
+      fuels: Fuel.all.map(&:as_hash),
+      regions: Region.all.map(&:as_hash),
+      cities: City.all.map(&:as_hash)
+    }
+  end
+
   protected
 
   def configure_permitted_parameters

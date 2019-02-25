@@ -1,16 +1,13 @@
 import React from 'react'
 import Image from '../base/image'
 import InfoBlock from "./info_block";
+import CarDescription from "./car_description";
 
 class CarCard extends React.Component {
 
-    defaultProps = {
-
-    }
-
     render() {
         return(
-            <div className='card'>
+            <div className={this.props.sold ? 'card sold' : 'card'}>
                 <div className='card-img-top'>
                     <Image
                         className='card-img-top img-fluid'
@@ -58,7 +55,22 @@ class CarCard extends React.Component {
             </div>
         )
     }
-
 }
+
+CarCard.defaultProps = {
+    car_type: {
+        name: 'missing'
+    },
+    car_carcass: {
+        name: 'missing'
+    },
+    fuel: {
+        name: 'missing'
+    },
+    transmission: {
+        name: 'missing'
+    }
+}
+
 
 export default CarCard

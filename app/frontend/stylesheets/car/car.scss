@@ -1,5 +1,9 @@
 @import 'base/mixins';
 
+.sold {
+  filter: grayscale(100%)
+}
+
 .info-block {
   display: inline-flex;
   align-items: center;

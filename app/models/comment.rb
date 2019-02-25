@@ -8,12 +8,12 @@ class Comment
   belongs_to :commentable, polymorphic: true
   belongs_to :user, optional: true
 
-  def to_json
+  def as_hash
     path = car_comment_path(id: self.id, car_id: commentable.id)
     {
       id: id.to_s,
       body: body,
-      user: user&.to_json,
+      user: user&.as_hash,
       commentable: commentable,
       created_at: created_at,
       updated_at: updated_at,

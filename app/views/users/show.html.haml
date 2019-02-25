@@ -58,7 +58,7 @@
             .card-deck.mx-auto
               - cars.each do |car|
                 .mb-3.mx-auto{style: 'width: 19rem;'}
-                  = react_component('car/car_card', car.to_card_json)
+                  = react_component('car/car_card', car.as_card_hash)
 
         %hr
           %h4.pointable{'aria-controls' => 'saved_cars', 'aria-expanded' => 'false', 'data-toggle' => 'collapse', href: '#saved_cars', role: 'button'}
@@ -68,7 +68,7 @@
               .card-deck.mx-auto
                 - cars.each do |car|
                   .mb-3.mx-auto{style: 'width: 19rem;'}
-                    = react_component('car/car_card', car.to_card_json)
+                    = react_component('car/car_card', car.as_card_hash)
 
       -# notifications tab
       #notifications.tab-pane.fade{'aria-labelledby' => 'notifications-tab', role: 'tabpanel'}
