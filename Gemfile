@@ -9,11 +9,15 @@ gem 'rails', '~> 5.1.4'
 gem 'mongoid'
 gem 'mongoid-slug'
 gem 'mongoid_paranoia'
+gem 'kaminari-mongoid'
 
 gem 'dotenv-rails'
 
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
+
+gem 'activeadmin-mongoid'#, '0.8.0'
+gem 'ransack-mongoid', github: 'activerecord-hackery/ransack-mongoid'
 
 gem 'puma', '~> 3.7'
 gem 'sass-rails', '~> 5.0'

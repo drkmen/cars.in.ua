@@ -9,20 +9,21 @@
       -#= f.fields_for :address do |ff|
       .col-3
         .form-group
+          -#= @related_data[:regions].map { |region| region[:name] }
           = f.label :region
-          = f.select :region_id, @related_data[:regions], {}, class: 'custom-select'
+          = f.select :region_id, @related_data[:regions].map { |region| [region[:name], region[:id]] }, {}, class: 'custom-select'
       .col-3
         .form-group
           = f.label :city
-          = f.select :city_id, @related_data[:cities], {}, class: 'custom-select'
+          = f.select :city_id, @related_data[:cities].map { |city| [city[:name], city[:id]] }, {}, class: 'custom-select'
       .col-3
         .form-group
           = f.label :car_type
-          = f.select :car_type_id, @related_data[:car_types], {}, class: 'custom-select'
+          = f.select :car_type_id, @related_data[:car_types].map { |c_t| [c_t[:name], c_t[:id]] }, {}, class: 'custom-select'
       .col-3
         .form-group
           = f.label :car_carcass
-          = f.select :car_carcass_id, @related_data[:carcasses], {}, class: 'custom-select'
+          = f.select :car_carcass_id, @related_data[:carcasses].map { |cr| [cr[:name], cr[:id]] }, {}, class: 'custom-select'
 
     %h3
       Main
@@ -32,7 +33,7 @@
       .col-3
         .form-group
           = f.label :mark
-          = f.select :mark_id, @related_data[:mark_list], { prompt: 'Select Mark' }, class: 'custom-select'
+          = f.select :mark_id, @related_data[:mark_list].map { |mark| [mark[:name], mark[:id]] }, { prompt: 'Select Mark' }, class: 'custom-select'
       .col-3
         .form-group
           = f.label :model
@@ -44,7 +45,7 @@
       .col-3
         .form-group
           = f.label :transmission
-          = f.select :transmission_id, @related_data[:transmissions], {}, class: 'custom-select'
+          = f.select :transmission_id, @related_data[:transmissions].map { |tr| [tr[:name], tr[:id]] }, {}, class: 'custom-select'
 
     .form-row
       .col-3
@@ -72,7 +73,7 @@
       .col-3
         .form-group
           = f.label :fuel
-          = f.select :fuel_id, @related_data[:fuels], {}, class: 'custom-select'
+          = f.select :fuel_id, @related_data[:fuels].map { |fuel| [fuel[:name], fuel[:id]] }, {}, class: 'custom-select'
       .col-3
         .form-group
           = f.label :vin

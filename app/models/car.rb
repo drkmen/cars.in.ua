@@ -1,8 +1,6 @@
 require 'elasticsearch/model'
 
 class Car
-  delegate :url_helpers, to: 'Rails.application.routes'
-
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Attributes::Dynamic
@@ -10,6 +8,10 @@ class Car
   include Mongoid::Slug
 
   include Optionable, Commentable, Searchable
+
+  delegate :url_helpers, to: 'Rails.application.routes'
+  delegate :search, to: :__elasticsearch__
+  delegate :mapping, to: :__elasticsearch__
 
   # settings do
   #   mappings dynamic: false do
@@ -166,7 +168,7 @@ class Car
     options.pluck(:type).uniq.map do |type|
       {
         type: type,
-        options: options.select { |opt| opt.type == type }.map(&:to_json)
+        options: options.select { |opt| opt.type == type }.map(&:as_hash)
       }
     end
   end

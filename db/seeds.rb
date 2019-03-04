@@ -107,4 +107,4 @@ client = AutoRiaApi::Base.new(api_key: ENV['AUTO_RIA_API_KEY'])
 #     p "creating options: #{option['name']}"
 #     car_type.options.create! uid: option['value'], name: option['name']
 #   end
-# end
+# endAdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?

@@ -63,11 +63,8 @@ class CarDescription extends React.Component {
                                                desc='Пробег'
                                                value={car.mileage}/>
                                     <InfoBlock icon='icon-engine'
-                                               desc='Обьем двигателя'
-                                               value={car.engine  + ' л.'}/>
-                                    <InfoBlock icon='icon-gas-station'
-                                               desc='Топливо'
-                                               value={this.props.fuel.name}/>
+                                               desc='Двигатель'
+                                               value={this.props.fuel.name + ', ' + car.engine  + ' л.'}/>
                                     <InfoBlock icon='icon-gearshift-1'
                                                desc='Трансмиссия'
                                                value={this.props.transmission.name}/>

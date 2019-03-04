@@ -10,10 +10,10 @@ class ImageSet extends React.Component {
             collapsed: true
         };
 
-        this.range = this.props.range || 13;
+        this.range = this.props.range || 14;
         this.halfRange = this.range / 2;
         this.leftPoint = 0;
-        this.rightPoint = this.halfRange;
+        this.rightPoint = this.range;
         this.thumbSize = 0;
     }
 
@@ -43,7 +43,7 @@ class ImageSet extends React.Component {
 
         let endArray = this.props.images.slice(imagesLength - this.halfRange, imagesLength);
 
-        if (endArray.includes(this.props.activeImageIndex) && this.rightPoint == imagesLength) {
+        if (endArray.includes(this.props.activeImageIndex) && this.rightPoint == imagesLength || (this.props.activeImageIndex + this.halfRange > imagesLength - this.halfRange)) {
             this.leftPoint = imagesLength - this.range
         }
 
@@ -60,12 +60,18 @@ class ImageSet extends React.Component {
     };
 
     render() {
+        console.log('-------------');
+        console.log('left:' + this.leftPoint);
+        console.log('index:' + this.props.activeImageIndex);
+        console.log('right:' + this.rightPoint);
+
         let imagesArray = this.props.images;
         if (imagesArray.length < 2) { return null }
         this.updateBorders();
 
         if (this.state.collapsed) {
-            imagesArray = imagesArray.slice(this.leftPoint, this.rightPoint + 1)
+            imagesArray = imagesArray.slice(this.leftPoint, this.rightPoint)
+            console.log(imagesArray)
         }
 
         const collapseText = this.state.collapsed ? 'Show more' : 'Hide';
@@ -89,7 +95,7 @@ class ImageSet extends React.Component {
                         </div>
                     )}
                 </div>
-                <div className='col-12 text-center' onClick={this.collapse}>{collapseText}</div>
+                {this.props.images.length > 14 && (<div className='col-12 text-center bold' onClick={this.collapse}>{collapseText}</div>)}
             </div>
         )
     }

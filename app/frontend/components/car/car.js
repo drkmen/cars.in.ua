@@ -29,6 +29,8 @@ class Car extends React.Component {
                     <div className='row'>
                         <div className='col-12'>
                             <span className='grey'>Created: {this.props.car.published_at || this.props.car.created_at} </span>
+                            <br/>
+                            <span className='grey'>ID: {this.props.car.id} </span>
                             {this.props.car.owner && (
                                 <a href={this.props.car.paths.edit_car_path.url}>
                                     <i className='fa fa-pencil'></i>

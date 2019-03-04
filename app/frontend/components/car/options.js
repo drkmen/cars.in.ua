@@ -8,6 +8,7 @@ class Options extends React.Component {
         return(
             <div className='row options'>
                 {this.props.options.map(options =>
+
                     <div className={'col-' + 12 / size + ' options-group'} key={options.type}>
                         {options.type || 'Other'}
                         <hr/>

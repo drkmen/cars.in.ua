@@ -1,0 +1,1 @@
+Ransack::Adapters::Mongoid::Base::ClassMethods.class_eval('remove_method :search')
