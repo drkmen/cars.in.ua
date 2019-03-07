@@ -5,8 +5,7 @@ class CommentsController < ApplicationController
   def create
     @comment = parent.comments.new(comment_params)
     if @comment.save!
-      # render json: @comment
-      redirect_to @comment.commentable
+      redirect_to category_car_path(id: @comment.commentable)
     end
   end
 

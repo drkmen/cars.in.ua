@@ -18,7 +18,7 @@
           %li.nav-item
             = link_to 'Home', root_path, class: 'nav-link'
           %li.nav-item
-            = link_to 'Cars', cars_path, class: 'nav-link'
+            = link_to 'Cars', category_cars_path, class: 'nav-link'
           - if current_user
             %li.nav-item.nav-link
               = link_to current_user.email, user_path(current_user.id)

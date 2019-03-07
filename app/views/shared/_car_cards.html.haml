@@ -1,0 +1,5 @@
+- @search_result.each_slice(4) do |cars|
+  .card-deck.justify-content-center
+    - cars.each do |car|
+      .mb-3{style: 'width: 20rem;'}
+        = react_component('car/car_card', car.as_card_hash)

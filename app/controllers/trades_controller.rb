@@ -4,19 +4,19 @@ class TradesController < ApplicationController
 
   def create
     @trade = parent.trades.new trade_params
-    redirect_to parent if @trade.save
+    redirect_to category_car_path(id: @trade.car) if @trade.save
   end
 
   def update
-    redirect_to parent if @trade.update trade_params
+    redirect_to category_car_path(id: @trade.car) if @trade.update trade_params
   end
 
   def destroy
-    redirect_to parent if @trade.delete
+    redirect_to category_car_path(id: @trade.car) if @trade.delete
   end
 
   def decline
-    redirect_to parent if @trade.decline!
+    redirect_to category_car_path(id: @trade.car) if @trade.decline!
   end
 
   private

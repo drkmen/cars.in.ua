@@ -54,7 +54,7 @@ class CarDescription extends React.Component {
                     <div className='row section'>
                         <div className='col-6'>
                             <h4 className='d-inline-block'>{car.address}</h4>
-                            <p>{this.props.car_type.name} / {this.props.car_carcass.name} / {car.doors} дверей</p>
+                            <p>{this.props.category.name} / {this.props.car_carcass.name} / {car.doors} дверей</p>
                         </div>
                         <div className='col-6'>
                             <div className='row float-right'>
@@ -104,7 +104,7 @@ class CarDescription extends React.Component {
 }
 
 CarDescription.defaultProps = {
-    car_type: {
+    category: {
         name: 'missing'
     },
     car_carcass: {

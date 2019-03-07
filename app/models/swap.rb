@@ -24,9 +24,9 @@ class Swap
       swap_for: swap_for,
       type: :swap,
       created_at: created_at,
-      update_path: car_swap_path(self.id, car_id: car.id),
-      delete_path: car_swap_path(self.id, car_id: car.id),
-      decline_path: car_swap_decline_path(self.id, car_id: car.id),
+      update_path: category_car_swap_path(category_id: car.category.id, car_id: car.id, id: self.id),
+      delete_path: category_car_swap_path(category_id: car.category.id, car_id: car.id, id: self.id),
+      decline_path: category_car_swap_decline_path(category_id: car.category.id, car_id: car.id, swap_id: self.id),
       user: user.as_hash,
       car: {
         id: car.id.to_s,
@@ -35,7 +35,7 @@ class Swap
     }
   end
 
-  def user
-    User.find(self.user_id)
-  end
+  # def user
+  #   User.find(self.user_id)
+  # end
 end

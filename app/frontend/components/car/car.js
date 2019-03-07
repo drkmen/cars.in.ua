@@ -45,7 +45,7 @@ class Car extends React.Component {
                         </div>
                     </div>
                     <CarDescription car={this.props.car}
-                                    car_type={this.props.car.car_type || undefined}
+                                    category={this.props.car.category || undefined}
                                     car_carcass={this.props.car.car_carcass || undefined}
                                     fuel={this.props.car.fuel || undefined}
                                     transmission={this.props.car.transmission || undefined}

@@ -24,9 +24,9 @@ class Trade
       price: suggested_price,
       type: :trade,
       created_at: created_at,
-      update_path: car_trade_path(self.id, car_id: car.id),
-      delete_path: car_trade_path(self.id, car_id: car.id),
-      decline_path: car_trade_decline_path(self.id, car_id: car.id),
+      update_path: category_car_trade_path(category_id: car.category.id, car_id: car.id, id: self.id),
+      delete_path: category_car_trade_path(category_id: car.category.id, car_id: car.id, id: self.id),
+      decline_path: category_car_trade_decline_path(category_id: car.category.id, car_id: car.id, trade_id: self.id),
       user: user.as_hash,
       car: {
         id: car.id.to_s,

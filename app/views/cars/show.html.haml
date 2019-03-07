@@ -6,7 +6,7 @@
 
 %div.car-show{ class: @car.sold ? 'sold' : '' }
   - if @similar_cars.index(@car)
-    = link_to @similar_cars[@similar_cars.index(@car).pred] do
+    = link_to category_car_path(id: @similar_cars[@similar_cars.index(@car).pred]) do
       .arrow.prev-car.pointable{title: 'previous car'}
         %i.fa.fa-angle-left
 
@@ -77,7 +77,7 @@
 
 
   - if @similar_cars.index(@car)
-    = link_to @similar_cars[@similar_cars.index(@car).next % @similar_cars.size] do
+    = link_to category_car_path(id: @similar_cars[@similar_cars.index(@car).next % @similar_cars.size]) do
       .arrow.next-car.pointable{title: 'next car'}
         %i.fa.fa-angle-right
 
@@ -91,8 +91,8 @@
         .row.no-margin
           - @similar_cars.each do |car|
             .col.no-padding
-              = link_to car_path(car) do
-                = react_component('car/car_card_small', car.as_card_hash.merge(car_path: car_path(car)))
+              = link_to category_car_path(id: car) do
+                = react_component('car/car_card_small', car.as_card_hash)
 
 
   %hr

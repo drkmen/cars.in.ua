@@ -24,7 +24,7 @@
           - @related_data[:carcasses].each do |carcass|
             .option-group
               %label
-                = check_box_tag 'filters[]carcasses[]', carcass[:name]
+                = check_box_tag 'filters[]carcasses[]', carcass[:id]
                 = carcass[:name]
 
       %hr
@@ -37,7 +37,7 @@
           - @related_data[:transmissions].each do |transmission|
             .option-group
               %label
-                = check_box_tag 'filters[]transmissions[]', transmission[:name]
+                = check_box_tag 'filters[]transmissions[]', transmission[:id]
                 = transmission[:name]
 
       %hr
@@ -50,7 +50,7 @@
           - @related_data[:fuels].each do |fuel|
             .option-group
               %label
-                = check_box_tag 'filters[]fuels[]', fuel[:name]
+                = check_box_tag 'filters[]fuels[]', fuel[:id]
                 = fuel[:name]
 
       = submit_tag 'filter', class: 'input-group-text d-none'

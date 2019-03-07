@@ -9,7 +9,7 @@ class Comment
   belongs_to :user, optional: true
 
   def as_hash
-    path = car_comment_path(id: self.id, car_id: commentable.id)
+    path = category_car_comment_path(category_id: commentable.category.id, car_id: commentable.id, id: self.id)
     {
       id: id.to_s,
       body: body,

@@ -9,16 +9,19 @@ Rails.application.routes.draw do
   get 'search', to: 'search#search', as: :search
 
   resources :users, except: :index
-  resources :cars do
-    resources :comments, only: %i[create destroy update]
-    resources :swaps, only: %i[create destroy update] do
-      get :decline
+
+  resources :categories do
+    resources :cars do
+      resources :comments, only: %i[create destroy update]
+      resources :swaps, only: %i[create destroy update] do
+        get :decline
+      end
+      resources :trades, only: %i[create destroy update] do
+        get :decline
+      end
+      get 'add_to_favorite'
+      delete 'remove_from_favorite'
     end
-    resources :trades, only: %i[create destroy update] do
-      get :decline
-    end
-    get 'add_to_favorite'
-    delete 'remove_from_favorite'
   end
 
   # you don't need all CRUD routes

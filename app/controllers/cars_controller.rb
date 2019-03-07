@@ -13,16 +13,19 @@ class CarsController < ApplicationController
     @similar_cars = Car.search_similar(car: @car)
     p "-----------------------SCORES: #{@similar_cars.results.map { |che| che._score}}"
     p "-----------------------SCORE: #{@similar_cars.results.first._score}"
+    p '*'*100
+    pp @similar_cars.records
+    p '*'*100
     @similar_cars = @similar_cars.records.to_a
 
     if current_user
-      @car_suggestions = (@car.swaps + @car.trades).map(&:as_json).each do |obj|
+      @car_suggestions = (@car.swaps + @car.trades).map(&:as_hash).each do |obj|
         obj.merge! "#{obj[:type]}_owner".to_sym => current_user.id.to_s == obj[:user][:id],
                    car_owner: current_user.id.to_s == obj.dig(:car, :owner_id)
       end
 
       @car_comments = @car.comments.map(&:as_hash).each do |cm|
-        cm.merge! comment_owner: current_user.id == cm.dig(:user, :id),
+        cm.merge! comment_owner: current_user.id.to_s == cm.dig(:user, :id).to_s,
                   car_owner: current_user.id == cm[:commentable][:user]&.to_s
       end
     end
@@ -35,7 +38,7 @@ class CarsController < ApplicationController
   def edit; end
 
   def update
-    redirect_to @car if @car.update_attributes!(car_params)
+    redirect_to category_car_path(id: @car) if @car.update_attributes!(car_params)
   end
 
   def create
@@ -63,16 +66,4 @@ class CarsController < ApplicationController
   def car_params
     params.require(:car).permit!
   end
-
-  # def prepare_related_data
-  #   @related_data = {
-  #     transmissions: Transmission.all.pluck(:name, :id),
-  #     mark_list: CarMark.all.pluck(:name, :id),
-  #     car_types: CarType.all.pluck(:name, :id),
-  #     carcasses: CarCarcass.all.pluck(:name, :id),
-  #     fuels: Fuel.all.pluck(:name, :id),
-  #     regions: Region.all.pluck(:name, :id),
-  #     cities: City.all.pluck(:name, :id)
-  #   }
-  # end
 end

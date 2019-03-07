@@ -1,5 +1,5 @@
 .container
-  = form_for @car do |f|
+  = form_for [@car.category, @car] do |f|
 
     %h3
       Tell us, there is the car
@@ -18,8 +18,8 @@
           = f.select :city_id, @related_data[:cities].map { |city| [city[:name], city[:id]] }, {}, class: 'custom-select'
       .col-3
         .form-group
-          = f.label :car_type
-          = f.select :car_type_id, @related_data[:car_types].map { |c_t| [c_t[:name], c_t[:id]] }, {}, class: 'custom-select'
+          = f.label :category
+          = f.select :category_id, @related_data[:categories].map { |c_t| [c_t[:name], c_t[:id]] }, {}, class: 'custom-select'
       .col-3
         .form-group
           = f.label :car_carcass
@@ -100,10 +100,14 @@
       %hr
 
     .form-row
-      .col-12
+      .col-6
         .form-group
           = f.label :sold
-          = f.text_field :sold, class: 'form-control'
+          = f.check_box :sold, class: 'form-control'
+
+        .form-group
+          = f.label :completed
+          = f.check_box :completed, class: 'form-control'
 
     %h3
       Options

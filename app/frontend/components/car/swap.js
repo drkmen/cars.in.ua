@@ -33,6 +33,7 @@ class Swap extends React.Component {
                                         {swap.update_path && swap.active && (
                                             <a href={swap.update_path}>Edit</a>
                                         )}
+                                        &nbsp;|
                                         {swap.delete_path && swap.active && (
                                             <a className='delete' href={swap.delete_path} data-method='delete'> delete</a>
                                         )}

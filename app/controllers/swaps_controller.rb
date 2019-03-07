@@ -4,19 +4,19 @@ class SwapsController < ApplicationController
 
   def create
     @swap = parent.swaps.new swap_params
-    redirect_to parent if @swap.save
+    redirect_to category_car_path(id: @swap.car) if @swap.save
   end
 
   def update
-    redirect_to parent if @swap.update swap_params
+    redirect_to category_car_path(id: @swap.car) if @swap.update swap_params
   end
 
   def destroy
-    redirect_to parent if @swap.delete
+    redirect_to category_car_path(id: @swap.car) if @swap.delete
   end
 
   def decline
-    redirect_to parent if @swap.decline!
+    redirect_to category_car_path(id: @swap.car) if @swap.decline!
   end
 
   private

@@ -1,5 +1,5 @@
 .container
-  = form_for [@car, @car.trades.new] do |f|
+  = form_for [@car.category, @car, @car.trades.new] do |f|
     .form-row
       .col-12
         .form-group

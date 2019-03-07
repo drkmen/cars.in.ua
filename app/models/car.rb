@@ -43,7 +43,7 @@ class Car
   field :published_at, type: DateTime
 
   belongs_to :user, counter_cache: true
-  belongs_to :car_type, counter_cache: true
+  belongs_to :category, counter_cache: true
   belongs_to :car_carcass, counter_cache: true, optional: true
   belongs_to :mark, class_name: 'CarMark', counter_cache: true
   belongs_to :model, class_name: 'CarModel', counter_cache: true
@@ -68,7 +68,7 @@ class Car
   before_save :set_title, if: :year_changed?
   slug :slug_title
 
-  scope :active, -> { where(completed: true) }
+  scope :completed, -> { where(completed: true) }
 
   def main_image
     images&.first&.image || images.new.image # stub for placeholder
@@ -113,7 +113,7 @@ class Car
       region: region,
       city: city,
       address: address,
-      car_type: car_type,
+      category: category,
       car_carcass: car_carcass,
       additional_options: additional_options,
       comments: comments.map(&:as_hash),
@@ -122,15 +122,15 @@ class Car
       # suggestions: swaps.map(&:to_json) + trades.map(&:to_json),
       paths: {
         edit_car_path: {
-          url: url_helpers.edit_car_path(self),
+          url: url_helpers.edit_category_car_path(category_id: self.category.id.to_s, id: self.id.to_s),
           method: :get
         },
         add_favorite: {
-          url: url_helpers.car_add_to_favorite_path(self),
+          url: url_helpers.category_car_add_to_favorite_path(category_id: self.category.id.to_s, car_id: self.id.to_s),
           method: :get
         },
         remove_from_favorite: {
-          url: url_helpers.car_remove_from_favorite_path(self),
+          url: url_helpers.category_car_remove_from_favorite_path(category_id: self.category.id.to_s, car_id: self.id.to_s),
           method: :delete
         }
       }
@@ -160,7 +160,7 @@ class Car
       fuel: fuel&.name,
       engine: engine,
       sold: sold,
-      car_path: url_helpers.car_path(self)
+      car_path: url_helpers.category_car_path(category_id: self.category.slug, id: self.id.to_s)
     }
   end
 
@@ -191,62 +191,57 @@ class Car
     })
   end
 
-  def filter
-
-  end
-
-  # def self.filter(filters)
-  #   p '/'*100
-  #   # p filters[:carcasses]
-  #   p '/'*100
-  #   self.search( {
-  #     # query: {
-  #     #   bool: {
-  #     #     should: [
-  #     #       terms: {
-  #     #         title: ['Toyota Rav 4 2019']
-  #     #         # "car_carcass.name": filters[:carcasses] || '',
-  #     #         # "transmission.name": filters[:transmissions] || '',
-  #     #         # "fuel.name": filters[:fuels] || '' ,
-  #     #       }
-  #     #     ]
-  #     #   }
-  #     #
-  #     #     # bool: {
-  #     #     #   should: [
-  #     #     #     { terms: { "car_carcass.name": filters[:carcasses]&.first }},
-  #     #     #     { terms: { "transmission.name": filters[:transmissions]&.first }},
-  #     #     #     { terms: { "fuel.name": filters[:fuels]&.first }},
-  #     #     #       # "transmission.name": filters[:transmissions] || '',
-  #     #     #       # "fuel.name": filters[:fuels] || ''
-  #     #     #   ]
-  #     #     # }
-  #     # }
+  # def self.filter
   #
-  #     "query": {
-  #       "bool": {
-  #         "must": [
-  #           { "terms": { "title":   ["toyota"]        }},
-  #           # { "match": { "content": "C-HR" }}
-  #         ],
-  #         "filter": [
-  #           { "term":  { "completed": false }},
-  #         #   { "range": { "publish_date": { "gte": "2015-01-01" }}}
-  #         ]
-  #         }
-  #     }
-  #   })
   # end
 
-  def as_indexed_json(options = {})
-    as_json(
-        only: [:title, :year, :price, :color],
-        include: {
-            mark: { only: :name },
-            model: { only: :name },
-            fuel: { only: :name },
-            transmission: { only: :name }
+  def self.filter(search, filters)
+    # p '/'*100
+    # search ||= ''
+    # p search
+    # p filters.first[:carcasses]
+    # p '/'*100
+    self.search( {
+      query: {
+        bool: {
+          should: [
+            { match: { title: { query: search } } },
+          ],
+          filter: [
+            { term: { completed: true } },
+            { terms: { fuel_id: filters.first[:fuels] || Fuel.all.map { |f| f.id.to_s } } },
+            { terms: { transmission_id: filters.first[:transmissions] || Transmission.all.map { |f| f.id.to_s } } },
+            { terms: { car_carcass_id: filters.first[:carcasses] || CarCarcass.all.map { |f| f.id.to_s } } },
+            # { term: { "mark.name": 'Peugeot' } },
+            # { term: { year: 2018 } },
+            # { term: { price: 37133.0 } },
+            # { term: { "car_carcass.name": "Седан" } },
+            # { term: { "fuel.name": { query: 'Бензин' } } },
+            # { term: { "transmission.name": "Автомат" }}
+          ]
         }
-    )
+      }
+    })
+  end
+
+  def as_indexed_json(options = {})
+    related_data = {
+      mark_id: mark.id.to_s, mark_name: mark.name,
+      model_id: model.id.to_s, model_name: model.name,
+      fuel_id: fuel.id.to_s, fuel_name: fuel.name,
+      transmission_id: transmission.id.to_s, transmission_name: transmission.name,
+      car_carcass_id: car_carcass&.id&.to_s, car_carcass_name: car_carcass&.name
+    }
+    as_json(
+        only: %i[title year price color completed],
+        # include: {
+        #     mark: { only: %i[id name] },
+        #     model: { only: :name },
+        #     fuel: { only: :name },
+        #     transmission: { only: :name },
+        #     car_carcass: { only: :name }
+        # }
+    ).merge related_data
+
   end
 end

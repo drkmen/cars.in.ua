@@ -33,6 +33,7 @@ class Trade extends React.Component {
                                         {trade.update_path && trade.active && (
                                             <a href={trade.update_path}>Edit</a>
                                         )}
+                                        &nbsp;|
                                         {trade.delete_path && trade.active && (
                                             <a className='delete' href={trade.decline_path} data-method='delete'> delete</a>
                                         )}
