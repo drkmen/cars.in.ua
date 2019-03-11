@@ -21,11 +21,15 @@
 
       = render 'shared/collapse', id: 'car_carcasses', collapsed: false do
         .form-group
-          - @related_data[:carcasses].each do |carcass|
+          - @related_data[:carcarcasses].each do |carcass|
             .option-group
               %label
-                = check_box_tag 'filters[]carcasses[]', carcass[:id]
+                = check_box_tag 'filters[]carcasses[]', carcass[:id], false, disabled: carcass[:cars_count] == 0 ? true : false
                 = carcass[:name]
+                %span.pull-right
+                  (
+                  = carcass[:cars_count]
+                  )
 
       %hr
       .text-center
@@ -37,8 +41,12 @@
           - @related_data[:transmissions].each do |transmission|
             .option-group
               %label
-                = check_box_tag 'filters[]transmissions[]', transmission[:id]
+                = check_box_tag 'filters[]transmissions[]', transmission[:id], false, disabled: transmission[:cars_count] == 0 ? true : false
                 = transmission[:name]
+                %span.pull-right
+                  (
+                  = transmission[:cars_count]
+                  )
 
       %hr
       .text-center
@@ -50,8 +58,12 @@
           - @related_data[:fuels].each do |fuel|
             .option-group
               %label
-                = check_box_tag 'filters[]fuels[]', fuel[:id]
+                = check_box_tag 'filters[]fuels[]', fuel[:id], false, disabled: fuel[:cars_count] == 0 ? true : false
                 = fuel[:name]
+                %span.pull-right
+                  (
+                  = fuel[:cars_count]
+                  )
 
       = submit_tag 'filter', class: 'input-group-text d-none'
     -#= text_field_tag :search, nil, id: 'search',  class: 'form-control', placeholder: 'Search'

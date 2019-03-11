@@ -53,6 +53,7 @@ class Car
   belongs_to :city, counter_cache: true, optional: true
   # belongs_to :country, counter_cache: true, optional: true
   alias :seller :user
+  alias :car_mark :mark
 
   has_many :images, dependent: :delete
   has_and_belongs_to_many :options

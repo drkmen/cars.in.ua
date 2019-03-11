@@ -23,7 +23,7 @@
       .col-3
         .form-group
           = f.label :car_carcass
-          = f.select :car_carcass_id, @related_data[:carcasses].map { |cr| [cr[:name], cr[:id]] }, {}, class: 'custom-select'
+          = f.select :car_carcass_id, @related_data[:carcarcasses].map { |cr| [cr[:name], cr[:id]] }, {}, class: 'custom-select'
 
     %h3
       Main
@@ -33,7 +33,7 @@
       .col-3
         .form-group
           = f.label :mark
-          = f.select :mark_id, @related_data[:mark_list].map { |mark| [mark[:name], mark[:id]] }, { prompt: 'Select Mark' }, class: 'custom-select'
+          = f.select :mark_id, @related_data[:carmarks].map { |mark| [mark[:name], mark[:id]] }, { prompt: 'Select Mark' }, class: 'custom-select'
       .col-3
         .form-group
           = f.label :model
