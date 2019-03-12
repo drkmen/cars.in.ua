@@ -1,5 +1,5 @@
-.container
-  = form_for [@car.category, @car] do |f|
+.container{ class: @car.new_record? ? 'car-new' : 'car-edit' }
+  = form_for [@car.category || Category.first, @car] do |f|
 
     %h3
       Tell us, there is the car
@@ -11,19 +11,19 @@
         .form-group
           -#= @related_data[:regions].map { |region| region[:name] }
           = f.label :region
-          = f.select :region_id, @related_data[:regions].map { |region| [region[:name], region[:id]] }, {}, class: 'custom-select'
+          = f.select :region_id, @related_data[:regions].map { |region| [region[:name], region[:id]] }, { prompt: 'Select Region' }, class: 'custom-select'
       .col-3
         .form-group
           = f.label :city
-          = f.select :city_id, @related_data[:cities].map { |city| [city[:name], city[:id]] }, {}, class: 'custom-select'
+          = f.select :city_id, @related_data[:cities].map { |city| [city[:name], city[:id]] }, { prompt: 'Select City' }, class: 'custom-select'
       .col-3
         .form-group
           = f.label :category
-          = f.select :category_id, @related_data[:categories].map { |c_t| [c_t[:name], c_t[:id]] }, {}, class: 'custom-select'
+          = f.select :category_id, @related_data[:categories].map { |c_t| [c_t[:name], c_t[:id]] }, { prompt: 'Select Category' }, class: 'custom-select'
       .col-3
         .form-group
           = f.label :car_carcass
-          = f.select :car_carcass_id, @related_data[:carcarcasses].map { |cr| [cr[:name], cr[:id]] }, {}, class: 'custom-select'
+          = f.select :car_carcass_id, @related_data[:carcarcasses].map { |cr| [cr[:name], cr[:id]] }, { prompt: 'Select Carcass' }, class: 'custom-select'
 
     %h3
       Main
@@ -37,7 +37,11 @@
       .col-3
         .form-group
           = f.label :model
-          = f.select :model_id, [], {}, { class: 'custom-select', disabled: true }
+          = @car.model_id
+          - if @car.new_record?
+            = f.select :model_id, [], {}, { class: 'custom-select', disabled: true }
+          - else
+            = f.select :model_id, @car.mark&.models&.pluck(:name, :id), { selected: @car&.model&.id.to_s }, { class: 'custom-select' }
       .col-3
         .form-group
           = f.label :year
@@ -45,7 +49,7 @@
       .col-3
         .form-group
           = f.label :transmission
-          = f.select :transmission_id, @related_data[:transmissions].map { |tr| [tr[:name], tr[:id]] }, {}, class: 'custom-select'
+          = f.select :transmission_id, @related_data[:transmissions].map { |tr| [tr[:name], tr[:id]] }, { prompt: 'Select Transmission' }, class: 'custom-select'
 
     .form-row
       .col-3
@@ -73,7 +77,7 @@
       .col-3
         .form-group
           = f.label :fuel
-          = f.select :fuel_id, @related_data[:fuels].map { |fuel| [fuel[:name], fuel[:id]] }, {}, class: 'custom-select'
+          = f.select :fuel_id, @related_data[:fuels].map { |fuel| [fuel[:name], fuel[:id]] }, { prompt: 'Select Fuel' }, class: 'custom-select'
       .col-3
         .form-group
           = f.label :vin
@@ -91,6 +95,8 @@
       .col-12
         .form-group
           = f.label :description
+          %small.grey
+            Describe your car
           = f.text_area :description, class: 'form-control'
         .form-group
           = f.file_field :images, class: 'form-control-file', multiple: true

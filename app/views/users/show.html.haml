@@ -16,6 +16,8 @@
               %li.nav-item
                 %a#notifications-tab.nav-link{'aria-controls' => 'notifications', 'aria-selected' => 'false', 'data-toggle' => 'tab', href: '#notifications', role: 'tab'}
                   Notifications
+                  %span.badge.badge-pill.badge-danger
+                    = current_user.notifications.unread.size
 
               %li.nav-item
                 %a#settings-tab.nav-link{'aria-controls' => 'settings', 'aria-selected' => 'false', 'data-toggle' => 'tab', href: '#settings', role: 'tab'}
@@ -24,16 +26,17 @@
 
   .container
     #user-tabs-content.tab-content
-      -# profile tab
-      .text-right
-        %span.pointable{'aria-controls' => 'edit_user', 'aria-expanded' => 'false', 'data-toggle' => 'collapse', href: '#edit_user', role: 'button'}
-          %i.fa.fa-pencil
-          Edit Profile
 
       = render 'shared/collapse', id: 'edit_user' do
         = render 'users/form'
 
       #profile.tab-pane.fade{'aria-labelledby' => 'profile-tab', role: 'tabpanel'}
+        -# profile tab
+        .text-right
+          %span.pointable{'aria-controls' => 'edit_user', 'aria-expanded' => 'false', 'data-toggle' => 'collapse', href: '#edit_user', role: 'button'}
+            %i.fa.fa-pencil
+            Edit Profile
+
         Hello there
         .media
           = image_tag @user.avatar, class: 'img-fluid rounded-circle', size: '125x125'
@@ -72,7 +75,7 @@
 
       -# notifications tab
       #notifications.tab-pane.fade{'aria-labelledby' => 'notifications-tab', role: 'tabpanel'}
-        Notifications
+        = render 'users/notifications/notifications'
 
       -# settings tab
       #settings.tab-pane.fade{'aria-labelledby' => 'settings-tab', role: 'tabpanel'}

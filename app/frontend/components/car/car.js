@@ -40,7 +40,7 @@ class Car extends React.Component {
                             <span className='grey float-right'>
                                 <i className='fa fa-eye'></i>
                                 &nbsp;
-                                999_999
+                                {this.props.car.views}
                             </span>
                         </div>
                     </div>

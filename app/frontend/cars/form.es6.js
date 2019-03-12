@@ -2,8 +2,8 @@
 
 $(document).ready(() => {
 
-    let $model = $('select#car_model_id');
-    let $mark = $('select#car_mark_id');
+    let $model = $('.car-new select#car_model_id');
+    let $mark = $('.car-new select#car_mark_id');
 
     fill_model_list = (markId) => {
         $.getJSON(`/car_marks/${markId}/mark_models`, (data) => {
@@ -14,6 +14,9 @@ $(document).ready(() => {
             } )
         })
     };
+
+    console.log($model.val());
+    console.log(!$model.val());
 
     if ($mark.val()) {
         fill_model_list($mark.val())

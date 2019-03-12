@@ -5,8 +5,10 @@
   %meta{content: 'no-cache', name: 'turbolinks-cache-control'}/
 
 %div.car-show{ class: @car.sold ? 'sold' : '' }
-  - if @similar_cars.index(@car)
-    = link_to category_car_path(id: @similar_cars[@similar_cars.index(@car).pred]) do
+  -#- if @similar_cars.index(@car)
+  - if @similar_cars
+    -#= link_to category_car_path(id: @similar_cars[@similar_cars.index(@car).pred]) do
+    = link_to category_car_path(id: @similar_cars.sample) do
       .arrow.prev-car.pointable{title: 'previous car'}
         %i.fa.fa-angle-left
 
@@ -76,8 +78,10 @@
             = render '/cars/suggestions'
 
 
-  - if @similar_cars.index(@car)
-    = link_to category_car_path(id: @similar_cars[@similar_cars.index(@car).next % @similar_cars.size]) do
+  -#- if @similar_cars.index(@car)
+  - if @similar_cars
+    -#= link_to category_car_path(id: @similar_cars[@similar_cars.index(@car).next % @similar_cars.size]) do
+    = link_to category_car_path(id: @similar_cars.sample) do
       .arrow.next-car.pointable{title: 'next car'}
         %i.fa.fa-angle-right
 

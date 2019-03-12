@@ -20,6 +20,10 @@ html, body {
   font-size: 14px;
 }
 
+b {
+  font-weight: 500;
+}
+
 h1, h2, h3, h4, h5 {
   &.thin {
     font-weight: 100;
@@ -97,6 +101,7 @@ a {
   width: 100%;
   min-height: 100px;
   background: $white;
+  font-weight: 500;
 }
 
 #wrapper {
@@ -109,6 +114,9 @@ a {
   margin-top: -100px;
   min-height: 100px;
   width: 100%;
+  color: $white;
+  padding: 35px;
+  background-color: $graphite;
 }
 
 #search {

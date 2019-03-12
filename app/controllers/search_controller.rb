@@ -4,12 +4,12 @@ class SearchController < ApplicationController
   def search
     search_query = params[:q] || ''
     @search_result = search_query.present? ? Car.search(search_query).records : Car.limit(50)
-    p '!'*100
+    # p '!'*100
     # p @search_result = @search_result.filter(search_query, params[:filters]).records
     @search_result = @search_result.filter(search_query, params[:filters]).records.to_a if params[:filters]
-    p @search_result
-    p @search_result&.size
-    p '!'*100
+    # p @search_result
+    # p @search_result&.size
+    # p '!'*100
     prepare_related_data
     @search_result.to_a
   end
@@ -28,9 +28,9 @@ class SearchController < ApplicationController
     # end
 
     @related_data = super
-    p '*'*100
-    pp @related_data.keys
-    p '*'*100
+    # p '*'*100
+    # pp @related_data.keys
+    # p '*'*100
     %w(Transmission CarMark Category CarCarcass Fuel Region City).each do |obj|
       objs = @search_result.map { |car| car.public_send(obj.underscore)&.as_hash }
       # p '='*100

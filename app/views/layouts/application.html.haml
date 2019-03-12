@@ -13,8 +13,7 @@
         -#%p.notice= notice
         -#%p.alert= alert
 
-
-        %ul.nav.justify-content-center
+        %ul.nav.justify-content-left
           %li.nav-item
             = link_to 'Home', root_path, class: 'nav-link'
           %li.nav-item
@@ -31,13 +30,21 @@
                 Sign In
             %li.nav-item
               = link_to 'Sign up', new_user_registration_path, class: 'nav-link'
+
     .container-fluid
       #wrapper
         = yield
 
-    #footer
-      %h1 nogi
-
-  -#%button.btn.btn-primary{"data-target" => "#exampleModal", "data-toggle" => "modal", :type => "button"}
-    -#Launch demo modal
-  -#= render '/shared/modal2'
+    #footer.container-fluid
+      .row.text-center
+        .col
+          %h1 cars in ua
+          %p
+          %h2 cars in ua
+          %p
+          %h3 cars in ua
+          %p
+          %h4 cars in ua
+          %p
+          %h5 cars in ua
+          %p

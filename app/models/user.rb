@@ -54,6 +54,7 @@ class User
   has_many :trades
   has_many :swaps
 
+  has_many :notifications
   has_many :favorites, dependent: :delete
   # has_many :favorite_cars, through: :favorites
 

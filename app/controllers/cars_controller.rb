@@ -14,7 +14,7 @@ class CarsController < ApplicationController
     p "-----------------------SCORES: #{@similar_cars.results.map { |che| che._score}}"
     p "-----------------------SCORE: #{@similar_cars.results.first._score}"
     p '*'*100
-    pp @similar_cars.records
+    # pp @similar_cars.records
     p '*'*100
     @similar_cars = @similar_cars.records.to_a
 
@@ -29,6 +29,9 @@ class CarsController < ApplicationController
                   car_owner: current_user.id == cm[:commentable][:user]&.to_s
       end
     end
+
+    # TODO: IP address and so on
+    @car.increment_views!
   end
 
   def new
@@ -46,7 +49,7 @@ class CarsController < ApplicationController
     car_params['images'].each do |image|
       @car.images << Image.new(image: image)
     end
-    redirect_to @car if @car.save!
+    redirect_to category_car_path(id: @car) if @car.save!
   end
 
   def add_to_favorite

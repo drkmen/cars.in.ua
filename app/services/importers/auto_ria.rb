@@ -54,8 +54,8 @@ module Importers
                       model_id: CarModel.find_or_create_by(uid: res['modelId'], name: res['modelName']).id,
                       transmission_id: Transmission.find_or_create_by(name: res['autoData']['gearboxName']).id,
                       fuel_id: Fuel.find_or_create_by(name: res['autoData']['fuelName']).id,
-                      car_type_id: CarType.find_or_create_by(uid: res['autoData']['categoryId'],
-                                                             name: res['autoData']['categoryNameEng']).id,
+                      category_id: Category.find_or_create_by(uid: res['autoData']['categoryId'],
+                                                              name: res['autoData']['categoryNameEng']).id,
                       region_id: Region.find_or_create_by(uid: res['stateData']['stateId'], name: res['stateData']['regionName']).id,
                       city_id: City.find_or_create_by(uid: res.dig('stateData', 'cityId'), name: res['stateData']['name']).id,
 
