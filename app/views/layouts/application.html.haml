@@ -7,44 +7,97 @@
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
     = stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    -#= render '/shared/modal', id: 'signin222', title: 'Sign in'
-    .container-fluid
-      #header.container.material-card.medium
-        -#%p.notice= notice
-        -#%p.alert= alert
+    - unless current_user
+      #sessionSection
+        .container-fluid
+          .row
+            .col-7.overlay
+            .col-5.session.material-card.extra-large
+              -#.i.fa.fa-times.close-button
+              .login-form
+                = render template: 'devise/sessions/new'
+              .signup-form.d-none
+                = render template: 'devise/registrations/new'
 
-        %ul.nav.justify-content-left
-          %li.nav-item
-            = link_to 'Home', root_path, class: 'nav-link'
-          %li.nav-item
-            = link_to 'Cars', category_cars_path, class: 'nav-link'
-          - if current_user
-            %li.nav-item.nav-link
-              = link_to current_user.email, user_path(current_user.id)
-            %li.nav-item.nav-link
-              = link_to 'Logout', destroy_user_session_path, method: :delete
-          - else
-            %li.nav-item
-              = link_to 'Sign in', new_user_session_path, class: 'nav-link'#, 'data-toggle' => 'modal', 'data-target' => '#signin'
-              -#%a.nav-link{'data-toggle' => 'modal', 'data-target' => '#signin222', type: 'button'}
-                Sign In
-            %li.nav-item
-              = link_to 'Sign up', new_user_registration_path, class: 'nav-link'
+    .body
+      -#= render '/shared/modal', id: 'signin222', title: 'Sign in'
+      .container-fluid
+        #header.container.material-card.medium.align-middle
+          -#%p.notice= notice
+          -#%p.alert= alert
+          .row
+            .col-10
+              %ul.nav.justify-content-left
+                %li.nav-item
+                  = link_to 'Home', root_path, class: 'nav-link'
+                %li.nav-item
+                  = link_to 'Cars', category_cars_path, class: 'nav-link'
+                - if current_user
+                  %li.nav-item.nav-link
+                    = link_to current_user.email, user_path(current_user.id)
+                  %li.nav-item.nav-link
+                    = link_to 'Logout', destroy_user_session_path, method: :delete
+                - else
+                  %li.nav-item
+                    -#= link_to 'Sign in', new_user_session_path, class: 'nav-link'#, 'data-toggle' => 'modal', 'data-target' => '#signin'
+                    -#%a.nav-link{'data-toggle' => 'modal', 'data-target' => '#signin222', type: 'button'}
+                      Sign In
+            .col-2
+              .float-right
+                -#= link_to 'Sign up', new_user_registration_path, class: 'nav-link'
+                - unless current_user
+                  = link_to 'Login', '#', class: 'nav-link', id: 'sessionLink', 'data-turbolinks' => false
+                  -#LOGIN
+                  %span.lock-icon-wrapper
+                    %svg.nav-item.lock-icon{"aria-hidden" => "true", :viewbox => "0 0 14 16", :xmlns => "http://www.w3.org/2000/svg"}
+                      %path{:d => "M3 6.7V3.8A4 4 0 0 1 7 0a4 4 0 0 1 4 3.8v2.9h.9c1.2 0 2.1 1 2.1 2.1v5c0 1.2-1 2.2-2.1 2.2H2.1C.9 16 0 15 0 13.8v-5c0-1.2 1-2.1 2.1-2.1H3zm1.3 0h5.4V3.8c0-1.4-1.2-2.5-2.7-2.5a2.6 2.6 0 0 0-2.7 2.5v2.9zM2.1 8c-.4 0-.7.3-.7.7V14c0 .4.3.8.7.8h9.8c.4 0 .7-.4.7-.8V8.7c0-.4-.3-.7-.7-.7H2.1z"}
 
-    .container-fluid
-      #wrapper
-        = yield
+      .container-fluid
+        #wrapper
+          = yield
 
-    #footer.container-fluid
-      .row.text-center
-        .col
-          %h1 cars in ua
-          %p
-          %h2 cars in ua
-          %p
-          %h3 cars in ua
-          %p
-          %h4 cars in ua
-          %p
-          %h5 cars in ua
-          %p
+      #footer.container-fluid
+        .row.text-center
+          .col-8
+            .row
+              .col-3
+                %h5 Bla
+                %ul
+                  %li bla
+                  %li bla
+                  %li bla
+                  %li bla
+
+              .col-3
+                %h5 Bla
+                %ul
+                  %li bla
+                  %li bla
+                  %li bla
+                  %li bla
+
+              .col-3
+                %h5 Bla
+                %ul
+                  %li bla
+                  %li bla
+                  %li bla
+                  %li bla
+
+              .col-3
+                %h5 Bla
+                %ul
+                  %li bla
+                  %li bla
+                  %li bla
+                  %li bla
+          .col-4
+            %h5 Bla
+            %ul
+              %li bla
+              %li bla
+              %li bla
+              %li bla
+        %hr
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        .row

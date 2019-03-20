@@ -10,8 +10,12 @@
     .col-8
       .container.cars-index
         .row
-          - @cars.each_slice(4) do |cars|
-            .card-deck.mx-auto
-              - cars.each do |car|
-                .mb-3{style: 'width: 20rem;'}
-                  = react_component('car/car_card', car.as_card_hash)
+          .js-items-container
+            = render 'index', cars: @cars
+
+  .row
+    .col
+      .spinner.text-center
+        %i.fa.fa-spinner.fa-spin
+      #loadMore{'data-endpoint' => request.path, 'data-pages-amount' => @cars.total_pages}
+        = hidden_field_tag :page, nil, value: 1

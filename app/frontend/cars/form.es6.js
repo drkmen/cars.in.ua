@@ -15,9 +15,6 @@ $(document).ready(() => {
         })
     };
 
-    console.log($model.val());
-    console.log(!$model.val());
-
     if ($mark.val()) {
         fill_model_list($mark.val())
         $model.attr('disabled', false)

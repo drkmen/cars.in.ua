@@ -1,2 +1,2 @@
-$('.cars-index').html('<%= escape_javascript render 'shared/car_cards', search_result: @search_result %>')
+$('.js-items-container').html('<%= j render 'cars/index', cars: @search_result %>')
 ReactRailsUJS.mountComponents()

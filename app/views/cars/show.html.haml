@@ -13,7 +13,10 @@
         %i.fa.fa-angle-left
 
   .section
-    = react_component 'car/car', car: @car.as_hash.merge({favorite: current_user.favorites.where(car_id: @car.id).present?, owner: current_user.cars.include?(@car)})
+    - if current_user
+      - favorite = current_user.favorites&.where(car_id: @car.id).present?
+      - owner = current_user.cars.include?(@car)
+    = react_component 'car/car', car: @car.as_hash.merge({favorite: favorite, owner: owner})
 
   %br
   %br
@@ -68,14 +71,19 @@
         .material-card.large.questions
           %h5.text-center Questions & Comments
           = react_component 'car/comments', comments: @car_comments
-          = render '/cars/comments/form'
+          - if current_user
+            = render '/cars/comments/form'
+          - else
+            Login to left a comment
 
       .col-4
         .material-card.large.suggestions-wrapper
           %h5.text-center Swaps & Trades
           = react_component 'car/suggestions', suggestions: @car_suggestions
-          - unless current_user == @car.user
+          - if current_user && current_user != @car.user
             = render '/cars/suggestions'
+          - else
+            Login to suggest swap
 
 
   -#- if @similar_cars.index(@car)

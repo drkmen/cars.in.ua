@@ -104,6 +104,34 @@ a {
   font-weight: 500;
 }
 
+#sessionSection {
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  right: -2000px;
+  @include transition(0.3s, ease-in-out);
+
+  .overlay {
+    //background-color: $white;
+    opacity: 0.4;
+    height: 100vh;
+  }
+
+  .session {
+    opacity: 1;
+    background-color: $white;
+    height: 100vh;
+    padding: 7%;
+
+    .close-button {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+    }
+  }
+}
+
 #wrapper {
   min-height: calc(100vh - 100px);
   padding: 50px 0 100px 0;
@@ -123,6 +151,14 @@ a {
   padding: 15px;
 }
 
+#loadMore {
+  margin: 200px 0;
+}
+
+.spinner {
+  font-size: 35px;
+}
+
 .pointable {
   cursor: pointer;
 }
@@ -136,20 +172,16 @@ a {
   z-index: 1;
 }
 
-//.margin-left--35 {
-//  margin-left: -35px;
-//}
-//
-//.margin-right--35 {
-//  margin-right: -35px;
-//}
-
 .no-margin {
   margin: 0 !important;
 }
 
 .no-padding {
  padding: 0 !important;
+}
+
+.lock-icon {
+  height: 10px;
 }
 
 .material-card {

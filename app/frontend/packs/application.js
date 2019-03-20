@@ -9,15 +9,19 @@
 
 // third party
 import 'jquery/src/jquery';
+import 'jquery-visible';
 import 'bootstrap';
 import Rails from 'rails-ujs';
 import Turbolinks from "turbolinks";
 import * as moment from 'moment';
 
 // first party
+import '../cars/index.es6';
 import '../cars/form.es6';
 import '../cars/show.es6';
 import '../search/index.es6';
+import '../general/root.es6'
+
 
 // styles
 import 'stylesheets/application.scss';
@@ -31,11 +35,17 @@ const ReactRailsUJS = require("react_ujs");
 ReactRailsUJS.useContext(componentRequireContext);
 ReactRailsUJS.detectEvents();
 
+// TODO:
 // turbolinks animation while navigate between cars - < Previous and Next > cars
 let $prevCar;
 
 $(document).on('turbolinks:click', function(e){
-    $prevCar = $(e.target.firstChild).attr('class').indexOf('prev-car') >= 0;
+    try {
+        $prevCar = $(e.target.firstChild).attr('class').indexOf('prev-car') >= 0;
+    } catch (e) {
+        // called on all the links...
+    }
+    // $prevCar = $(e.target.firstChild).attr('class').indexOf('prev-car') >= 0;
     $('.car-show').addClass('animated ' + ($prevCar ? 'slideOutRight' : 'slideOutLeft'));
 });
 

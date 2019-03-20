@@ -13,16 +13,19 @@ class Car
   delegate :search, to: :__elasticsearch__
   delegate :mapping, to: :__elasticsearch__
 
-  # settings do
-  #   mappings dynamic: false do
-  #     indexes :mark, type: :text
-  #     indexes :model, type: :text
-  #     indexes :title, type: :text, analyzer: :english
-  #     indexes :year, type: :text
-  #     indexes :color, type: :text
-  #     indexes :completed, type: :boolean
-  #   end
-  # end
+  settings do
+    mappings do
+      # indexes :mark, type: :text
+      # indexes :model, type: :text
+      # indexes :title, type: :text, analyzer: :english
+      # indexes :year, type: :text
+      # indexes :color, type: :text
+
+      indexes :completed, type: :boolean
+      indexes :created_at, type: :date
+      indexes :created_int, type: :integer
+    end
+  end
 
   field :uid
   field :title, type: String
@@ -211,12 +214,15 @@ class Car
           ],
           filter: [
             { term: { completed: true } },
-            { terms: { fuel_id: filters.first[:fuels] || Fuel.all.map { |f| f.id.to_s } } },
-            { terms: { transmission_id: filters.first[:transmissions] || Transmission.all.map { |f| f.id.to_s } } },
-            { terms: { car_carcass_id: filters.first[:carcasses] || CarCarcass.all.map { |f| f.id.to_s } } },
+            { terms: { fuel_id: filters&.first[:fuels] || Fuel.all.map { |f| f.id.to_s } } },
+            { terms: { transmission_id: filters&.first[:transmissions] || Transmission.all.map { |f| f.id.to_s } } },
+            { terms: { car_carcass_id: filters&.first[:carcasses] || CarCarcass.all.map { |f| f.id.to_s } } },
           ]
         }
-      }
+      },
+      sort: [
+        { created_int: { order: 'desc' } }#, '_score'
+      ]
     })
   end
 
@@ -226,10 +232,11 @@ class Car
       model_id: model.id.to_s, model_name: model.name,
       fuel_id: fuel.id.to_s, fuel_name: fuel.name,
       transmission_id: transmission.id.to_s, transmission_name: transmission.name,
-      car_carcass_id: car_carcass&.id&.to_s, car_carcass_name: car_carcass&.name
+      car_carcass_id: car_carcass&.id&.to_s, car_carcass_name: car_carcass&.name,
+      created_int: created_at.to_i
     }
     as_json(
-        only: %i[title year price color completed],
+        only: %i[title year price color completed created_at],
         # include: {
         #     mark: { only: %i[id name] },
         #     model: { only: :name },
