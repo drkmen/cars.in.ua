@@ -17,8 +17,6 @@ class Slider extends React.Component {
         this.slider.carousel({
             interval: false
         });
-        // console.log($('.active-image').width())
-        // display: flex;flex-flow: row wrap;justify-content: space-between;
     };
 
     // componentDidMount = () => {

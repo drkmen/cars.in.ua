@@ -9,7 +9,7 @@ class Comment
   belongs_to :user, optional: true
 
   def as_hash
-    path = category_car_comment_path(category_id: commentable.category.id, car_id: commentable.id, id: self.id)
+    path = category_car_comment_path(category_id: commentable.category.slug, car_id: commentable.slug, id: self.id)
     {
       id: id.to_s,
       body: body,
@@ -17,8 +17,14 @@ class Comment
       commentable: commentable,
       created_at: created_at,
       updated_at: updated_at,
-      update_path: path,
-      delete_path: path,
+      update: {
+        path: path,
+        able: created_at > Time.now - 1.hour
+      },
+      delete: {
+        path: path,
+        able: created_at > Time.now - 2.hour
+      },
       reply_path: nil,
       # comment_owner: false # filled in car/show view :(
     }

@@ -15,9 +15,33 @@
         }
       }
     }
+
+    .badge {
+      vertical-align: top;
+    }
   }
 
   #user-tabs-content {
     padding-top: 25px;
+  }
+
+  #notifications {
+    .notification {
+      padding: 15px;
+      border-bottom: 1px solid $light-grey;
+
+      &:hover {
+        background-color: $white;
+      }
+
+      &.unreaded {
+        &:before {
+          position: absolute;
+          left: -13px;
+          content: 'new';
+          color: $red;
+        }
+      }
+    }
   }
 }

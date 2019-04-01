@@ -1,2 +1,3 @@
-- current_user.notifications.each do |notification|
-  = render 'users/notifications/notification', notification: notification
+.notifications
+  - current_user.notifications.each do |notification|
+    = render 'users/notifications/notification', notification: notification

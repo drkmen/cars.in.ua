@@ -6,6 +6,7 @@ class Trade extends React.Component {
     render(){
         const trade = this.props.trade
         const user = trade.user
+
         return (
             <div className={trade.active ? 'trade' : 'trade declined'}>
                 <div className="media">
@@ -31,17 +32,18 @@ class Trade extends React.Component {
                                 {trade.trade_owner && (trade.update_path || trade.delete_path) && (
                                     <div>
                                         {trade.update_path && trade.active && (
-                                            <a href={trade.update_path}>Edit</a>
+                                            <a href={trade.update_path}>Edit |</a>
                                         )}
-                                        &nbsp;|
                                         {trade.delete_path && trade.active && (
-                                            <a className='delete' href={trade.decline_path} data-method='delete'> delete</a>
+                                            <a className='delete' href={trade.decline_path} data-method='delete'>
+                                                &nbsp;delete
+                                            </a>
                                         )}
                                     </div>
                                 )}
                                 {trade.car_owner && trade.decline_path && trade.active && (
-                                    <span> |
-                                        <a className='delete' href={trade.decline_path} > decline</a>
+                                    <span>
+                                        <a className='delete' href={trade.decline_path}>| decline</a>
                                     </span>
                                 )}
                             </small>

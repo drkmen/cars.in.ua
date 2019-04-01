@@ -1,5 +1,3 @@
-// $( document ).on('turbolinks:load', () => {});
-
 $(document).ready(() => {
 
     let $model = $('.car-new select#car_model_id');

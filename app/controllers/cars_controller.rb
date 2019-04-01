@@ -28,12 +28,13 @@ class CarsController < ApplicationController
 
       @car_comments = @car.comments.map(&:as_hash).each do |cm|
         cm.merge! comment_owner: current_user.id.to_s == cm.dig(:user, :id).to_s,
-                  car_owner: current_user.id == cm[:commentable][:user]&.to_s
+                  car_owner: current_user.id.to_s == cm[:commentable][:user]&.to_s
       end
     end
 
     # TODO: IP address and so on
     @car.increment_views!
+    prepare_statistic
   end
 
   def new
@@ -47,7 +48,7 @@ class CarsController < ApplicationController
   end
 
   def create
-    @car = Car.new(car_params.reject { |k| k['images'] })
+    @car = current_user.cars.new(car_params.reject { |k| k['images'] })
     car_params['images'].each do |image|
       @car.images << Image.new(image: image)
     end
@@ -70,5 +71,13 @@ class CarsController < ApplicationController
 
   def car_params
     params.require(:car).permit!
+  end
+
+  def prepare_statistic
+    @statistic = {
+      views: @car.views,
+      bookmarks: Favorite.where(car_id: @car.id).count,
+      price: 0
+    }
   end
 end

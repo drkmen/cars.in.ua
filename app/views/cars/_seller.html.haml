@@ -1,0 +1,17 @@
+.media.user-card
+  = image_tag @car.seller.avatar, class: 'img-fluid rounded-circle', size: '125x125'
+  .media-body
+    .body
+      %div
+        %h5.d-inline.mt-0
+          = @car.seller.name
+          %small.grey
+            = @car.seller.age
+            years
+        %small.grey.float-right
+          since:
+          = time_ago_in_words @car.seller.created_at
+      %p
+        %small.grey
+          = @car.seller.email
+      %p= @car.seller.phone

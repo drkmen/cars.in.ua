@@ -1,13 +1,27 @@
 $(document).on('turbolinks:load', () => {
 
-    // login section
-    const $section = $('#sessionSection')
+    window.csrfToken = $('meta[name=csrf-token]').attr('content');
+
+    const $section = $('#sessionSection');
+    const $overlay = $section.find('.overlay');
+
+    window.openLogin = (event, user = false) => {
+        if (user) {
+            // return false;
+        } else {
+            if (event) {
+                event.preventDefault();
+            }
+            $section.css('right', 0);
+            $('body .body').css('filter', 'blur(5px)')
+        }
+    };
+
     $('#sessionLink').on('click', () => {
-        $section.css('right', 0);
-        $('body .body').css('filter', 'blur(5px)')
+        openLogin();
     });
 
-    const $overlay = $section.find('.overlay');
+    // const $overlay = $section.find('.overlay');
     $overlay.on('click', () => {
         $section.css('right', -2000);
         $('body .body').css('filter', 'blur(0px)')

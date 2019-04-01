@@ -39,13 +39,13 @@ class CarCard extends React.Component {
                         <div className='col-md-6'>
                             <InfoBlock icon='icon-engine'
                                        desc='Двигатель'
-                                       value={this.props.engine}/>
+                                       value={`${this.props.engine}, ${this.props.fuel}`}/>
                         </div>
-                        <div className='col-md-6'>
-                            <InfoBlock icon='icon-gas-station'
-                                       desc='Топливо'
-                                       value={this.props.fuel}/>
-                        </div>
+                        {/*<div className='col-md-6'>*/}
+                            {/*<InfoBlock icon='icon-gas-station'*/}
+                                       {/*desc='Топливо'*/}
+                                       {/*value={this.props.fuel}/>*/}
+                        {/*</div>*/}
                     </div>
 
                 </div>

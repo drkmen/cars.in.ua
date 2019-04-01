@@ -6,21 +6,22 @@
           %h5.text-center
             %ul#user-tabs.nav.nav-tabs{role: 'tablist'}
               %li.nav-item
-                %a#profile-tab.nav-link{'aria-controls' => 'profile', 'aria-selected' => 'false', 'data-toggle' => 'tab', href: '#profile', role: 'tab'}
+                %a#profile-tab.nav-link{'aria-controls' => 'profile', 'aria-selected' => (params[:tab] == 'profile').to_s, 'data-toggle' => 'tab', href: '#profile', role: 'tab', class: params[:tab] == 'profile' ? 'active' : ''}
                   Profile
 
               %li.nav-item
-                %a#cars-tab.nav-link.active{'aria-controls' => 'cars', 'aria-selected' => 'true', 'data-toggle' => 'tab', href: '#cars', role: 'tab'}
+                %a#cars-tab.nav-link{'aria-controls' => 'cars', 'aria-selected' => (params[:tab] == 'cars').to_s, 'data-toggle' => 'tab', href: '#cars', role: 'tab', class: params[:tab] == 'cars' ? 'active' : ''}
                   Cars
 
               %li.nav-item
-                %a#notifications-tab.nav-link{'aria-controls' => 'notifications', 'aria-selected' => 'false', 'data-toggle' => 'tab', href: '#notifications', role: 'tab'}
+                %a#notifications-tab.nav-link{'aria-controls' => 'notifications', 'aria-selected' => (params[:tab] == 'notifications').to_s, 'data-toggle' => 'tab', href: '#notifications', role: 'tab', class: params[:tab] == 'notifications' ? 'active' : ''}
                   Notifications
-                  %span.badge.badge-pill.badge-danger
-                    = current_user.notifications.unread.size
+                  - if current_user.notifications.unread.present?
+                    %span.badge.badge-pill.badge-danger
+                      = current_user.notifications.unread.size
 
               %li.nav-item
-                %a#settings-tab.nav-link{'aria-controls' => 'settings', 'aria-selected' => 'false', 'data-toggle' => 'tab', href: '#settings', role: 'tab'}
+                %a#settings-tab.nav-link{'aria-controls' => 'settings', 'aria-selected' => (params[:tab] == 'settings').to_s, 'data-toggle' => 'tab', href: '#settings', role: 'tab', class: params[:tab] == 'settings' ? 'active' : ''}
                   Settings
 
 
@@ -30,7 +31,7 @@
       = render 'shared/collapse', id: 'edit_user' do
         = render 'users/form'
 
-      #profile.tab-pane.fade{'aria-labelledby' => 'profile-tab', role: 'tabpanel'}
+      #profile.tab-pane.fade{'aria-labelledby' => 'profile-tab', role: 'tabpanel', class: params[:tab] == 'profile' ? 'show active' : ''}
         -# profile tab
         .text-right
           %span.pointable{'aria-controls' => 'edit_user', 'aria-expanded' => 'false', 'data-toggle' => 'collapse', href: '#edit_user', role: 'button'}
@@ -52,7 +53,7 @@
 
 
       -# cars tab
-      #cars.tab-pane.fade.show.active{'aria-labelledby' => 'cars-tab', role: 'tabpanel'}
+      #cars.tab-pane.fade{'aria-labelledby' => 'cars-tab', role: 'tabpanel', class: params[:tab] == 'cars' ? 'show active' : ''}
         %p
         %h4.pointable{'aria-controls' => 'own_cars', 'aria-expanded' => 'false', 'data-toggle' => 'collapse', href: '#own_cars', role: 'button'}
           Your cars
@@ -74,10 +75,10 @@
                     = react_component('car/car_card', car.as_card_hash)
 
       -# notifications tab
-      #notifications.tab-pane.fade{'aria-labelledby' => 'notifications-tab', role: 'tabpanel'}
+      #notifications.tab-pane.fade{'aria-labelledby' => 'notifications-tab', role: 'tabpanel', class: params[:tab] == 'notifications' ? 'show active' : ''}
         = render 'users/notifications/notifications'
 
       -# settings tab
-      #settings.tab-pane.fade{'aria-labelledby' => 'settings-tab', role: 'tabpanel'}
+      #settings.tab-pane.fade{'aria-labelledby' => 'settings-tab', role: 'tabpanel', class: params[:tab] == 'settings' ? 'show active' : ''}
         Settings
 

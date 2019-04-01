@@ -1,0 +1,19 @@
+.statistic
+  .row
+    .col
+
+      %i.fa.fa-eye.graphite
+      Views:
+      %b= @statistic[:views]
+
+      %br
+
+      %i.fa.fa-star.graphite
+      Added to favorite:
+      %b= @statistic[:bookmarks]
+
+      %br
+
+      %i.fa.fa-dollar.graphite
+      Price:
+      %b= @statistic[:price]

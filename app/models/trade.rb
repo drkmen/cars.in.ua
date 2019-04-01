@@ -21,7 +21,7 @@ class Trade
       id: id.to_s,
       active: active,
       message: message,
-      price: suggested_price,
+      price: suggested_price.to_i.to_s.in_groups_of(3),
       type: :trade,
       created_at: created_at,
       update_path: category_car_trade_path(category_id: car.category.id, car_id: car.id, id: self.id),

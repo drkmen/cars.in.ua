@@ -15,7 +15,8 @@ class CommentsController < ApplicationController
   end
 
   def update
-
+    @comment.update(comment_params)
+    redirect_to category_car_path(id: @comment.commentable)
   end
 
   def destroy
@@ -25,7 +26,7 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit!.merge(user_id: current_user&.id)
+    params.require(:comment).permit(:body).merge(user_id: current_user&.id)
   end
 
   def find_comment

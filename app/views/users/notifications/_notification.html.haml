@@ -1,7 +1,9 @@
 .row
   .col
-    = notification.message.html_safe
-    .float-right.grey
-      = time_ago_in_words notification.created_at
-      ago
-    %hr
+    .notification{onmouseover: "window.mark_notification_as_readed('#{notification.id.to_s}', #{notification.readed})", class: notification.readed ? 'readed' : 'unreaded'}
+      .float-left
+        = notification.message.html_safe
+      .float-right.grey
+        = time_ago_in_words notification.created_at
+        ago
+      .clearfix

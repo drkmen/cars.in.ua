@@ -1,5 +1,4 @@
-// TODO:
-
+// TODO: remove to something separate
 const debounce = (fn, time) => {
     let timeout;
 
@@ -11,14 +10,10 @@ const debounce = (fn, time) => {
     }
 }
 
-// $( document ).on('turbolinks:load', () => {});
-
 $(document).ready(() => {
 
     $('.spinner').hide();
 
-    const $window = $(window);
-    const $document = $(document);
     const endpoint = $('#loadMore').attr('data-endpoint');
     const pagesAmount = $('#loadMore').attr('data-pages-amount');
 
@@ -42,9 +37,6 @@ $(document).ready(() => {
                 $('.spinner').hide();
             });
         }
-        // } else {
-        //    # isPaginating = false
-        // }
     }, 100));
 
 });

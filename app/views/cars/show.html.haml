@@ -35,29 +35,13 @@
     .row
       .col-4
         .material-card.large.about
-          %h5.text-center About seller
+          %h5.text-center
+            = current_user == @car.seller ? 'Statistic' : 'About seller'
           - if current_user == @car.seller
-            Statistic
+            = render 'statistic'
           - else
             - if @car.seller
-              .media.user-card
-                = image_tag @car.seller.avatar, class: 'img-fluid rounded-circle', size: '125x125'
-                .media-body
-                  .body
-                    %div
-                      %h5.d-inline.mt-0
-                        = @car.seller.name
-                        %small.grey
-                          = @car.seller.age
-                          years
-                      %small.grey.float-right
-                        since:
-                        = time_ago_in_words @car.seller.created_at
-                    %p
-                      %small.grey
-                        = @car.seller.email
-                    %p= @car.seller.phone
-
+              = render 'seller'
             - elsif @car.imported
               %p.text-center
                 This car was imported from
@@ -74,16 +58,23 @@
           - if current_user
             = render '/cars/comments/form'
           - else
-            Login to left a comment
+            .text-center
+              %u
+                = link_to 'Login', '#', onclick: "window.openLogin(event, #{current_user})"
+              to left a comment
 
       .col-4
         .material-card.large.suggestions-wrapper
           %h5.text-center Swaps & Trades
           = react_component 'car/suggestions', suggestions: @car_suggestions
-          - if current_user && current_user != @car.user
-            = render '/cars/suggestions'
+          - if current_user
+            - if current_user != @car.user
+              = render '/cars/suggestions'
           - else
-            Login to suggest swap
+            .text-center
+              %u
+                = link_to 'Login', '#', onclick: "window.openLogin(event, #{current_user})"
+              to suggest swap
 
 
   -#- if @similar_cars.index(@car)
@@ -105,8 +96,3 @@
             .col.no-padding
               = link_to category_car_path(id: car) do
                 = react_component('car/car_card_small', car.as_card_hash)
-
-
-  %hr
-  .section
-

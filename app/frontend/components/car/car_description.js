@@ -94,7 +94,9 @@ class CarDescription extends React.Component {
                     <p></p>
                     <div className='row section'>
                         <div className='col-12 actions text-center'>
-                            {favoriteIcon}
+                            <span className='add-to-favorite'>
+                                {favoriteIcon}
+                            </span>
                         </div>
                     </div>
                 </div>

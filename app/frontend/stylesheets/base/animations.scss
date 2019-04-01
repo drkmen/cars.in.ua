@@ -24,3 +24,17 @@
   opacity: 1;
   transition: opacity 0.3s ease-in-out;
 }
+
+//.item {
+//  animation: 1s bell-vibrate ease-in-out infinite;
+//}
+
+@keyframes bell-vibrate {
+  0% { transform: rotate(0); }
+  4% { transform: rotate(8deg); }
+  8% { transform: rotate(-8deg); }
+  12% { transform: rotate(8deg); }
+  16% { transform: rotate(-8deg); }
+  20% { transform: rotate(0); }
+  100% { transform: rotate(0); }
+}

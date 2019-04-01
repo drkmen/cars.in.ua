@@ -31,40 +31,13 @@
 }
 
 .car-show {
-  //margin: 30px 0 0 0;
-  //padding: 50px 50px 200px 50px;
-  //padding: 0 0 200px 0;
   margin: 50px 50px 200px 50px;
   position: relative;
   min-height: 75vh;
-  background: #fff;
-  //@extend .material-card.extra-large;
+  background: $white;
 
   -moz-animation-duration: 0.3s;
   -moz-animation-delay: 0s;
-  //-moz-animation-iteration-count: infinite;
-
-  //.left-part, .right-part {
-  //  padding: 10px 0;
-  //  border: 1px dotted black;
-  //}
-  //
-  //.left-part {
-  //  padding-left: 20px;
-  //}
-
-  //&:after {
-  //  content: "";
-  //  position: absolute;
-  //  left: 0;
-  //  top: -30px;
-  //  right: 0;
-  //  height: 30px;
-  //  background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
-  //  background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
-  //  background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
-  //  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
-  //}
 
   .images-wrapper {
     width: 100%;
@@ -95,14 +68,6 @@
     }
   }
 
-  //.right-part {
-  //  padding-right: 20px;
-  //
-  //  .description {
-  //    word-wrap: break-word;
-  //  }
-  //}
-
   .car-description {
     padding-top: 20px;
     padding-right: 50px;
@@ -114,38 +79,9 @@
         padding-top: 20px;
       }
 
-      .primary {
-        //padding-top: 25px;
-        //font-size: 30px;
-        //color: $coral;
-      }
-
       .options {
         font-weight: 500;
       }
-
-      //.info-block {
-      //  display: inline-flex;
-      //  align-items: center;
-      //  line-height: 15px;
-      //  padding: 0 10px 0 10px;
-      //
-      //  .icon, .info {
-      //    display: inline-block;
-      //  }
-      //
-      //  .icon {
-      //    font-size: 20px;
-      //    padding: 3px 8px 3px 3px;
-      //  }
-      //
-      //  .info {
-      //    font-size: 15px;
-      //  }
-      //}
-      //[class^="icon-"], [class*=" icon-"] {
-      //  font-weight: 900;
-      //}
     }
   }
 
@@ -184,6 +120,13 @@
   .actions {
     i {
       font-size: 2em;
+    }
+  }
+
+  .statistic {
+    i {
+      font-size: 15px;
+      padding-right: 10px;
     }
   }
 }

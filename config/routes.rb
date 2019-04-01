@@ -8,10 +8,20 @@ Rails.application.routes.draw do
 
   get 'search', to: 'search#search', as: :search
 
-  resources :users, except: :index
+  resources :users, except: :index do
+    member do
+      get '/notifications/:notification_id/mark_as_readed', to: 'notifications#mark_as_readed', as: :mark_as_readed
+    end
+  end
+
+  # resource :notifications do
+  #   get 'mark_as_readed', on: :member
+  # end
+
+  resources :cars, only: :new
 
   resources :categories do
-    resources :cars do
+    resources :cars, except: :new do
       resources :comments, only: %i[create destroy update]
       resources :swaps, only: %i[create destroy update] do
         get :decline

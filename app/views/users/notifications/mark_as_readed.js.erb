@@ -1,0 +1,8 @@
+<% notifications = current_user.notifications.unread.size %>
+$('.notifications').html('<%= j render 'users/notifications/notifications' %>')
+if (<%= notifications %>) {
+    $('#notifications-tab').find('.badge').html('<%= notifications %>')
+} else {
+    $('#notifications-tab').find('.badge').remove()
+    $('.notification-bell').removeClass('active')
+}

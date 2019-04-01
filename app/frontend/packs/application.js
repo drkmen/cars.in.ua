@@ -21,6 +21,7 @@ import '../cars/form.es6';
 import '../cars/show.es6';
 import '../search/index.es6';
 import '../general/root.es6'
+import '../users/show.es6'
 
 
 // styles
