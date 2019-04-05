@@ -18,7 +18,9 @@ Rails.application.routes.draw do
   #   get 'mark_as_readed', on: :member
   # end
 
-  resources :cars, only: :new
+  resources :cars, only: :new do
+    resources :setup_car
+  end
 
   resources :categories do
     resources :cars, except: :new do

@@ -6,7 +6,7 @@ class CarsController < ApplicationController
 
   def index
     # @cars = Car.active.order(created_at: :desc).entries
-    @cars = Car.order(created_at: :desc).page(params[:page]).per(20)
+    @cars = Car.completed.order(created_at: :desc).page(params[:page]).per(20)
   end
 
   def show
@@ -38,7 +38,7 @@ class CarsController < ApplicationController
   end
 
   def new
-    @car = Car.new
+    redirect_to car_setup_car_index_path(car_id: current_user.cars.create.id.to_s)
   end
 
   def edit; end

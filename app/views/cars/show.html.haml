@@ -38,10 +38,11 @@
           %h5.text-center
             = current_user == @car.seller ? 'Statistic' : 'About seller'
           - if current_user == @car.seller
-            = render 'statistic'
+            - if @car.completed?
+              = render 'cars/statistic'
           - else
             - if @car.seller
-              = render 'seller'
+              = render 'cars/seller'
             - elsif @car.imported
               %p.text-center
                 This car was imported from

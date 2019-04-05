@@ -4,11 +4,10 @@ class Image
 
   mount_uploader :image, ImageUploader
 
-  field :car_id, type: Integer
+  field :order, type: Integer, default: 0
   field :main, type: Boolean, default: false
 
   belongs_to :car
-  # embedded_in :car
 
   # def image
   #   super || 'car-placeholder'

@@ -245,6 +245,7 @@ class Car
         #     car_carcass: { only: :name }
         # }
     ).merge related_data
-
+  rescue NoMethodError
+    as_json only: %i[title year price color completed created_at]
   end
 end

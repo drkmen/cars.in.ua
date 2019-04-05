@@ -24,6 +24,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'devise'
 gem 'haml-rails'
 gem 'foreman'
+gem 'wicked'
 gem 'auto_ria_api', '0.1.4'
 
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'

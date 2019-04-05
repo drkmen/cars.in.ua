@@ -1,134 +1,137 @@
-.container{ class: @car.new_record? ? 'car-new' : 'car-edit' }
-  = form_for [@car.category || Category.first, @car] do |f|
+.container{ class: @car.completed ? 'car-edit' : 'car-new' }
+  -#= form_for [@car.category || Category.first, @car] do |f|
+  = form_for [@car.category || Category.first, @car], url: wizard_path do |f|
 
-    %h3
-      Tell us, there is the car
-      %hr
+    = yield f
 
-    .form-row
-      -#= f.fields_for :address do |ff|
-      .col-3
-        .form-group
-          -#= @related_data[:regions].map { |region| region[:name] }
-          = f.label :region
-          = f.select :region_id, @related_data[:regions].map { |region| [region[:name], region[:id]] }, { prompt: 'Select Region' }, class: 'custom-select'
-      .col-3
-        .form-group
-          = f.label :city
-          = f.select :city_id, @related_data[:cities].map { |city| [city[:name], city[:id]] }, { prompt: 'Select City' }, class: 'custom-select'
-      .col-3
-        .form-group
-          = f.label :category
-          = f.select :category_id, @related_data[:categories].map { |c_t| [c_t[:name], c_t[:id]] }, { prompt: 'Select Category' }, class: 'custom-select'
-      .col-3
-        .form-group
-          = f.label :car_carcass
-          = f.select :car_carcass_id, @related_data[:carcarcasses].map { |cr| [cr[:name], cr[:id]] }, { prompt: 'Select Carcass' }, class: 'custom-select'
+    -#%h3
+    -#  Tell us, there is the car
+    -#  %hr
+    -#
+    -#.form-row
+    -#  -#= f.fields_for :address do |ff|
+    -#  .col-3
+    -#    .form-group
+    -#      -#= @related_data[:regions].map { |region| region[:name] }
+    -#      = f.label :region
+    -#      = f.select :region_id, @related_data[:regions].map { |region| [region[:name], region[:id]] }, { prompt: 'Select Region' }, class: 'custom-select'
+    -#  .col-3
+    -#    .form-group
+    -#      = f.label :city
+    -#      = f.select :city_id, @related_data[:cities].map { |city| [city[:name], city[:id]] }, { prompt: 'Select City' }, class: 'custom-select'
+    -#  .col-3
+    -#    .form-group
+    -#      = f.label :category
+    -#      = f.select :category_id, @related_data[:categories].map { |c_t| [c_t[:name], c_t[:id]] }, { prompt: 'Select Category' }, class: 'custom-select'
+    -#  .col-3
+    -#    .form-group
+    -#      = f.label :car_carcass
+    -#      = f.select :car_carcass_id, @related_data[:carcarcasses].map { |cr| [cr[:name], cr[:id]] }, { prompt: 'Select Carcass' }, class: 'custom-select'
 
-    %h3
-      Main
-      %hr
+    -#%h3
+    -#  Main
+    -#  %hr
+    -#
+    -#.form-row
+    -#  .col-3
+    -#    .form-group
+    -#      = f.label :mark
+    -#      = f.select :mark_id, @related_data[:carmarks].map { |mark| [mark[:name], mark[:id]] }, { prompt: 'Select Mark' }, class: 'custom-select'
+    -#  .col-3
+    -#    .form-group
+    -#      = f.label :model
+    -#      = @car.model_id
+    -#      - if @car.new_record?
+    -#        = f.select :model_id, [], {}, { class: 'custom-select', disabled: true }
+    -#      - else
+    -#        = f.select :model_id, @car.mark&.models&.pluck(:name, :id), { selected: @car&.model&.id.to_s }, { class: 'custom-select' }
+    -#  .col-3
+    -#    .form-group
+    -#      = f.label :year
+    -#      = f.number_field :year, in: (1970..DateTime.now.year), step: 1, class: 'form-control'
+    -#  .col-3
+    -#    .form-group
+    -#      = f.label :transmission
+    -#      = f.select :transmission_id, @related_data[:transmissions].map { |tr| [tr[:name], tr[:id]] }, { prompt: 'Select Transmission' }, class: 'custom-select'
+    -#
+    -#.form-row
+    -#  .col-3
+    -#    .form-group
+    -#      = f.label :engine
+    -#      = f.text_field :engine, class: 'form-control'
+    -#  .col-3
+    -#    .form-group
+    -#      = f.label :mileage
+    -#      = f.text_field :mileage, class: 'form-control'
+    -#  .col-3
+    -#    .form-group
+    -#      = f.label :price
+    -#      = f.text_field :price, class: 'form-control'
+    -#  .col-3
+    -#    .form-group
+    -#      = f.label :color
+    -#      = f.text_field :color, class: 'form-control'
 
-    .form-row
-      .col-3
-        .form-group
-          = f.label :mark
-          = f.select :mark_id, @related_data[:carmarks].map { |mark| [mark[:name], mark[:id]] }, { prompt: 'Select Mark' }, class: 'custom-select'
-      .col-3
-        .form-group
-          = f.label :model
-          = @car.model_id
-          - if @car.new_record?
-            = f.select :model_id, [], {}, { class: 'custom-select', disabled: true }
-          - else
-            = f.select :model_id, @car.mark&.models&.pluck(:name, :id), { selected: @car&.model&.id.to_s }, { class: 'custom-select' }
-      .col-3
-        .form-group
-          = f.label :year
-          = f.number_field :year, in: (1970..DateTime.now.year), step: 1, class: 'form-control'
-      .col-3
-        .form-group
-          = f.label :transmission
-          = f.select :transmission_id, @related_data[:transmissions].map { |tr| [tr[:name], tr[:id]] }, { prompt: 'Select Transmission' }, class: 'custom-select'
+    -#%h3
+    -#  General
+    -#  %hr
+    -#
+    -#.form-row
+    -#  .col-3
+    -#    .form-group
+    -#      = f.label :fuel
+    -#      = f.select :fuel_id, @related_data[:fuels].map { |fuel| [fuel[:name], fuel[:id]] }, { prompt: 'Select Fuel' }, class: 'custom-select'
+    -#  .col-3
+    -#    .form-group
+    -#      = f.label :vin
+    -#      = f.text_field :vin, class: 'form-control'
+    -#  .col-3
+    -#    .form-group
+    -#      = f.label :equipment
+    -#      = f.text_field :equipment, class: 'form-control'
+    -#  .col-3
+    -#    .form-group
+    -#      = f.label :doors
+    -#      = f.text_field :doors, class: 'form-control'
+    -#
+    -#.form-row
+    -#  .col-12
+    -#    .form-group
+    -#      = f.label :description
+    -#      %small.grey
+    -#        Describe your car
+    -#      = f.text_area :description, class: 'form-control'
+    -#    .form-group
+    -#      = f.file_field :images, class: 'form-control-file', multiple: true
 
-    .form-row
-      .col-3
-        .form-group
-          = f.label :engine
-          = f.text_field :engine, class: 'form-control'
-      .col-3
-        .form-group
-          = f.label :mileage
-          = f.text_field :mileage, class: 'form-control'
-      .col-3
-        .form-group
-          = f.label :price
-          = f.text_field :price, class: 'form-control'
-      .col-3
-        .form-group
-          = f.label :color
-          = f.text_field :color, class: 'form-control'
+    -#%h3
+    -#  Sold
+    -#  %hr
+    -#
+    -#.form-row
+    -#  .col-6
+    -#    .form-group
+    -#      = f.label :sold
+    -#      = f.check_box :sold, class: 'form-control'
+    -#
+    -#    .form-group
+    -#      = f.label :completed
+    -#      = f.check_box :completed, class: 'form-control'
 
-    %h3
-      General
-      %hr
-
-    .form-row
-      .col-3
-        .form-group
-          = f.label :fuel
-          = f.select :fuel_id, @related_data[:fuels].map { |fuel| [fuel[:name], fuel[:id]] }, { prompt: 'Select Fuel' }, class: 'custom-select'
-      .col-3
-        .form-group
-          = f.label :vin
-          = f.text_field :vin, class: 'form-control'
-      .col-3
-        .form-group
-          = f.label :equipment
-          = f.text_field :equipment, class: 'form-control'
-      .col-3
-        .form-group
-          = f.label :doors
-          = f.text_field :doors, class: 'form-control'
-
-    .form-row
-      .col-12
-        .form-group
-          = f.label :description
-          %small.grey
-            Describe your car
-          = f.text_area :description, class: 'form-control'
-        .form-group
-          = f.file_field :images, class: 'form-control-file', multiple: true
-
-    %h3
-      Sold
-      %hr
-
-    .form-row
-      .col-6
-        .form-group
-          = f.label :sold
-          = f.check_box :sold, class: 'form-control'
-
-        .form-group
-          = f.label :completed
-          = f.check_box :completed, class: 'form-control'
-
-    %h3
-      Options
-      %hr
-
-    .form-row
-      - Option.all.group_by(&:type).each do |options|
-        %div{ class: "col-#{12 / Option.all.group_by(&:type).size}"}
-          %h5= options.first
-          - options.last.each do |opt|
-            .option-group
-              %label
-                = check_box_tag 'car[option_ids][]', opt.id.to_s, @car.options.pluck(:id).include?(opt.id)
-                = opt.name
-                &nbsp
+    -#%h3
+    -#  Options
+    -#  %hr
+    -#
+    -#.form-row
+    -#  - Option.all.group_by(&:type).each do |options|
+    -#    %div{ class: "col-#{12 / Option.all.group_by(&:type).size}"}
+    -#      %h5= options.first
+    -#      - options.last.each do |opt|
+    -#        .option-group
+    -#          %label
+    -#            = check_box_tag 'car[option_ids][]', opt.id.to_s, @car.options.pluck(:id).include?(opt.id)
+    -#            = opt.name
+    -#            &nbsp
 
 
             -#%br
@@ -142,5 +145,7 @@
 
 
     .form-row
-      .form-group
-        = f.submit class: 'btn btn-warning'
+      .form-group.mx-auto
+        - unless step == :location
+          = link_to 'Back', previous_wizard_path, class: 'btn btn-secondary'
+        = f.submit class: 'btn btn-warning', value: 'Next'
