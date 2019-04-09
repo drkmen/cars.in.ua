@@ -21,7 +21,6 @@ $(document).on('turbolinks:load', () => {
         openLogin();
     });
 
-    // const $overlay = $section.find('.overlay');
     $overlay.on('click', () => {
         $section.css('right', -2000);
         $('body .body').css('filter', 'blur(0px)')
@@ -35,5 +34,9 @@ $(document).on('turbolinks:load', () => {
     $('#loginLink').on('click', () => {
         $('.login-form').removeClass('d-none');
         $('.signup-form').addClass('d-none')
+    })
+
+    $('#currentUserDropdown').on('show.bs.dropdown', function () {
+        $(this).addClass('')
     })
 });

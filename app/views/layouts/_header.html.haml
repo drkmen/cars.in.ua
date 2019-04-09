@@ -23,9 +23,33 @@
               = link_to user_path(current_user.id, tab: 'notifications'), class: 'nav-link d-inline-block' do
                 %i.fa.fa-bell-o.notification-bell{class: current_user.notifications.unread.present? ? 'active' : ''}
 
-              = link_to current_user.name, user_path(current_user.id, tab: 'profile'), class: 'nav-link d-inline-block'
-              = link_to 'Logout', destroy_user_session_path, method: :delete, class: 'nav-link d-inline-block'
-              = image_tag current_user.avatar, size: '30x30', class: 'rounded-circle'
+              .dropdown.pointable
+                #currentUserDropdown.dropdown-toggle{'aria-expanded' => 'false', 'aria-haspopup' => 'true', 'data-toggle' => 'dropdown', type: 'button'}
+                  %span.nav-link.d-inline-block= current_user.name
+                  = image_tag current_user.avatar, size: '35x35', class: 'rounded-circle'
+                  &nbsp;
+                  %i.fa.fa-angle-down
+                .dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
+                  .dropdown-item
+                    .icon
+                      %i.fa.fa-vcard-o
+                    = link_to 'Profile', user_path(current_user.id, tab: 'profile')
+                  .dropdown-item
+                    .icon
+                      %i.fa.fa-bell-o
+                    = link_to 'Notifications', user_path(current_user.id, tab: 'notifications')
+                  = link_to user_path(current_user.id, tab: 'settings'), class: 'dropdown-item' do
+                    .icon
+                      %i.fa.fa-gear
+                    Settings
+
+                  %hr
+
+                  = link_to destroy_user_session_path, method: :delete, class: 'dropdown-item' do
+                    .icon
+                      %i.fa.fa-sign-out
+                    Logout
+
             - else current_user
               = link_to 'Login', '#', class: 'nav-link', id: 'sessionLink', 'data-turbolinks' => false
               -#LOGIN

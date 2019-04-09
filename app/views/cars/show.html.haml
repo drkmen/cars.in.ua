@@ -1,6 +1,4 @@
--#.text-center.save-car-star
-  %i.fa.fa-star-o
-
+- preview_mode = defined?(preview) ? preview : false
 - content_for :head do
   %meta{content: 'no-cache', name: 'turbolinks-cache-control'}/
 
@@ -37,45 +35,57 @@
         .material-card.large.about
           %h5.text-center
             = current_user == @car.seller ? 'Statistic' : 'About seller'
-          - if current_user == @car.seller
-            - if @car.completed?
-              = render 'cars/statistic'
+          - if preview_mode
+            .text-center
+              Not available in preview mode
           - else
-            - if @car.seller
-              = render 'cars/seller'
-            - elsif @car.imported
-              %p.text-center
-                This car was imported from
-                = @car.additional_options[:imported_from]
-              %p.text-center
-                You can view original post at:
-                %br
-                = link_to @car.additional_options[:original_link], @car.additional_options[:original_link], class: 'underlined'
+            - if current_user == @car.seller
+              - if @car.completed?
+                = render 'cars/statistic'
+            - else
+              - if @car.seller
+                = render 'cars/seller'
+              - elsif @car.imported
+                %p.text-center
+                  This car was imported from
+                  = @car.additional_options[:imported_from]
+                %p.text-center
+                  You can view original post at:
+                  %br
+                  = link_to @car.additional_options[:original_link], @car.additional_options[:original_link], class: 'underlined'
 
       .col-4
         .material-card.large.questions
           %h5.text-center Questions & Comments
-          = react_component 'car/comments', comments: @car_comments
-          - if current_user
-            = render '/cars/comments/form'
-          - else
+          - if preview_mode
             .text-center
-              %u
-                = link_to 'Login', '#', onclick: "window.openLogin(event, #{current_user})"
-              to left a comment
+              Not available in preview mode
+          - else
+            = react_component 'car/comments', comments: @car_comments
+            - if current_user
+              = render '/cars/comments/form'
+            - else
+              .text-center
+                %u
+                  = link_to 'Login', '#', onclick: "window.openLogin(event, #{current_user})"
+                to left a comment
 
       .col-4
         .material-card.large.suggestions-wrapper
           %h5.text-center Swaps & Trades
-          = react_component 'car/suggestions', suggestions: @car_suggestions
-          - if current_user
-            - if current_user != @car.user
-              = render '/cars/suggestions'
-          - else
+          - if preview_mode
             .text-center
-              %u
-                = link_to 'Login', '#', onclick: "window.openLogin(event, #{current_user})"
-              to suggest swap
+              Not available in preview mode
+          - else
+            = react_component 'car/suggestions', suggestions: @car_suggestions
+            - if current_user
+              - if current_user != @car.user
+                = render '/cars/suggestions'
+            - else
+              .text-center
+                %u
+                  = link_to 'Login', '#', onclick: "window.openLogin(event, #{current_user})"
+                to suggest swap
 
 
   -#- if @similar_cars.index(@car)
